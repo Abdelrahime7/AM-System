@@ -8,7 +8,7 @@ public class EarningConfiguration : IEntityTypeConfiguration<AffiliateBalance>
 {
     public void Configure(EntityTypeBuilder<AffiliateBalance> builder)
     {
-        builder.ToTable("affiliate_balance");
+        builder.ToTable("affiliate_balances");
 
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id)

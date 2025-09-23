@@ -8,7 +8,7 @@ public class TokenConfiguration : IEntityTypeConfiguration<Token>
 {
     public void Configure(EntityTypeBuilder<Token> builder)
     {
-        builder.ToTable("token");
+        builder.ToTable("tokens");
 
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Id)
