@@ -1,0 +1,63 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Entities;
+
+namespace Infrastructure.Data.Configurations;
+
+public class UserConfiguration : IEntityTypeConfiguration<User>
+{
+    public void Configure(EntityTypeBuilder<User> builder)
+    {
+        builder.ToTable("users");
+
+        builder.HasKey(u => u.Id);
+        builder.Property(u => u.Id)
+            .HasColumnName("id")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(u => u.FullName)
+            .HasColumnName("full_name")
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(u => u.Email)
+            .HasColumnName("email")
+            .HasColumnType("varchar")
+            .HasMaxLength(150)
+            .IsRequired();
+
+        builder.HasIndex(u => u.Email)
+            .IsUnique();
+
+        builder.Property(u => u.Phone)
+            .HasColumnName("phone")
+            .HasMaxLength(20);
+
+        builder.Property(u => u.PasswordHash)
+            .HasColumnName("password_hash")
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(u => u.CcpNumber)
+            .HasColumnName("ccp_number")
+            .HasMaxLength(255);
+
+        builder.Property(u => u.Status)
+            .HasColumnName("status")
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(u => u.LastLoginAt)
+            .HasColumnName("last_login_at")
+            .HasColumnType("timestamp with time zone");
+
+        builder.Property(u => u.RoleId)
+            .HasColumnName("role_id");
+
+        // Relationships
+        builder.HasOne(u => u.Role)
+            .WithMany(r => r.Users)
+            .HasForeignKey(u => u.RoleId)
+            .OnDelete(DeleteBehavior.SetNull);
+    }
+}
