@@ -1,11 +1,13 @@
-using System.Text;
+using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Infrastructure;
 
@@ -51,6 +53,9 @@ public static class DependencyInjection
                 ClockSkew = TimeSpan.Zero
             };
         });
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
 
         return services;
