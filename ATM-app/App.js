@@ -10,13 +10,21 @@ import ProductsScreen from './Components/AdminScreens/ProductsScreen';
 import AffiliatesScreen from './Components/AdminScreens/AffiliatesScreen';
 import AnalyticsDashboard from './Components/AdminScreens/AnalyticsDashboard';
 import AddProductScreen from './Components/AdminScreens/AddProductScreen';
+import AffiliateHomeScreen from './Components/AffiliateScreens/AffiliateHomeScreen';
+import AffiliateProductsScreen from './Components/AffiliateScreens/AffiliateProductsScreen';
+import WithdrawalScreen from './Components/AffiliateScreens/WithdrawalScreen';
+import ProfileScreen from './Components/AffiliateScreens/ProfileScreen';
+import CreateOrderScreen from './Components/AffiliateScreens/CreateOrderScreen';
+import ProductDetailsScreen from './Components/AffiliateScreens/ProductDetailsScreen';
+import ProductCreationForm from './Components/AffiliateScreens/ProductCreationForm';
+import SuccessScreen from './Components/AffiliateScreens/SuccessScreen';
 
 export default function App() {
 
 const Stack = createStackNavigator();  
   return (
 <NavigationContainer>
-<Stack.Navigator initialRouteName='addproduct'>
+<Stack.Navigator initialRouteName='success'>
 <Stack.Screen name='signin' component={SignIn} options={{headerShown:false}}/>
 <Stack.Screen name='signup' component={SignUp} options={{headerShown:false}}/>
 <Stack.Screen name='admindashboard' component={AdminDashboard} options={{headerShown:false}}/>
@@ -25,6 +33,14 @@ const Stack = createStackNavigator();
 <Stack.Screen name='affiliate' component={AffiliatesScreen} options={{headerShown:false}}/>
 <Stack.Screen name='analytics' component={AnalyticsDashboard} options={{headerShown:false}}/>
 <Stack.Screen name='addproduct' component={AddProductScreen} options={{headerShown:false}}/>
+<Stack.Screen name='affiliatehome' component={AffiliateHomeScreen} options={{headerShown:false}}/>
+<Stack.Screen name='productsaffiliate' component={AffiliateProductsScreen} options={{headerShown:false}}/>
+<Stack.Screen name='withdrawal' component={WithdrawalScreen} options={{headerShown:false}}/>
+<Stack.Screen name='profile' component={ProfileScreen} options={{headerShown:false}}/>
+<Stack.Screen name='createorder' component={CreateOrderScreen} options={{headerShown:false}}/>
+<Stack.Screen name='productdetails' component={ProductDetailsScreen} options={{headerShown:false}}/>
+<Stack.Screen name='productcreationform' component={ProductCreationForm} options={{headerShown:false}}/>
+<Stack.Screen name='success' component={SuccessScreen} options={{headerShown:false}}/>
 
 </Stack.Navigator>
 
