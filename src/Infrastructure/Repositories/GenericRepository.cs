@@ -21,10 +21,22 @@ namespace Infrastructure.Repositories
 
         public virtual async Task<TEntity?> GetByIdAsync(Guid id) => await _dbSet.FindAsync(id);
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
-        public virtual async Task AddAsync(TEntity entity) => await _dbSet.AddAsync(entity);
-        public virtual void Update(TEntity entity) => _dbSet.Update(entity);
-        public virtual void Delete(TEntity entity) => _dbSet.Remove(entity);
-      
-       
-    }
+        public virtual async Task AddAsync(TEntity entity)
+        {
+            await _dbSet.AddAsync(entity);    
+            await _context.SaveChangesAsync();
+        }
+
+        public virtual void Update(TEntity entity)
+        {
+            _dbSet.Update(entity);
+           _context.SaveChanges();
+        }
+        public virtual void Delete(TEntity entity)
+        {
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
+
+        }
+        }
 }
