@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
         // The methods are marked as virtual so that we can override them
         // in derived classes if validation or custom logic is needed.
 
-        public virtual async Task<TEntity?> GetByIdAsync(Guid id) => await _dbSet.FindAsync(id);
+        public virtual async Task<TEntity?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
         public virtual async Task AddAsync(TEntity entity)
         {
