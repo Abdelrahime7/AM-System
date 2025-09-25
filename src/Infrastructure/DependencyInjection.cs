@@ -1,4 +1,4 @@
-using Domain.Interfaces;
+using Application.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Settings;
@@ -31,7 +31,7 @@ public static class DependencyInjection
 
         var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-
+        services.AddEntityMappers();
 
         services.AddAuthentication(options =>
         {
@@ -55,6 +55,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+      
 
 
 
