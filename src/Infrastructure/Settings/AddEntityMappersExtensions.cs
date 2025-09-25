@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Common.Mappers;
 using Application.Users.Mapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;

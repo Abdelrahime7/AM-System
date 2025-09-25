@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+﻿using Application.Interfaces.Common.Mappers;
 using Application.Users.DTOs;
 using Domain.Entities;
 

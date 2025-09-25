@@ -1,29 +1,32 @@
-﻿using Application.Interfaces.Common.Mappers;
+﻿using Application.Common.Models;
+using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
 using Application.Users.DTOs;
 using Domain.Entities;
 
 namespace Application.Users.Features.Commands
 {
-    public class CreatUserCommand
+    public class CreatUserCommand(IUserRepository userRepository,
+        IEntityMapper<User, CreateUserRequest, UpdateUserRequest, UserResponse> mapper)
+
 
     {
-        private readonly IEntityMapper<User, CreateUserRequest,UpdateUserRequest,UserResponse> _mapper;
+        private readonly IEntityMapper<User, CreateUserRequest,UpdateUserRequest,UserResponse> _mapper = mapper;
+        private readonly IUserRepository _userRepository = userRepository;
 
-        private readonly IUserRepository _userRepository;
-        public CreatUserCommand( IUserRepository userRepository,
-            IEntityMapper<User, CreateUserRequest, UpdateUserRequest, UserResponse> mapper)
+        public async Task<Result<int>> CreatUserAsync(CreateUserRequest request)
         {
-            _userRepository= userRepository;
-            _mapper= mapper;
-        }
-        public async Task<int> CreatUser(CreateUserRequest request)
-        {
+            try
+            {
+                var user = _mapper.ToEntity(request);
+                await _userRepository.AddAsync(user);
 
-            var User = _mapper.ToEntity(request);
-            
-            await _userRepository.AddAsync(User);
-            return User.Id;
+                return Result<int>.Success(user.Id);
+            }
+            catch (Exception ex)
+            {
+                return Result<int>.Failure($"Failed to create user: {ex.Message}");
+            }
 
         }
     }
