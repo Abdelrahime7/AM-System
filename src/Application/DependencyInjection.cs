@@ -3,6 +3,9 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Common.Behaviours;
+using Application.Interfaces.UserInterfaces;
+using Application.Users.Features.Commands;
+using Application.Users.Features.Queries;
 
 namespace Application;
 
@@ -10,16 +13,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        //MediatR
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        
-        //FluentValidation
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
-        //AutoMapper
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        //Users Interfaces
+        services.AddScoped<IUserCommands, UserCommands>();
+        services.AddScoped<IUserQueries, UsersQueries>();
+      
         
         return services;
+
+
     }
 }
