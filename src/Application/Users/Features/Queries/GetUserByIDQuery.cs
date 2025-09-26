@@ -6,7 +6,7 @@ using Domain.Entities;
 
 namespace Application.Users.Features.Queries
 {
-    public class GetUserByIDQuery(IUserRepository Userrepository,
+    partial class UsersQueries(IUserRepository Userrepository,
           IEntityMapper<User, CreateUserRequest, UpdateUserRequest, UserResponse> mapper)
     {
 
