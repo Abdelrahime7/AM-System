@@ -18,18 +18,25 @@ import CreateOrderScreen from './Components/AffiliateScreens/CreateOrderScreen';
 import ProductDetailsScreen from './Components/AffiliateScreens/ProductDetailsScreen';
 import ProductCreationForm from './Components/AffiliateScreens/ProductCreationForm';
 import SuccessScreen from './Components/AffiliateScreens/SuccessScreen';
+<<<<<<< HEAD
 import AssignedOrdersScreen from './Components/LocalDriversScreens/AssignedOrdersScreen';
 import UpdateDeliveryScreen from './Components/LocalDriversScreens/UpdateDeliveryScreen';
 import AdminAssistantDashboard from './Components/AdminAssistantScreens/AdminAssistantDashboard';
 import OrderQueueScreen from './Components/AdminAssistantScreens/OrderQueueScreen';
 import SplashScreen from './Components/SplashScreen/SplashScreen';
+=======
+>>>>>>> ec74cefecfa930d7e93b8c8e44ac1db42397955c
 
 export default function App() {
 
 const Stack = createStackNavigator();  
   return (
 <NavigationContainer>
+<<<<<<< HEAD
 <Stack.Navigator initialRouteName='splash'>
+=======
+<Stack.Navigator initialRouteName='success'>
+>>>>>>> ec74cefecfa930d7e93b8c8e44ac1db42397955c
 <Stack.Screen name='signin' component={SignIn} options={{headerShown:false}}/>
 <Stack.Screen name='signup' component={SignUp} options={{headerShown:false}}/>
 <Stack.Screen name='admindashboard' component={AdminDashboard} options={{headerShown:false}}/>
@@ -46,11 +53,14 @@ const Stack = createStackNavigator();
 <Stack.Screen name='productdetails' component={ProductDetailsScreen} options={{headerShown:false}}/>
 <Stack.Screen name='productcreationform' component={ProductCreationForm} options={{headerShown:false}}/>
 <Stack.Screen name='success' component={SuccessScreen} options={{headerShown:false}}/>
+<<<<<<< HEAD
 <Stack.Screen name='assignedorders' component={AssignedOrdersScreen} options={{headerShown:false}}/>
 <Stack.Screen name='adminassistantdashboard' component={AdminAssistantDashboard} options={{headerShown:false}}/>
 <Stack.Screen name='orderqueue' component={OrderQueueScreen} options={{headerShown:false}}/>
 <Stack.Screen name='splash' component={SplashScreen} options={{headerShown:false}}/>
 
+=======
+>>>>>>> ec74cefecfa930d7e93b8c8e44ac1db42397955c
 
 </Stack.Navigator>
 
