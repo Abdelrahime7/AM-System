@@ -1,13 +1,14 @@
 ﻿using Application.Common.Models;
 using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
+using Application.Interfaces.UserInterfaces;
 using Application.Users.DTOs;
 using Domain.Entities;
 
 namespace Application.Users.Features.Queries
 {
     partial class UsersQueries(IUserRepository Userrepository,
-          IEntityMapper<User, CreateUserRequest, UpdateUserRequest, UserResponse> mapper)
+          IEntityMapper<User, CreateUserRequest, UpdateUserRequest, UserResponse> mapper):IUserQueries
     {
 
 
