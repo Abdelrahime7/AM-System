@@ -68,7 +68,8 @@ namespace WebAPI.Controllers
 
 
         [HttpPut(Name = "UpdateUser")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserResponse>> UpdateUserAsync([FromBody] UpdateUserRequest request)
         {
@@ -78,7 +79,7 @@ namespace WebAPI.Controllers
                 var result = await _userCommands.UpdateUserAsync(request);
                 if (result.IsSuccess)
                 {
-                    return Ok();
+                    return Ok(result.Value);
                 }
 
                 return NotFound(result.Error);
@@ -90,6 +91,9 @@ namespace WebAPI.Controllers
 
 
         [HttpDelete("{id}", Name = "DeleteUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<bool>> DeleteUserAsync(int id)
         {
             if (id < 1)
@@ -103,6 +107,9 @@ namespace WebAPI.Controllers
 
             return BadRequest("Customer not deleted");
         }
+
+       
+
     }
 
 

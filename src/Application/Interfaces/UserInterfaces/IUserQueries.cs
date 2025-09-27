@@ -11,8 +11,8 @@ namespace Application.Interfaces.UserInterfaces
     {
         Task<Result<IEnumerable<UserResponse>>> GetAllUsersAsync();
         Task<Result<UserResponse>> GetUserByIDAsync(int id);
-        UserStatus GetUserStatus(User user);
-        UserRole GetUserRole(User user);
+        Task<Result<UserStatus>> GetUserStatusById(int id);
+        Task<Result<UserRole>> GetUserRoleById(int id);
 
     }
 }
