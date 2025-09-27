@@ -1,9 +1,10 @@
 
-using Microsoft.Extensions.DependencyInjection;
-
 using Application.Interfaces.UserInterfaces;
 using Application.Users.Features.Commands;
 using Application.Users.Features.Queries;
+using Application.Users.validation;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
 
@@ -14,8 +15,11 @@ public static class DependencyInjection
         //Users Interfaces
         services.AddScoped<IUserCommands, UserCommands>();
         services.AddScoped<IUserQueries, UsersQueries>();
-      
-        
+
+
+        // validators
+        services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
+
         return services;
 
 

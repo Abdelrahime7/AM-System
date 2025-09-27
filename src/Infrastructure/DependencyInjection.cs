@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Interfaces.Repositories;
 using Infrastructure.Data;
+using Infrastructure.Filters;
 using Infrastructure.Repositories;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,8 +57,13 @@ public static class DependencyInjection
         });
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-      
 
+        //register filters
+        
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<FluentValidationFilter>();
+        });
 
 
         return services;
