@@ -5,7 +5,7 @@ using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace WebAPI
+namespace WebAPI.Controllers
 {
     [Route("api/UsersController")]
     [ApiController]
@@ -56,7 +56,7 @@ namespace WebAPI
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<ActionResult<int>> CreateUser([FromBody] CreateUserRequest Request)
+        public async Task<ActionResult<int>> CreateUserAsync([FromBody] CreateUserRequest Request)
         {
            var result = await _userCommands.CreatUserAsync(Request);
             if (result.IsSuccess )
@@ -70,7 +70,7 @@ namespace WebAPI
         [HttpPut(Name = "UpdateUser")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserResponse>> UpdateUser([FromBody] UpdateUserRequest request)
+        public async Task<ActionResult<UserResponse>> UpdateUserAsync([FromBody] UpdateUserRequest request)
         {
 
             if (request.Id> 0)
@@ -90,7 +90,7 @@ namespace WebAPI
 
 
         [HttpDelete("{id}", Name = "DeleteUser")]
-        public async Task<ActionResult<bool>> DeleteUser(int id)
+        public async Task<ActionResult<bool>> DeleteUserAsync(int id)
         {
             if (id < 1)
                 return NoContent();
