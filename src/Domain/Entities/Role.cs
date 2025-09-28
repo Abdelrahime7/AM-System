@@ -8,4 +8,5 @@ public class Role
     public UserRole RoleType { get; set; }
 
     public ICollection<User> Users { get; set; } = new List<User>();
+
 }

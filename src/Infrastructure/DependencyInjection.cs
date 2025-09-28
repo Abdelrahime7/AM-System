@@ -1,5 +1,7 @@
-using Domain.Interfaces;
+using Application.Interfaces;
+using Application.Interfaces.Repositories;
 using Infrastructure.Data;
+using Infrastructure.Filters;
 using Infrastructure.Repositories;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,7 +33,7 @@ public static class DependencyInjection
 
         var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-
+        services.AddEntityMappers();
 
         services.AddAuthentication(options =>
         {
@@ -56,6 +58,12 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+        //register filters
+        
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<FluentValidationFilter>();
+        });
 
 
         return services;
