@@ -22,21 +22,25 @@ namespace Infrastructure.Filters
         {
             foreach (var arg in context.ActionArguments.Values)
             {
-                var validatorType = typeof(IValidator<>).MakeGenericType(arg.GetType());
-                var validator = _serviceProvider.GetService(validatorType) as IValidator;
+                
+                    if (arg == null) continue; // ✅ Prevent null reference
 
-                if (validator != null)
-                {
-                    var result = validator.Validate(new ValidationContext<object>(arg));
-                    if (!result.IsValid)
+                    var validatorType = typeof(IValidator<>).MakeGenericType(arg.GetType());
+                    var validator = _serviceProvider.GetService(validatorType) as IValidator;
+
+                    if (validator != null)
                     {
-                        context.Result = new BadRequestObjectResult(result.Errors.Select(e => new {
-                            field = e.PropertyName,
-                            message = e.ErrorMessage
-                        }));
-                        return;
+                        var result = validator.Validate(new ValidationContext<object>(arg));
+                        if (!result.IsValid)
+                        {
+                            context.Result = new BadRequestObjectResult(result.Errors.Select(e => new {
+                                field = e.PropertyName,
+                                message = e.ErrorMessage
+                            }));
+                            return;
+                        }
                     }
-                }
+                
             }
         }
 
