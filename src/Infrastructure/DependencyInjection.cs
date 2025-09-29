@@ -65,6 +65,9 @@ public static class DependencyInjection
             options.Filters.Add<FluentValidationFilter>();
         });
 
+        //Services
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }
