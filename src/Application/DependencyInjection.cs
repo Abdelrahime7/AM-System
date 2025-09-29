@@ -1,4 +1,7 @@
 
+using Application.Customers.Features.Commands;
+using Application.Customers.Features.Queries;
+using Application.Interfaces.CustomerInterfaces;
 using Application.Interfaces.UserInterfaces;
 using Application.Users.Features.Commands;
 using Application.Users.Features.Queries;
@@ -15,7 +18,10 @@ public static class DependencyInjection
         //Users Interfaces
         services.AddScoped<IUserCommands, UserCommands>();
         services.AddScoped<IUserQueries, UsersQueries>();
-
+        
+        //Customer interfaces
+        services.AddScoped<ICustomerCommands, CustomerCommands>();
+        services.AddScoped<ICustomerQueries, CustomerQueries>();
 
         // validators
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
