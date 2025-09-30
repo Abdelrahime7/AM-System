@@ -1,7 +1,8 @@
-﻿using Application.Interfaces.Common.Mappers;
+﻿
+using Application.Interfaces.Common.Mappers;
 using Application.Users.DTOs;
 using Domain.Entities;
-
+using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Users.Mapper
@@ -52,10 +53,27 @@ namespace Application.Users.Mapper
                 CcpNumber = dto.CcpNumber,
                 LastLoginAt = dto.LastLoginAt,
                 RoleId = dto.RoleId,
-                Status = dto.Status
+                Status = (Domain.Enums.UserStatus)dto.Status!
             };
         }
 
-      
+        public void ToUpdateEntity(User user, UpdateUserRequest dto)
+        {
+
+            user.Id = dto.Id;
+            user.FullName     = dto.FullName     ?? user.FullName;
+            user.PasswordHash = dto.PasswordHash ?? user.PasswordHash;
+            user.Email        = dto.Email        ?? user.Email;
+            user.Phone        = dto.Phone        ?? user.Phone;
+            user.CcpNumber    = dto.CcpNumber    ?? user.CcpNumber;
+            user.LastLoginAt  = dto.LastLoginAt  ?? user.LastLoginAt;
+            user.RoleId       = dto.RoleId       ?? user.RoleId;
+
+            if (dto.Status.HasValue && Enum.IsDefined(typeof(UserStatus), dto.Status.Value))
+            {
+                user.Status = (UserStatus)dto.Status.Value;
+            }
+
+        }
     }
 }
