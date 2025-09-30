@@ -41,22 +41,7 @@ namespace Application.Users.Mapper
             };
         }
 
-        public User ToUpdateEntity(UpdateUserRequest dto)
-        {
-            return new User
-            {
-                Id = dto.Id,
-                FullName = dto.FullName,
-                PasswordHash = dto.PasswordHash,
-                Email = dto.Email,
-                Phone = dto.Phone,
-                CcpNumber = dto.CcpNumber,
-                LastLoginAt = dto.LastLoginAt,
-                RoleId = dto.RoleId,
-                Status = (Domain.Enums.UserStatus)dto.Status!
-            };
-        }
-
+      
         public void ToUpdateEntity(User user, UpdateUserRequest dto)
         {
 

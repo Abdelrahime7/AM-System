@@ -43,8 +43,5 @@ public class DeliveryMapper : IEntityMapper<DeliveryIntegration, CreateDeliveryI
             delivery.IsActive = dto.IsActive.Value;
     }
 
-    public DeliveryIntegration ToUpdateEntity(UpdateDeliveryIntegrationRequest dto)
-    {
-        throw new NotImplementedException();
-    }
+  
 }

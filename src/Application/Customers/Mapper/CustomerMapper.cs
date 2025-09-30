@@ -1,8 +1,7 @@
 using Application.Customers.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Domain.Entities;
-using System.Net;
-using System.Numerics;
+
 
 namespace Application.Customers.Mapper;
 
@@ -31,16 +30,7 @@ public class CustomerMapper : IEntityMapper<Customer, CreateCustomerRequest, Upd
         };
     }
 
-    public Customer ToUpdateEntity(UpdateCustomerRequest dto)
-    {
-        return new Customer
-        {
-            FullName = dto.FullName,
-            City = dto.City,
-            Phone = dto.Phone,
-            Address = dto.Address,
-        };
-    }
+ 
 
     public void ToUpdateEntity(Customer customer, UpdateCustomerRequest dto)
     {
