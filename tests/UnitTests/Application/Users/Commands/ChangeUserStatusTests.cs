@@ -37,7 +37,7 @@ namespace UnitTests.Application.Users.Commands
                 Id = request.Id,
                 Email = request.Email,
                 FullName = request.FullName,
-                Status = request.Status,
+                Status = (UserStatus)request.Status,
                 Phone = request.Phone,
                 PasswordHash = request.PasswordHash,
             };
@@ -45,13 +45,23 @@ namespace UnitTests.Application.Users.Commands
 
 
             _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(existingUser);
-            _mapperMock.Setup(m => m.ToUpdateEntity(It.Is<UpdateUserRequest>(r => r.Status == UserStatus.Active)))
-                       .Returns(updatedUser);
+
+            _mapperMock
+               .Setup(m => m.ToUpdateEntity(
+                  It.Is<User>(u => u != null),
+                 It.Is<UpdateUserRequest>(d => d.Status == UserStatus.Active)))
+                 .Callback<User, UpdateUserRequest>((user, dto) =>
+                  {
+
+                      user.Status = (UserStatus)dto.Status;
+       
+                  });
+
+
             _userRepoMock.Setup(r => r.Update(updatedUser));
 
             // Act
             var result = await _userCommands.ChangeUserStatusAsync(request, UserStatus.Active);
-
             // Assert
             Assert.True(result.IsSuccess);
             Assert.True(result.Value);

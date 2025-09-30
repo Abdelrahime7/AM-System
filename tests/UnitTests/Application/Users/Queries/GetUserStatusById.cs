@@ -29,7 +29,6 @@ namespace UnitTests.Application.Users.Queries
 
             var response = new UserResponse
             {
-                Id = userId,
                 Status = user.Status,
                 FullName = user.FullName,
                 Phone = user.Phone,
