@@ -1,8 +1,7 @@
 using Application.Common.Models;
-using Application.Customers.DTOs;
 using Application.Delivery.DTOs;
 
-namespace Application.Interfaces.CustomerInterfaces;
+namespace Application.Interfaces.DeliveryInterfaces;
 
 public interface IDeliveryIntegrationCommands
 {
