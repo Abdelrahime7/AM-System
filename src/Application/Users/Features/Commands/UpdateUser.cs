@@ -20,7 +20,7 @@ namespace Application.Users.Features.Commands
                 
                 else
 
-                   user = _mapper.ToUpdateEntity(request);
+                  _mapper.ToUpdateEntity(user,request);
                   _userRepository.Update(user);
 
                    return Result<bool>.Success(true);
