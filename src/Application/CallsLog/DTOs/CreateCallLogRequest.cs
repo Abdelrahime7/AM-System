@@ -2,7 +2,7 @@ using Domain.Enums;
 
 namespace Application.CallsLog.DTOs;
 
-public record CreateRoleRequest
+public record CreateCallLogRequest
 {
     public required string CustomerPhone { get; set; } = string.Empty;
 

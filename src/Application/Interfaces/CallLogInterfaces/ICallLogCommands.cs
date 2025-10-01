@@ -1,9 +1,7 @@
 ﻿
 
 using Application.Common.Models;
-using Application.CallLogs.DTOs;
-using Domain.Entities;
-using Domain.Enums;
+using Application.CallsLog.DTOs;
 
 namespace Application.Interfaces.CallLogInterfaces
 {

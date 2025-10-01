@@ -3,7 +3,7 @@ using Application.Users.DTOs;
 namespace Application.Roles.DTOs;
 
 
-    public record TokenResponse
+    public record RoleResponse
     {
         public int Id { get; set; }
 

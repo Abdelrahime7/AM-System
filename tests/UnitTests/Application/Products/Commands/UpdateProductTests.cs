@@ -10,7 +10,7 @@ public partial class ProductCommandsTests
     public async Task UpdateProductAsync_ShouldReturnSuccess_WhenProductIsUpdated()
     {
         //Arrange
-        var request = new UpdateProductRequest
+        var request = new UpdateAffiliateBalanceRequest
         {
             Id = 1,
             Name = "Updated Product Name"
@@ -38,7 +38,7 @@ public partial class ProductCommandsTests
     public async Task UpdateProductAsync_ShouldReturnFailure_WhenProductNotFound()
     {
         //Arrange
-        var request = new UpdateProductRequest
+        var request = new UpdateAffiliateBalanceRequest
         {
             Id = 99 // Non-existent ID
         };
@@ -57,7 +57,7 @@ public partial class ProductCommandsTests
     public async Task UpdateProductAsync_ShouldReturnFailure_WhenExceptionIsThrown()
     {
         //Arrange
-        var request = new UpdateProductRequest
+        var request = new UpdateAffiliateBalanceRequest
         {
             Id = 1
         };

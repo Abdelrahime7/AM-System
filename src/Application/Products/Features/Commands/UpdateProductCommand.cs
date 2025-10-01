@@ -5,7 +5,7 @@ namespace Application.Products.Features.Commands;
 
 public partial class ProductCommands
 {
-    public async Task<Result<bool>> UpdateProductAsync(UpdateProductRequest request)
+    public async Task<Result<bool>> UpdateProductAsync(UpdateAffiliateBalanceRequest request)
     {
         try
         {

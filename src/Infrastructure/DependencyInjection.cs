@@ -32,6 +32,8 @@ public static class DependencyInjection
 
         var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+        //
+        //Mapper
         services.AddEntityMappers();
 
         services.AddAuthentication(options =>

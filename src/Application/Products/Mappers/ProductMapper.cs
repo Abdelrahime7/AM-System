@@ -5,9 +5,9 @@ using Domain.Enums;
 
 namespace Application.Products.Mappers
 {
-    public class ProductMapper : IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse>
+    public class ProductMapper : IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>
     {
-        public Product ToEntity(CreateProductRequest dto)
+        public Product ToEntity(CreatetAffiliateBalanceRequest dto)
         {
             return new Product
             {
@@ -21,9 +21,9 @@ namespace Application.Products.Mappers
             };
         }
 
-        public ProductResponse ToResponse(Product entity)
+        public AffiliateBalanceResponse ToResponse(Product entity)
         {
-            return new ProductResponse
+            return new AffiliateBalanceResponse
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -45,7 +45,7 @@ namespace Application.Products.Mappers
             };
         }
         
-        public void ToUpdateEntity(Product entity, UpdateProductRequest dto)
+        public void ToUpdateEntity(Product entity, UpdateAffiliateBalanceRequest dto)
         {
             entity.Name = dto.Name ?? entity.Name;
             entity.Description = dto.Description ?? entity.Description;

@@ -1,16 +1,14 @@
 ﻿
 
 using Application.Common.Models;
-using Application.CallLogs.DTOs;
-using Domain.Entities;
-using Domain.Enums;
+using Application.CallsLog.DTOs;
 
 namespace Application.Interfaces.CallLogInterfaces
 {
     public interface ICallLogQueries
     {
-        Task<Result<IEnumerable<CallLogResponse>>> GetAllCallLogsAsync();
-        Task<Result<CallLogResponse>> GetCallLogByIDAsync(int id);
+        Task<Result<IEnumerable<CallLogrResponse>>> GetAllCallLogsAsync();
+        Task<Result<CallLogrResponse>> GetCallLogByIDAsync(int id);
       
 
     }

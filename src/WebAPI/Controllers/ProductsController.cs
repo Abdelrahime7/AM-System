@@ -19,7 +19,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetAll()
+    public async Task<ActionResult<IEnumerable<AffiliateBalanceResponse>>> GetAll()
     {
         var result = await _productQueries.GetAllAsync();
 
@@ -35,7 +35,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductResponse>> GetById(int id)
+    public async Task<ActionResult<AffiliateBalanceResponse>> GetById(int id)
     {
         if (id < 1)
             return BadRequest($"Invalid id = {id}");
@@ -53,7 +53,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductResponse>> GetByName(string name)
+    public async Task<ActionResult<AffiliateBalanceResponse>> GetByName(string name)
     {
         if (string.IsNullOrEmpty(name))
             return BadRequest($"Invalid name = {name}");
@@ -70,7 +70,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreateProductRequest request)
+    public async Task<ActionResult<int>> Create(CreatetAffiliateBalanceRequest request)
     {
         //Uncomment later when we add JWT
         // request.CreatedByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -88,7 +88,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductResponse>> Update(UpdateProductRequest request)
+    public async Task<ActionResult<AffiliateBalanceResponse>> Update(UpdateAffiliateBalanceRequest request)
     {
         if (request.Id <= 0) 
             return BadRequest("Invalid input. Please check the submitted data");

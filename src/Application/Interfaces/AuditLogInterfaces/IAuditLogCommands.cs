@@ -1,9 +1,7 @@
 ﻿
 
 using Application.Common.Models;
-using Application.AuditLogs.DTOs;
-using Domain.Entities;
-using Domain.Enums;
+using Application.AuditsLog.DTOs;
 
 namespace Application.Interfaces.AuditLogInterfaces
 {

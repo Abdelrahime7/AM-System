@@ -2,7 +2,7 @@ using Domain.Enums;
 
 namespace Application.Products.DTOs;
 
-public record CreateProductRequest
+public record CreatetAffiliateBalanceRequest
 {
     public required string Name { get; set; }
     public string? Description { get; set; }

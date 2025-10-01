@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Application.Customers.Mapper;
 
-public class DeliveryMapper : IEntityMapper<DeliveryIntegration, CreateDeliveryIntegrationRequest,
+public class AffiliateBalanceMapper : IEntityMapper<DeliveryIntegration, CreateDeliveryIntegrationRequest,
     UpdateDeliveryIntegrationRequest, DeliveryIntegrationResponse>
 {
     public DeliveryIntegration ToEntity(CreateDeliveryIntegrationRequest dto)

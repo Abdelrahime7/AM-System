@@ -5,7 +5,7 @@ namespace Application.Interfaces.ProductInterfaces;
 
 public interface IProductCommands
 {
-    Task<Result<int>> CreateProductAsync(CreateProductRequest request);
+    Task<Result<int>> CreateProductAsync(CreatetAffiliateBalanceRequest request);
     Task<Result<bool>> DeleteProductAsync(int id);
-    Task<Result<bool>> UpdateProductAsync(UpdateProductRequest request);
+    Task<Result<bool>> UpdateProductAsync(UpdateAffiliateBalanceRequest request);
 }

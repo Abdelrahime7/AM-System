@@ -3,7 +3,7 @@ using Domain.Enums;
 
 namespace Application.Products.DTOs;
 
-public record ProductResponse
+public record AffiliateBalanceResponse
 {
     public int Id { get; set; }
     public required string Name { get; set; }

@@ -1,9 +1,7 @@
 ﻿
 
 using Application.Common.Models;
-using Application.AffiliateBalances.DTOs;
-using Domain.Entities;
-using Domain.Enums;
+using Application.AffiliatesBalance.DTOs;
 
 namespace Application.Interfaces.AffiliateBalanceInterfaces
 {

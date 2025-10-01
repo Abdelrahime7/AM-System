@@ -11,7 +11,7 @@ namespace Application.Interfaces.ProductImageInterfaces
     {
         Task<Result<IEnumerable<ProductImageResponse>>> GetAllProductImagesAsync();
         Task<Result<ProductImageResponse>> GetProductImageByIDAsync(int id);
-       ;
+       
 
     }
 }

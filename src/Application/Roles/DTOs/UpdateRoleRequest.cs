@@ -2,7 +2,7 @@ using Domain.Enums;
 
 namespace Application.Roles.DTOs;
 
-public record UpdateTokenRequest
+public record UpdateRoleRequest
 {
     public UserRole RoleType { get; set; }
 }

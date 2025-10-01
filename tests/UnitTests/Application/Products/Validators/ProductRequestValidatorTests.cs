@@ -14,7 +14,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Create_Should_HaveError_When_Name_Is_Empty()
     {
-        var model = new CreateProductRequest { Name = "" };
+        var model = new CreatetAffiliateBalanceRequest { Name = "" };
         var result = _createValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.Name).WithErrorMessage("Product name is required.");
     }
@@ -22,7 +22,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Create_Should_HaveError_When_Name_Is_Too_Long()
     {
-        var model = new CreateProductRequest { Name = new string('a', 101) };
+        var model = new CreatetAffiliateBalanceRequest { Name = new string('a', 101) };
         var result = _createValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.Name).WithErrorMessage("Product name cannot exceed 100 characters.");
     }
@@ -30,7 +30,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Create_Should_HaveError_When_Price_Is_Not_Greater_Than_Zero()
     {
-        var model = new CreateProductRequest { Name = "Test", Price = 0 };
+        var model = new CreatetAffiliateBalanceRequest { Name = "Test", Price = 0 };
         var result = _createValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.Price).WithErrorMessage("Price must be greater than zero.");
     }
@@ -38,7 +38,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Create_Should_HaveError_When_Commission_Is_Negative()
     {
-        var model = new CreateProductRequest { Name = "Test", Price = 10, CommissionAmount = -1 };
+        var model = new CreatetAffiliateBalanceRequest { Name = "Test", Price = 10, CommissionAmount = -1 };
         var result = _createValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.CommissionAmount).WithErrorMessage("Commission amount cannot be negative.");
     }
@@ -46,7 +46,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Create_Should_HaveError_When_Commission_Exceeds_Price()
     {
-        var model = new CreateProductRequest { Name = "Test", Price = 10, CommissionAmount = 11 };
+        var model = new CreatetAffiliateBalanceRequest { Name = "Test", Price = 10, CommissionAmount = 11 };
         var result = _createValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.CommissionAmount).WithErrorMessage("Commission amount cannot exceed product price.");
     }
@@ -55,7 +55,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Update_Should_HaveError_When_Id_Is_Zero()
     {
-        var model = new UpdateProductRequest { Id = 0 };
+        var model = new UpdateAffiliateBalanceRequest { Id = 0 };
         var result = _updateValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.Id).WithErrorMessage("Product ID must be provided.");
     }
@@ -63,7 +63,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Update_Should_Not_HaveError_When_Name_Is_Null()
     {
-        var model = new UpdateProductRequest { Id = 1, Name = null };
+        var model = new UpdateAffiliateBalanceRequest { Id = 1, Name = null };
         var result = _updateValidator.TestValidate(model);
         result.ShouldNotHaveValidationErrorFor(x => x.Name);
     }
@@ -71,7 +71,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Update_Should_HaveError_When_Name_Is_Too_Long()
     {
-        var model = new UpdateProductRequest { Id = 1, Name = new string('a', 101) };
+        var model = new UpdateAffiliateBalanceRequest { Id = 1, Name = new string('a', 101) };
         var result = _updateValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(x => x.Name).WithErrorMessage("Product name cannot exceed 100 characters.");
     }
@@ -79,7 +79,7 @@ public class ProductRequestValidatorTests
     [Fact]
     public void Update_Should_Not_Have_Any_Validation_Errors_When_Request_Is_Valid()
     {
-        var model = new UpdateProductRequest
+        var model = new UpdateAffiliateBalanceRequest
         {
             Id = 1,
             Name = "Valid Name",
