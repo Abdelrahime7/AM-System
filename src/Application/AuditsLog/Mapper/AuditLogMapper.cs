@@ -6,27 +6,22 @@ using Domain.Entities;
 
 namespace Application.AuditsLog.Mapper;
 
-public class AuditLogMapper : IEntityMapper<AuditLog, CreateCallLogRequest,
-    UpdateCallLogRequest, CallLogResponse>
+public class AuditLogMapper : IEntityMapper<AuditLog, CreateAuditLogRequest,
+    UpdateAuditLogRequest, AuditLogResponse>
 {
-    public AuditLog ToEntity(CreateCallLogRequest dto)
+    public AuditLog ToEntity(CreateAuditLogRequest dto)
     {
         throw new NotImplementedException();
     }
 
-  
-
-    public CustomizedOrderResponse ToResponse(AuditLog entity)
+    public void ToUpdateEntity(AuditLog entity, UpdateAuditLogRequest dto)
     {
         throw new NotImplementedException();
     }
 
-   
-
-    public void ToUpdateEntity(AuditLog entity, CustomizedOrders.DTOs.UpdateCustomizedOrderRequest dto)
+    AuditLogResponse IEntityMapper<AuditLog, CreateAuditLogRequest, UpdateAuditLogRequest, AuditLogResponse>.ToResponse(AuditLog entity)
     {
         throw new NotImplementedException();
     }
 
-  
 }

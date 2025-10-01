@@ -1,30 +1,26 @@
-using Application.AffiliateBalance.DTOs;
+
 using Application.AffiliatesBalance.DTOs;
 using Application.AuditsLog.DTOs;
 using Application.Interfaces.Common.Mappers;
+using Domain.Entities;
 
 
 namespace Application.AffiliatesBalance.Mapper;
 
-public class AuditLogMapper : IEntityMapper<Domain.Entities.AffiliateBalance, CreatetAuditLogRequest,
-    UpdateAuditLogRequest, AuditLogResponse>
+public class AffiliateBalanceMapper : IEntityMapper<AffiliateBalance, CreatetAffiliateBalanceRequest,
+    UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>
 {
-  
-
-  
-
-    public AuditLogResponse ToResponse(Domain.Entities.AffiliateBalance entity)
+    public AffiliateBalance ToEntity(CreatetAffiliateBalanceRequest dto)
     {
         throw new NotImplementedException();
     }
 
-
-    public void ToUpdateEntity(Domain.Entities.AffiliateBalance entity, UpdateAuditLogRequest dto)
+    public AffiliateBalanceResponse ToResponse(AffiliateBalance entity)
     {
         throw new NotImplementedException();
     }
 
-    Domain.Entities.AffiliateBalance IEntityMapper<Domain.Entities.AffiliateBalance, CreatetAuditLogRequest, UpdateAuditLogRequest, AuditLogResponse>.ToEntity(CreatetAuditLogRequest dto)
+    public void ToUpdateEntity(AffiliateBalance entity, UpdateAffiliateBalanceRequest dto)
     {
         throw new NotImplementedException();
     }
