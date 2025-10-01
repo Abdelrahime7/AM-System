@@ -1,4 +1,3 @@
-using Application.Interfaces;
 using Application.Interfaces.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Filters;
@@ -70,7 +69,17 @@ public static class DependencyInjection
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IDeliveryRepository, DeliveryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
-        
+        services.AddScoped<IAffiliateBalanceRepository, AffiliateBalanceRepository>();
+        services.AddScoped<IAuditLogRepository, AuditLogRepository>();
+        services.AddScoped<ICallLogRepository, CallLogRepository>();
+        services.AddScoped<ICustomizedOrderRepository, CustomizedOrderRepository>();
+        services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IProductImageRepository, ProductImageRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
+        services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
+
         return services;
     }
 }
