@@ -44,10 +44,10 @@ namespace UnitTests.Application.Users.Queries
 
                 var responses = new List<UserResponse>
                      {
-                       new UserResponse{ Id = 1, FullName = "smith doe",
+                       new UserResponse{ FullName = "smith doe",
                          Email = "user1@example.com" ,
                          Phone="0122355455", },
-                      new UserResponse { Id = 2, FullName = "smith doe",
+                      new UserResponse {  FullName = "smith doe",
                          Email = "user2@example.com" ,  
                          Phone="0122355455", }
 

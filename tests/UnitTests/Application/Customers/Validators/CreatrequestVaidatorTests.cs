@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 
 namespace UnitTests.Application.Customers.Validator;
 
-public class ValidatorsTests
+public class creatrequestVaidatorTests
 {
     private readonly CreateCustomerRequestValidator _validator = new();
     private readonly UpdateCustomerRequestValidator _validator2 = new();

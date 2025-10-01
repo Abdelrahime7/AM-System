@@ -25,7 +25,7 @@ namespace UnitTests.Application.Users.Queries
                };
                 var userResponse = new UserResponse
                 {
-                    Id = user.Id,
+                    Id=1,
                     FullName="ohne doe",
                     Email="user@ex.com",
                     Phone="0122334455",

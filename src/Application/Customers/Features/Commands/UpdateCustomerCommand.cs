@@ -12,12 +12,8 @@ public partial class CustomerCommands
             var customer = await _repository.GetByIdAsync(request.Id);
             if (customer == null)
                 return Result<bool>.Failure("Customer Not Found");
-            
-            customer.FullName = request.FullName;
-            customer.City     = request.City;
-            customer.Address  = request.Address;
-            customer.Phone    = request.Phone;
-            
+
+            _mapper.ToUpdateEntity(customer, request); 
             _repository.Update(customer);
             return Result<bool>.Success(true);
         }

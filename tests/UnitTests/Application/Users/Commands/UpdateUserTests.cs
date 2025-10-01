@@ -37,13 +37,13 @@ namespace UnitTests.Application.Users.Commands
                 Id = request.Id,
                 Email = request.Email,
                 FullName = request.FullName,
-                Status = request.Status,
+                Status = (UserStatus)request.Status,
                 Phone = request.Phone,
                 PasswordHash = request.PasswordHash,
             };
 
             _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(existingUser);
-            _mapperMock.Setup(m => m.ToUpdateEntity(request)).Returns(updatedUser);
+            _mapperMock.Setup(m => m.ToUpdateEntity(existingUser, request)).Equals(updatedUser);
             _userRepoMock.Setup(r => r.Update(updatedUser));
 
             // Act
@@ -53,7 +53,7 @@ namespace UnitTests.Application.Users.Commands
             Assert.True(result.IsSuccess);
             Assert.True(result.Value);
             _userRepoMock.Verify(r => r.GetByIdAsync(request.Id), Times.Once);
-            _mapperMock.Verify(m => m.ToUpdateEntity(request), Times.Once);
+            _mapperMock.Verify(m => m.ToUpdateEntity(existingUser, request), Times.Once);
             _userRepoMock.Verify(r => r.Update(updatedUser), Times.Once);
         }
 
@@ -80,7 +80,10 @@ namespace UnitTests.Application.Users.Commands
             Assert.False(result.IsSuccess);
             Assert.Equal("User Not Found", result.Error);
             _userRepoMock.Verify(r => r.GetByIdAsync(request.Id), Times.Once);
-            _mapperMock.Verify(m => m.ToUpdateEntity(It.IsAny<UpdateUserRequest>()), Times.Never);
+            _mapperMock.Verify(m => m.ToUpdateEntity(
+                                                    It.IsAny<User>(),
+                                                    It.IsAny<UpdateUserRequest>()), Times.Never);
+
             _userRepoMock.Verify(r => r.Update(It.IsAny<User>()), Times.Never);
         }
 
@@ -102,13 +105,13 @@ namespace UnitTests.Application.Users.Commands
                 Id = request.Id,
                 Email = request.Email,
                 FullName = request.FullName,
-                Status = request.Status,
+                Status = (UserStatus)request.Status,
                 Phone = request.Phone,
                 PasswordHash = request.PasswordHash,
             };
 
             _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(user);
-            _mapperMock.Setup(m => m.ToUpdateEntity(request)).Returns(user);
+            _mapperMock.Setup(m => m.ToUpdateEntity(user,request)).Equals(user);
             _userRepoMock.Setup(r => r.Update(user)).Throws(new Exception("DB error"));
 
             // Act
