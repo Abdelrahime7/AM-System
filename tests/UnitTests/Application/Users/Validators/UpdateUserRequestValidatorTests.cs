@@ -41,7 +41,7 @@ namespace UnitTests.Application.Users.Validators
            
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.FullName)
-                  .WithErrorMessage("Name is Required");
+                  .WithErrorMessage("Full name must be at least 5 characters long.");
         }
 
         [Fact]

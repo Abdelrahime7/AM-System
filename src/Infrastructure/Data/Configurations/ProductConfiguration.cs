@@ -51,8 +51,13 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.CreatedByUserId)
             .HasColumnName("created_by_user_id")
             .IsRequired();
-
+        
         // Relationships
+        builder.HasOne(p => p.CreatedBy)
+            .WithMany() 
+            .HasForeignKey(p => p.CreatedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
         builder.HasMany(p => p.Images)
             .WithOne(i => i.Product)
             .HasForeignKey(i => i.ProductId)
