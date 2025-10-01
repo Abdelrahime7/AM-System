@@ -1,9 +1,10 @@
 using Domain.Enums;
 
-namespace Application.AffiliateBalance.DTOs;
+namespace Application.AffiliatesBalance.DTOs;
 
-public record UpdateAuditLogRequest
+public record UpdateAffiliateBalanceRequest
 {
     public decimal? Amount { get; set; }
+
     public int? AffiliateId { get; set; }
 }

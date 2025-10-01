@@ -1,10 +1,21 @@
+using Application.Withdrawals.DTOs;
 
-namespace Application.AffiliateBalance.DTOs;
+namespace Application.AffiliatesBalance.DTOs;
 
-public record AuditLogResponse
+public record AffiliateBalanceResponse
 {
-    public decimal Amount { get; set; }
-    public int AffiliateId { get; set; }
+   
+        public int Id { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public int AffiliateId { get; set; }
+
+        public string AffiliateName { get; set; } = string.Empty;
+
+        public List<WithdrawalResponse> Withdrawals { get; set; } = new();
+  }
+
    
 
-}
+
