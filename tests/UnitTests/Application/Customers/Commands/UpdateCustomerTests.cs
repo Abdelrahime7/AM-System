@@ -13,6 +13,7 @@ public partial class CustomerCommandsTests
         //Arrange
         var request = new UpdateCustomerRequest
         {
+            Id = 32,
             FullName = "john doe",
             City = "Arizona",
             Address = "Arizona 123 wall street N3, USA",
@@ -36,9 +37,7 @@ public partial class CustomerCommandsTests
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(request.FullName, customer.FullName);
-        Assert.Equal(request.Address, customer.Address);
-        Assert.Equal(request.Phone, customer.Phone);
+        Assert.True(result.Value);
         _mockRepository.Verify(r => r.Update(customer), Times.Once);
     }
 

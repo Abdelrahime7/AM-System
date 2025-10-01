@@ -24,27 +24,19 @@ namespace UnitTests.Application.Users.Commands
                 Status = UserStatus.Active
             };
 
-            var existingUser = new User
+            var user = new User
             {
-                Id = request.Id,
-                Email = "old@example.com",
-                FullName = "john doe",
-                Phone = "0611223344",
-                PasswordHash = "qwerty"
+                Id = 1,
+                FullName = "Old Name",
+                Email = "OlderVersion@example.com",
+                Phone = "0511223344",
+                PasswordHash = "user123",
+                Status = UserStatus.Inactive
             };
-            var updatedUser = new User
-            {
-                Id = request.Id,
-                Email = request.Email,
-                FullName = request.FullName,
-                Status = (UserStatus)request.Status,
-                Phone = request.Phone,
-                PasswordHash = request.PasswordHash,
-            };
-
-            _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(existingUser);
-            _mapperMock.Setup(m => m.ToUpdateEntity(existingUser, request)).Equals(updatedUser);
-            _userRepoMock.Setup(r => r.Update(updatedUser));
+            
+            _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(user);
+            _mapperMock.Setup(m => m.ToUpdateEntity(user, request)).Equals(user);
+            _userRepoMock.Setup(r => r.Update(user));
 
             // Act
             var result = await _userCommands.UpdateUserAsync(request);
@@ -53,8 +45,8 @@ namespace UnitTests.Application.Users.Commands
             Assert.True(result.IsSuccess);
             Assert.True(result.Value);
             _userRepoMock.Verify(r => r.GetByIdAsync(request.Id), Times.Once);
-            _mapperMock.Verify(m => m.ToUpdateEntity(existingUser, request), Times.Once);
-            _userRepoMock.Verify(r => r.Update(updatedUser), Times.Once);
+            _mapperMock.Verify(m => m.ToUpdateEntity(user, request), Times.Once);
+            _userRepoMock.Verify(r => r.Update(user), Times.Once);
         }
 
         [Fact]
