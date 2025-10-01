@@ -23,4 +23,3 @@ public partial class WithdrawalQueries : IWithdrawalQueries
     }
 }
 
-}

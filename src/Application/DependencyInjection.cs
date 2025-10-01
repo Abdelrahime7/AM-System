@@ -1,6 +1,7 @@
 using Application.AffiliatesBalance.Features.Commands;
 using Application.AffiliatesBalance.Features.Queries;
 using Application.AuditsLog.Features.Commands;
+using Application.AuditsLog.Features.Queries;
 using Application.CallsLog.Features.Commands;
 using Application.CallsLog.Features.Queries;
 using Application.Customers.Features.Commands;
@@ -21,6 +22,8 @@ using Application.Interfaces.RoleInterfaces;
 using Application.Interfaces.TokenInterfaces;
 using Application.Interfaces.UserInterfaces;
 using Application.Interfaces.WithdrawalInterfaces;
+using Application.OrderDetails.Features.Commands;
+using Application.OrderDetails.Features.Queries;
 using Application.Orders.Features.Commands;
 using Application.Orders.Features.Queries;
 using Application.ProductImages.Features.Commands;
@@ -63,7 +66,7 @@ public static class DependencyInjection
         services.AddScoped<IAffiliateBalanceQueries, AffiliateBalanceQueries>();
         // AuditLog Services
         services.AddScoped<IAuditLogCommands, AuditLogCommands>();
-        services.AddScoped<IAuditLogQueries, IAuditLogQueries>();
+        services.AddScoped<IAuditLogQueries,AuditLogQueries>();
         // CallLog Services
         services.AddScoped<ICallLogCommands, CallLogCommands>();
         services.AddScoped<ICallLogQueries, CallLogQueries>();
@@ -77,8 +80,8 @@ public static class DependencyInjection
         services.AddScoped<IOrderCommands, OrderCommands>();
         services.AddScoped<IOrderQueries, OrderQueries>();
         // OrderDetail Services
-        services.AddScoped<IOrderDetailCommands, IOrderDetailCommands>();
-        services.AddScoped<IOrderDetailQueries, IOrderDetailQueries>();
+        services.AddScoped<IOrderDetailCommands, OrderDetailCommands>();
+        services.AddScoped<IOrderDetailQueries, OrderDetailQueries>();
         // ProductImage Services
         services.AddScoped<IProductImageCommands, ProductImageCommands>();
         services.AddScoped<IProductImageQueries, ProductImageQueries>();
