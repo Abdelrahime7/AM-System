@@ -12,7 +12,7 @@ public partial class ProductQueriesTests
         //Arrange
         const string productName = "Test Product";
         var product = new Product { Id = 1, Name = productName };
-        var productResponse = new AffiliateBalanceResponse { Id = 1, Name = productName };
+        var productResponse = new ProductResponse { Id = 1, Name = productName };
 
         _mockRepository.Setup(r => r.GetByNameAsync(productName)).ReturnsAsync(product);
         _mockMapper.Setup(m => m.ToResponse(product)).Returns(productResponse);

@@ -5,7 +5,7 @@ namespace Application.Interfaces.ProductInterfaces;
 
 public interface IProductQueries
 {
-    Task<Result<IEnumerable<AffiliateBalanceResponse>>> GetAllAsync();
-    Task<Result<AffiliateBalanceResponse>> GetByIdAsync(int id);
-    Task<Result<AffiliateBalanceResponse>> GetByNameAsync(string name);
+    Task<Result<IEnumerable<ProductResponse>>> GetAllAsync();
+    Task<Result<ProductResponse>> GetByIdAsync(int id);
+    Task<Result<ProductResponse>> GetByNameAsync(string name);
 }

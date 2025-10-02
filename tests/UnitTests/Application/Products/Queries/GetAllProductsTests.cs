@@ -10,13 +10,13 @@ namespace UnitTests.Application.Products.Queries;
 public partial class ProductQueriesTests
 {
     private readonly Mock<IProductRepository> _mockRepository;
-    private readonly Mock<IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>> _mockMapper;
+    private readonly Mock<IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse>> _mockMapper;
     private readonly ProductQueries _queries;
     
     public ProductQueriesTests()
     {
         _mockRepository = new Mock<IProductRepository>();
-        _mockMapper = new Mock<IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>>();
+        _mockMapper = new Mock<IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse>>();
         _queries = new ProductQueries(_mockRepository.Object, _mockMapper.Object);
     }
     
@@ -32,7 +32,7 @@ public partial class ProductQueriesTests
 
         _mockRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(products);
         _mockMapper.Setup(m => m.ToResponse(It.IsAny<Product>()))
-                   .Returns<Product>(p => new AffiliateBalanceResponse { Id = p.Id, Name = p.Name });
+                   .Returns<Product>(p => new ProductResponse { Id = p.Id, Name = p.Name });
 
         // Act
         var result = await _queries.GetAllAsync();

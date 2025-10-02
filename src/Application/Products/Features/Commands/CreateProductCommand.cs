@@ -9,13 +9,13 @@ namespace Application.Products.Features.Commands;
 
 public partial class ProductCommands(
     IProductRepository repository,
-    IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse> mapper)
+    IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse> mapper)
     : IProductCommands
 {
     private readonly IProductRepository _repository = repository;
-    private readonly IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse> _mapper = mapper;
+    private readonly IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse> _mapper = mapper;
 
-    public async Task<Result<int>> CreateProductAsync(CreatetAffiliateBalanceRequest request)
+    public async Task<Result<int>> CreateProductAsync(CreateProductRequest request)
     {
         try
         {
@@ -28,5 +28,6 @@ public partial class ProductCommands(
             return Result<int>.Failure($"Error creating product: {e.Message}");
         }        
     }
-    
+
+  
 }

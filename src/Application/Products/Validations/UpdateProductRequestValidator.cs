@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Products.Validations;
 
-public class UpdateProductRequestValidator : AbstractValidator<UpdateAffiliateBalanceRequest>
+public class UpdateProductRequestValidator : AbstractValidator<UpdateProductRequest>
 {
     public UpdateProductRequestValidator()
     {

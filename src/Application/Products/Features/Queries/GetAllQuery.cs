@@ -9,28 +9,28 @@ namespace Application.Products.Features.Queries;
 
 public partial class ProductQueries(
     IProductRepository repository,
-    IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse> mapper)
+    IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse> mapper)
     : IProductQueries
 {
     private readonly IProductRepository _repository = repository;
 
-    private readonly IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse> _mapper =
+    private readonly IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse> _mapper =
         mapper;
 
-    public async Task<Result<IEnumerable<AffiliateBalanceResponse>>> GetAllAsync()
+    public async Task<Result<IEnumerable<ProductResponse>>> GetAllAsync()
     {
         try
         {
             var products = await _repository.GetAllAsync();
             if (!products.Any())
-                return Result<IEnumerable<AffiliateBalanceResponse>>.Failure("No Products Found");
+                return Result<IEnumerable<ProductResponse>>.Failure("No Products Found");
 
             var response = products.ToList().Select(c => _mapper.ToResponse(c));
-            return Result<IEnumerable<AffiliateBalanceResponse>>.Success(response);
+            return Result<IEnumerable<ProductResponse>>.Success(response);
         }
         catch (Exception ex)
         {
-            return Result<IEnumerable<AffiliateBalanceResponse>>.Failure($"failed to fetch products: {ex.Message}");
+            return Result<IEnumerable<ProductResponse>>.Failure($"failed to fetch products: {ex.Message}");
         }
     }
 }

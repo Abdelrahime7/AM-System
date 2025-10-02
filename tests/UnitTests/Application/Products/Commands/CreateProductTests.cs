@@ -11,13 +11,13 @@ namespace UnitTests.Application.Products.Commands;
 public partial class ProductCommandsTests
 {
     private readonly Mock<IProductRepository> _mockRepository;
-    private readonly Mock<IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>> _mockMapper;
+    private readonly Mock<IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse>> _mockMapper;
     private readonly ProductCommands _commands;
     
     public ProductCommandsTests()
     {
         _mockRepository = new Mock<IProductRepository>();
-        _mockMapper = new Mock<IEntityMapper<Product, CreatetAffiliateBalanceRequest, UpdateAffiliateBalanceRequest, AffiliateBalanceResponse>>();
+        _mockMapper = new Mock<IEntityMapper<Product, CreateProductRequest, UpdateProductRequest, ProductResponse>>();
         _commands = new ProductCommands(_mockRepository.Object, _mockMapper.Object);
     }
     
@@ -25,7 +25,7 @@ public partial class ProductCommandsTests
     public async Task CreateProductAsync_ShouldReturnSuccess_WhenProductIsAdded()
     {
         //Arrange
-        var request = new CreatetAffiliateBalanceRequest
+        var request = new CreateProductRequest
         {
             Name = "Test Product",
             Price = 100,
@@ -61,7 +61,7 @@ public partial class ProductCommandsTests
     public async Task CreateProductAsync_ShouldReturnFailure_WhenExceptionIsThrown()
     {
         // Arrange
-        var request = new CreatetAffiliateBalanceRequest
+        var request = new CreateProductRequest
         {
             Name = "Error Product",
             Price = 50,
@@ -70,7 +70,7 @@ public partial class ProductCommandsTests
             CreatedByUserId = 2
         };
 
-        _mockMapper.Setup(m => m.ToEntity(It.IsAny<CreatetAffiliateBalanceRequest>()))
+        _mockMapper.Setup(m => m.ToEntity(It.IsAny<CreateProductRequest>()))
             .Returns((Product)null!);
 
         _mockRepository.Setup(r => r.AddAsync(It.IsAny<Product>()))
