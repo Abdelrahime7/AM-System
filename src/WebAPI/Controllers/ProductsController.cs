@@ -1,5 +1,4 @@
-using System.Security.Claims;
-using Application.Customers.DTOs;
+
 using Application.Interfaces.ProductInterfaces;
 using Application.Products.DTOs;
 using Microsoft.AspNetCore.Mvc;

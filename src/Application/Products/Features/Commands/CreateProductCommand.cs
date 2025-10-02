@@ -28,5 +28,6 @@ public partial class ProductCommands(
             return Result<int>.Failure($"Error creating product: {e.Message}");
         }        
     }
-    
+
+  
 }
