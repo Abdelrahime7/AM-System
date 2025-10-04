@@ -2,7 +2,7 @@ using Application.Customers.DTOs;
 using Application.Customers.Validation;
 using FluentValidation.TestHelper;
 
-namespace UnitTests.Application.Customers.Validator;
+namespace UnitTests.Application.Customers.Validators;
 
 public class creatrequestVaidatorTests
 {
