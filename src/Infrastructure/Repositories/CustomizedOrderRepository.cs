@@ -7,7 +7,7 @@ namespace Infrastructure.Repositories;
 
 public class CustomizedOrderRepository(AppDbContext context) : GenericRepository<CustomizedOrder>(context), ICustomizedOrderRepository
 {
-    public async Task AddRange(List<CustomizedOrder> Customizations)
+    public async Task AddRangeAsync(List<CustomizedOrder> Customizations)
     {
 
       await context.CustomizedOrders.AddRangeAsync(Customizations);

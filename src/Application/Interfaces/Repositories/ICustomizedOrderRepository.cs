@@ -5,5 +5,5 @@ namespace Application.Interfaces.Repositories;
 
 public interface ICustomizedOrderRepository : IGenericRepository<CustomizedOrder>
 {
-   Task AddRange(List<CustomizedOrder> Customizations);
+   Task AddRangeAsync(List<CustomizedOrder> Customizations);
 }

@@ -9,25 +9,15 @@ using Domain.Entities;
 
 namespace Application.CustomizedOrders.Features.Commands;
 
-public partial class CustomizedOrderCommands : ICustomizedOrderCommands
-{
-    public Task<Result> AddRangeAsync(List<CreateCustomizedOrderRequest> request)
-    {
-        throw new NotImplementedException();
-    }
+public partial class CustomizedOrderCommands
 
+{
     public Task<Result<int>> CreatCustomizedOrderAsync(CreateCustomizedOrderRequest request)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<bool>> DeleteCustomizedOrderAsync(int ID)
-    {
-        throw new NotImplementedException();
-    }
+    
 
-    public Task<Result<bool>> UpdateCustomizedOrderAsync(UpdateCustomizedOrderRequest request)
-    {
-        throw new NotImplementedException();
-    }
+  
 }

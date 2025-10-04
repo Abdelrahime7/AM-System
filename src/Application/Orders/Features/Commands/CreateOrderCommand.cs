@@ -3,7 +3,6 @@ using Application.Delivery.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.CustomerInterfaces;
 using Application.Interfaces.CustomizedOrderInterfaces;
-using Application.Interfaces.DeliveryInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
@@ -31,43 +30,52 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
 
 
 
-    public async Task<Result<int>> CreatOrderAsync(OrderSession CreatOrdersession)
+    public async Task<Result<int>> CreateOrderAsync(OrderSession createOrderSession)
     {
-        if (CreatOrdersession == null || CreatOrdersession.Order == null)
-        {
-            return Result<int>.Failure($"Error creating an Order");
-        }
-       
-       
+        if (createOrderSession?.Order == null || createOrderSession.Customer == null)
+            return Result<int>.Failure("No order requests provided.");
+
         try
         {
-            if (CreatOrdersession.Customer != null)
-            {
-                var Customer = await _Customercommands.CreateCustomerAsync(CreatOrdersession.Customer);
-            }
-            var order = _mapper.ToEntity(CreatOrdersession.Order);
-            await _OrderRepository.AddAsync(order);
-             
-            if (CreatOrdersession.OrderDetails.Count != 0)
-            {
-                CreatOrdersession.OrderDetails.ForEach(D => D!.OrderId = order.Id);
-                _Customercommands.
-            }
-            if (CreatOrdersession.Customizations.Count != 0)
-            {
+            var customerResult = await _Customercommands.CreateCustomerAsync(createOrderSession.Customer);
+            if (!customerResult.IsSuccess || customerResult.Value == default)
+                return Result<int>.Failure("Customer creation failed.");
 
+            createOrderSession.Order.CustomerId = customerResult.Value;
+            var order = _mapper.ToEntity(createOrderSession.Order);
+            await _OrderRepository.AddAsync(order);
+
+            if (createOrderSession.OrderDetails?.Any() == true)
+            {
+                createOrderSession.OrderDetails
+                    .Where(d => d != null)
+                    .ToList()
+                    .ForEach(d => d.OrderId = order.Id);
+
+                await _orderDetailCommands.AddRangeAsync(createOrderSession.OrderDetails);
+            }
+
+            if (createOrderSession.Customizations?.Any() == true)
+            {
+                createOrderSession.Customizations
+                    .Where(c => c != null)
+                    .ToList()
+                    .ForEach(c => c.OrderId = order.Id);
+
+                await _customizedOrderCommands.AddRangeAsync(createOrderSession.Customizations);
             }
 
             return Result<int>.Success(order.Id);
         }
         catch (Exception ex)
         {
-            return Result<int>.Failure($"Error creating customer: {ex.Message}");
+            // Optionally log ex
+            return Result<int>.Failure($"Failed to create order: {ex.Message}");
         }
-
     }
 
-  
 
-   
+
+
+
 }
