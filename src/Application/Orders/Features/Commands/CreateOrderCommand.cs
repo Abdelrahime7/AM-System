@@ -30,7 +30,7 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
 
 
 
-    public async Task<Result<int>> CreateOrderAsync(OrderSession createOrderSession)
+    public async Task<Result<int>> CreatOrderAsync(OrderSession createOrderSession)
     {
         if (createOrderSession?.Order == null || createOrderSession.Customer == null)
             return Result<int>.Failure("No order requests provided.");
