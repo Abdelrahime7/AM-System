@@ -1,12 +1,7 @@
 namespace Application.AffiliatesBalance.DTOs;
 
-public record CreatetAffiliateBalanceRequest
+public record CreateAffiliateBalanceRequest
 {
- 
         public decimal Amount { get; set; }
-
         public int AffiliateId { get; set; }
-    
-
-
 }
