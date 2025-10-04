@@ -5,6 +5,7 @@ namespace Application.Orders.DTOs;
 
 public record UpdateOrderRequest
 {
+    public int OrderId { get; set; }
     public string? OrderRef { get; set; }
 
     public OrderType? OrderType { get; set; }
