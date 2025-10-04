@@ -12,7 +12,7 @@ namespace Application.OrderDetails.Features.Commands;
 
 public partial class OrderDetailCommands : IOrderDetailCommands
 {
-    public Task<Result> AddRangeAsync(List<OrderDetail> request)
+    public Task<Result> AddRangeAsync(List<CreateOrderDetailRequest> request)
     {
         throw new NotImplementedException();
     }
