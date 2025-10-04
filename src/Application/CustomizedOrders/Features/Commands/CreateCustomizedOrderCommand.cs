@@ -11,6 +11,11 @@ namespace Application.CustomizedOrders.Features.Commands;
 
 public partial class CustomizedOrderCommands : ICustomizedOrderCommands
 {
+    public Task<Result> AddRangeAsync(List<CreateCustomizedOrderRequest> request)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Result<int>> CreatCustomizedOrderAsync(CreateCustomizedOrderRequest request)
     {
         throw new NotImplementedException();

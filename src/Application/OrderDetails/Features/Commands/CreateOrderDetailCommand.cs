@@ -1,4 +1,5 @@
 using Application.Common.Models;
+using Application.CustomizedOrders.DTOs;
 using Application.Delivery.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.DeliveryInterfaces;
@@ -11,6 +12,11 @@ namespace Application.OrderDetails.Features.Commands;
 
 public partial class OrderDetailCommands : IOrderDetailCommands
 {
+    public Task<Result> AddRangeAsync(List<OrderDetail> request)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Result<int>> CreatOrderDetailAsync(CreateOrderDetailRequest request)
     {
         throw new NotImplementedException();
