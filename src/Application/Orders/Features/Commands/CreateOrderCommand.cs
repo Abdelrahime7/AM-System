@@ -11,18 +11,14 @@ namespace Application.Orders.Features.Commands;
 
 public partial class OrderCommands : IOrderCommands
 {
-    public Task<Result<int>> CreatOrderAsync(CreateOrderRequest request)
+    public Task<Result<int>> CreatOrderAsync(OrderSession CreatOrdersession)
     {
-        throw new NotImplementedException();
+        
+
+
     }
 
-    public Task<Result<bool>> DeleteOrderAsync(int ID)
-    {
-        throw new NotImplementedException();
-    }
+  
 
-    public Task<Result<bool>> UpdateOrderAsync(UpdateOrderRequest request)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

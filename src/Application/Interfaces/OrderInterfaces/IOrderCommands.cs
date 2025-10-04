@@ -9,7 +9,7 @@ namespace Application.Interfaces.OrderInterfaces
 {
     public interface IOrderCommands
     {
-        Task<Result<int>> CreatOrderAsync(CreateOrderRequest request);
+        Task<Result<int>> CreatOrderAsync(OrderSession CreatOrdersession);
         Task<Result<bool>> DeleteOrderAsync(int ID);
         Task<Result<bool>> UpdateOrderAsync(UpdateOrderRequest request);
        
