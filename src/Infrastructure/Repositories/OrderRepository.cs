@@ -16,6 +16,9 @@ public class OrderRepository(AppDbContext context) : GenericRepository<Order>(co
         .Include(o=>o.Driver)
         .Include(o=>o.Reviewer)
         .Include(o => o.DeliveryCompany)
+        .Include(o=>o.Customizations)
+        .Include(o => o.OrderDetails)
+
         .FirstOrDefaultAsync(o => o.Id == id);
     }
     public override async Task AddAsync(Order entity)

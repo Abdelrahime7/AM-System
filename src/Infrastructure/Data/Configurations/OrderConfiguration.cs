@@ -65,5 +65,21 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(o => o.DeliveredAt)
             .HasColumnName("delivered_at")
             .HasColumnType("timestamp with time zone");
+
+        // relationships
+        builder.HasOne(o => o.Customer)
+            .WithMany(c => c.Orders)
+            .HasForeignKey(o => o.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict); // or .Cascade if deletion should propagate
+
+        builder.HasMany(o => o.OrderDetails)
+            .WithOne(d => d.Order)
+            .HasForeignKey(d => d.OrderId)
+            .OnDelete(DeleteBehavior.Cascade); // or Restrict, depending on your domain rules
+
+        builder.HasMany(o => o.Customizations)
+            .WithOne(c => c.Order)
+            .HasForeignKey(c => c.OrderId)
+            .OnDelete(DeleteBehavior.Cascade); // or Restrict
     }
 }
