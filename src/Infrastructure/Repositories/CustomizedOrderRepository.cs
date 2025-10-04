@@ -12,4 +12,9 @@ public class CustomizedOrderRepository(AppDbContext context) : GenericRepository
 
       await context.CustomizedOrders.AddRangeAsync(Customizations);
     }
+    public override void Update(CustomizedOrder detail)
+    {
+        context.CustomizedOrders.Update(detail);
+
+    }
 }

@@ -8,6 +8,7 @@ namespace Application.Orders.DTOs;
 public class OrderSession
 
 {
+   public CreateCustomerRequest?  Customer { get; set; }
    public CreateOrderRequest? Order { get; set; }
    public List<CreateCustomizedOrderRequest?> Customizations { get; set; } = [];
    public List<CreateOrderDetailRequest?> OrderDetails { get; set; } = [];

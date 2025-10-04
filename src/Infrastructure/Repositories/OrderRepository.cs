@@ -10,6 +10,10 @@ public class OrderRepository(AppDbContext context) : GenericRepository<Order>(co
     {
         await context.Orders.AddAsync(entity);
     }
+    public override void Update(Order order)
+    {
+     _context.Orders.Update(order);
+    }
     public async Task CommitAsync(CancellationToken cancellationToken = default)
     {
         await context.SaveChangesAsync(cancellationToken);

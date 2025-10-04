@@ -10,4 +10,9 @@ public class OrderDetailRepository(AppDbContext context) : GenericRepository<Ord
     {
         await context.OrderDetails.AddRangeAsync(details);
     }
+    public override void Update(OrderDetail detail)
+    {
+        context.OrderDetails.Update(detail);
+
+    }
 }

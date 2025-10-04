@@ -23,6 +23,7 @@ public partial class OrderCommands
                     return Result<bool>.Failure("Order Not Found");
                 
                 _mapper.ToUpdateEntity(Order, request.Order);
+                _OrderRepository.Update(Order);
             }
 
             if (request.OrderDetails!=null || request.OrderDetails.Any())
@@ -36,6 +37,7 @@ public partial class OrderCommands
                 request.Customizations.ForEach(async C =>
                await _customizedOrderCommands.UpdateCustomizedOrderAsync(C));
             }
+           await _OrderRepository.CommitAsync();
 
             return Result<bool>.Success(true);
 
