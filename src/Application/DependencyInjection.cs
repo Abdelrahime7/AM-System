@@ -62,7 +62,7 @@ public static class DependencyInjection
         services.AddScoped<IProductCommands, ProductCommands>();
         services.AddScoped<IProductQueries, ProductQueries>();
         // Affiliate Services
-        services.AddScoped<IAffiliateBalanceCommands, AffiliatesBalanceCommands>();
+        services.AddScoped<IAffiliateBalanceCommands, AffiliateBalanceCommands>();
         services.AddScoped<IAffiliateBalanceQueries, AffiliateBalanceQueries>();
         // AuditLog Services
         services.AddScoped<IAuditLogCommands, AuditLogCommands>();
