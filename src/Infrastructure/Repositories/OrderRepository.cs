@@ -1,11 +1,23 @@
 using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
 public class OrderRepository(AppDbContext context) : GenericRepository<Order>(context), IOrderRepository
 {
+
+    public override async Task<Order?> GetByIdAsync(int id)
+    {
+        return await context.Orders
+        .Include(o => o.Customer)
+        .Include(o=>o.Affiliate)
+        .Include(o=>o.Driver)
+        .Include(o=>o.Reviewer)
+        .Include(o => o.DeliveryCompany)
+        .FirstOrDefaultAsync(o => o.Id == id);
+    }
     public override async Task AddAsync(Order entity)
     {
         await context.Orders.AddAsync(entity);
