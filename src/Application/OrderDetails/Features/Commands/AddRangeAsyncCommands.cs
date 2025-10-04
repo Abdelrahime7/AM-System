@@ -12,7 +12,7 @@ public partial class OrderDetailCommands (IOrderDetailRepository repository,
     IEntityMapper<OrderDetail, CreateOrderDetailRequest, UpdateOrderDetailRequest, OrderDetailResponse> mapper) : IOrderDetailCommands
 {
     private readonly IOrderDetailRepository _repository= repository;
-    private IEntityMapper<OrderDetail, CreateOrderDetailRequest,
+    private readonly IEntityMapper<OrderDetail, CreateOrderDetailRequest,
         UpdateOrderDetailRequest, OrderDetailResponse> _mapper = mapper;
     public async Task<Result> AddRangeAsync(List<CreateOrderDetailRequest> orderDetailRequests)
     {

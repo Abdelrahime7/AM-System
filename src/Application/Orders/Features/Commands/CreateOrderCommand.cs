@@ -65,6 +65,7 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
                 await _customizedOrderCommands.AddRangeAsync(createOrderSession.Customizations);
             }
 
+           await _OrderRepository.CommitAsync();
             return Result<int>.Success(order.Id);
         }
         catch (Exception ex)
@@ -72,6 +73,7 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
             // Optionally log ex
             return Result<int>.Failure($"Failed to create order: {ex.Message}");
         }
+
     }
 
 
