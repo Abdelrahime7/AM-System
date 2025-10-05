@@ -7,6 +7,7 @@ using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
 using Application.Orders.DTOs;
+using Application.Orders.DTOs.Session;
 using Domain.Entities;
 
 namespace Application.Orders.Features.Commands;
@@ -30,7 +31,7 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
 
 
 
-    public async Task<Result<int>> CreatOrderAsync(OrderSession createOrderSession)
+    public async Task<Result<int>> CreatOrderAsync(CreatOrderSession createOrderSession)
     {
         if (createOrderSession?.Order == null || createOrderSession.Customer == null)
             return Result<int>.Failure("No order requests provided.");

@@ -1,7 +1,7 @@
 using Application.Common.Models;
 using Application.Customers.DTOs;
 using Application.Delivery.DTOs;
-using Application.Orders.DTOs;
+using Application.Orders.DTOs.Session;
 using Domain.Entities;
 
 namespace Application.Orders.Features.Commands;

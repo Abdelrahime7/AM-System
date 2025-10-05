@@ -19,4 +19,6 @@ public class CustomerRepository(AppDbContext context) : GenericRepository<Custom
     {
         await context.Customers. AddAsync(entity);
     }
+
+  
 }
