@@ -1,16 +1,10 @@
 using Application.Common.Models;
-using Application.CustomizedOrders.DTOs;
-using Application.Interfaces.OrderInterfaces;
-using Application.OrderDetails.DTOs;
-using Application.Orders.DTOs;
-using Application.Orders.DTOs.Session;
 using Domain.Entities;
 using Domain.Enums;
-using System.Collections.Generic;
 
-namespace Application.Orders.Features.Queries;
+namespace Application.Orders.Features.Commands;
 
-public partial class OrderQueries
+public partial class OrderCommands
 {
     public async Task<Result<bool>> ChangeOrderStatusAsync(Order order,OrderStatus status)
     {
@@ -21,7 +15,7 @@ public partial class OrderQueries
                 return Result<bool>.Failure("No order found");
 
             order.Status = status;
-            _repository.Update(order);
+            _OrderRepository.Update(order);
 
             return Result<bool>.Success(true);
         }

@@ -14,6 +14,7 @@ namespace Application.Interfaces.OrderInterfaces
         Task<Result<bool>> DeleteOrderAsync(int ID);
         Task<Result<bool>> UpdateOrderAsync(UpdateOrderSession request);
         Task<Result<bool>> AssignOrderToDelivery(Order order);
+        Task<Result<bool>> ChangeOrderStatusAsync(Order order, OrderStatus status);
 
 
 
