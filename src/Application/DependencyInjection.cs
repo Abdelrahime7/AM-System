@@ -24,6 +24,7 @@ using Application.Interfaces.UserInterfaces;
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.OrderDetails.Features.Commands;
 using Application.OrderDetails.Features.Queries;
+using Application.Orders.Delivery;
 using Application.Orders.Features.Commands;
 using Application.Orders.Features.Queries;
 using Application.ProductImages.Features.Commands;
@@ -95,9 +96,11 @@ public static class DependencyInjection
         services.AddScoped<IWithdrawalCommands, WithdrawalCommands>();
         services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
 
-
-
-
+        //delivery Strategies
+        services.AddScoped<LocalDriverDelivery>();
+        services.AddScoped<ExternalCompanyDeliveryStrategy>();
+        //
+        services.AddHttpClient();
 
         // validators
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
