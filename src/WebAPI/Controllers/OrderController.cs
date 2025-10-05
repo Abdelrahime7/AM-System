@@ -1,4 +1,5 @@
 using Application.Interfaces.OrderInterfaces;
+using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
 using Domain.Entities;
 using Domain.Enums;
@@ -103,11 +104,11 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
 
-    public async Task<ActionResult<bool>> ChangeOrderStatus(Order request, OrderStatus status)
+    public async Task<ActionResult<bool>> ChangeOrderStatus(UpdateOrderRequest request)
     {
-        if (request.Id < 1)
+        if (request.OrderId < 1)
             return NoContent();
-        var result = await commands.ChangeOrderStatusAsync(request, status);
+        var result = await commands.ChangeOrderStatusAsync(request);
 
         if (!result.IsSuccess)
             return BadRequest("Customer not deleted");
