@@ -6,6 +6,7 @@ using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
+using Application.Orders.Delivery;
 using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
 using Domain.Entities;
@@ -15,6 +16,8 @@ namespace Application.Orders.Features.Commands;
 public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCommands Customercommands,
     ICustomizedOrderCommands customizedOrderCommands,
     IOrderDetailCommands orderDetailCommands,
+    LocalDriverDelivery local,
+    ExternalCompanyDeliveryStrategy external,
     IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest,
        OrderResponse> mapper) : IOrderCommands
 {
@@ -24,6 +27,8 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
     private readonly ICustomizedOrderCommands _customizedOrderCommands = customizedOrderCommands;
     private readonly IOrderDetailCommands _orderDetailCommands = orderDetailCommands;
 
+    private readonly LocalDriverDelivery _local = local;
+    private readonly ExternalCompanyDeliveryStrategy _external= external;
 
     private readonly IEntityMapper<Order, CreateOrderRequest
         , UpdateOrderRequest, OrderResponse> _mapper = mapper;

@@ -13,7 +13,9 @@ namespace Application.Interfaces.OrderInterfaces
         Task<Result<int>> CreatOrderAsync(CreatOrderSession CreatOrdersession);
         Task<Result<bool>> DeleteOrderAsync(int ID);
         Task<Result<bool>> UpdateOrderAsync(UpdateOrderSession request);
-       
+        Task<Result<bool>> AssignOrderToDelivery(Order order);
+
+
 
     }
 }
