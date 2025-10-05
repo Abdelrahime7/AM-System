@@ -12,11 +12,8 @@ namespace Application.Orders.Features.Queries;
 
 public partial class OrderQueries 
 {
-    public async Task<Result<OrderStatus>> GetOrderStatusAsync(Order order)
-    {
-        throw new NotImplementedException();
-           
-    }
+    public async Task<OrderStatus> GetOrderStatusAsync(Order order)=>
+        order.Status;
 
-   
+
 }
