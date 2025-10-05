@@ -1,14 +1,19 @@
 ﻿using Application.Interfaces.OrderInterfaces;
+using Application.Interfaces.Repositories;
 using Domain.Entities;
 
 
 namespace Application.Orders.Delivery
 {
-    public class LocalDriverDelivery : IDeliveryStrategy
+    public class LocalDriverDelivery (int DriverID, IOrderRepository repository) : IDeliveryStrategy
     {
-        public Task AssignAsync(Order order)
-        {
-            throw new NotImplementedException();
+       private readonly int _DriverID = DriverID;
+       private readonly IOrderRepository _repository = repository;
+     public async Task AssignAsync(Order order)
+      {
+        order.DriverId = _DriverID;
+        _repository.Update(order);
+
         }
     }
 }
