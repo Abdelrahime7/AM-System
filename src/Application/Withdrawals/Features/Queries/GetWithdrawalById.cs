@@ -1,25 +1,24 @@
 using Application.Common.Models;
-using Application.Customers.DTOs;
-using Application.Delivery.DTOs;
-using Application.Interfaces.Common.Mappers;
-using Application.Interfaces.CustomerInterfaces;
-using Application.Interfaces.Repositories;
-using Application.Interfaces.WithdrawalInterfaces;
 using Application.Withdrawals.DTOs;
-using Domain.Entities;
 
 namespace Application.Withdrawals.Features.Queries;
 
-public partial class WithdrawalQueries : IWithdrawalQueries
+public partial class WithdrawalQueries
 {
-    public Task<Result<IEnumerable<WithdrawalResponse>>> GetAllWithdrawalsAsync()
+    public async Task<Result<WithdrawalResponse>> GetWithdrawalByIdAsync(int id)
     {
-        throw new NotImplementedException();
-    }
+        try
+        {
+            var withdrawal = await _repository.GetByIdAsync(id);
+            if (withdrawal == null)
+                return Result<WithdrawalResponse>.Failure("No Withdrawal Found");
 
-    public Task<Result<WithdrawalResponse>> GetWithdrawalByIDAsync(int id)
-    {
-        throw new NotImplementedException();
+            var response = _mapper.ToResponse(withdrawal);
+            return Result<WithdrawalResponse>.Success(response);
+        }
+        catch (Exception ex)
+        {
+            return Result<WithdrawalResponse>.Failure($"failed to fetch withdrawal: {ex.Message}");
+        }
     }
 }
-

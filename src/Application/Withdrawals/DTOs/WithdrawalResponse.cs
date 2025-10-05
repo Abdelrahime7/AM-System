@@ -1,4 +1,3 @@
-
 namespace Application.Withdrawals.DTOs;
 
 
@@ -15,9 +14,3 @@ public record WithdrawalResponse
     public int? ProcessedBy { get; set; }
     public string? ProcessedByName { get; set; }
 }
-
-
-
-
-
-

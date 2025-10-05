@@ -1,7 +1,5 @@
 using Application.Common.Models;
-using Application.Delivery.DTOs;
 using Application.Interfaces.Common.Mappers;
-using Application.Interfaces.DeliveryInterfaces;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.Withdrawals.DTOs;
@@ -9,20 +7,26 @@ using Domain.Entities;
 
 namespace Application.Withdrawals.Features.Commands;
 
-public partial class WithdrawalCommands : IWithdrawalCommands
+public partial class WithdrawalCommands(
+    IWithdrawalRepository repository,
+    IEntityMapper<Withdrawal, CreateWithdrawalRequest, UpdateWithdrawalRequest, WithdrawalResponse> mapper)
+    : IWithdrawalCommands
 {
-    public Task<Result<int>> CreatWithdrawalAsync(CreateWithdrawalRequest request)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly IWithdrawalRepository _repository = repository;
+    private readonly IEntityMapper<Withdrawal, CreateWithdrawalRequest, UpdateWithdrawalRequest, WithdrawalResponse> _mapper = mapper;
 
-    public Task<Result<bool>> DeleteWithdrawalAsync(int ID)
+    public async Task<Result<int>> CreateWithdrawalAsync(CreateWithdrawalRequest request)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Result<bool>> UpdateWithdrawalAsync(UpdateWithdrawalRequest request)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            var withdrawal = _mapper.ToEntity(request);
+            withdrawal.ProcessedAt = DateTime.UtcNow;
+            await _repository.AddAsync(withdrawal);
+            return Result<int>.Success(withdrawal.Id);
+        }
+        catch (Exception ex)
+        {
+            return Result<int>.Failure($"Error creating withdrawal: {ex.Message}");
+        }
     }
 }
