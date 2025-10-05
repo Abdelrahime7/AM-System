@@ -20,6 +20,7 @@ public partial class WithdrawalCommands(
         try
         {
             var withdrawal = _mapper.ToEntity(request);
+            withdrawal.ProcessedAt = DateTime.UtcNow;
             await _repository.AddAsync(withdrawal);
             return Result<int>.Success(withdrawal.Id);
         }
