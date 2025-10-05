@@ -10,8 +10,8 @@ namespace Application.Interfaces.OrderInterfaces
 {
     public interface IOrderQueries
     {
-        Task<Result<IEnumerable<RespnoseSession>>> GetAllOrdersAsync();
-        Task<Result<RespnoseSession>> GetOrderByIDAsync(int id);
+        Task<Result<IEnumerable<ResponseSession>>> GetAllOrdersAsync();
+        Task<Result<ResponseSession>> GetOrderByIDAsync(int id);
       
 
     }
