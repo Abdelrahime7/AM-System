@@ -1,18 +1,11 @@
-﻿
-
 using Application.Common.Models;
 using Application.Withdrawals.DTOs;
-using Domain.Entities;
-using Domain.Enums;
 
-namespace Application.Interfaces.WithdrawalInterfaces
+namespace Application.Interfaces.WithdrawalInterfaces;
+
+public interface IWithdrawalCommands
 {
-    public interface IWithdrawalCommands
-    {
-        Task<Result<int>> CreatWithdrawalAsync(CreateWithdrawalRequest request);
-        Task<Result<bool>> DeleteWithdrawalAsync(int ID);
-        Task<Result<bool>> UpdateWithdrawalAsync(UpdateWithdrawalRequest request);
-      
-
-    }
+    Task<Result<int>> CreateWithdrawalAsync(CreateWithdrawalRequest request);
+    Task<Result<bool>> DeleteWithdrawalAsync(int id);
+    Task<Result<bool>> UpdateWithdrawalAsync(UpdateWithdrawalRequest request);
 }
