@@ -4,7 +4,7 @@ namespace Application.Orders.DTOs;
 
 public class CreateOrderRequest
 {
-    public string OrderRef { get; set; } = string.Empty;
+    public string? OrderRef { get; set; } = string.Empty;
 
     public OrderType OrderType { get; set; }
 
