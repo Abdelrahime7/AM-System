@@ -1,6 +1,4 @@
-﻿
-
-using Application.Common.Models;
+﻿using Application.Common.Models;
 using Application.AffiliatesBalance.DTOs;
 
 namespace Application.Interfaces.AffiliateBalanceInterfaces
@@ -8,8 +6,7 @@ namespace Application.Interfaces.AffiliateBalanceInterfaces
     public interface IAffiliateBalanceQueries
     {
         Task<Result<IEnumerable<AffiliateBalanceResponse>>> GetAllAffiliateBalancesAsync();
-        Task<Result<AffiliateBalanceResponse>> GetAffiliateBalanceByIDAsync(int id);
-     
+        Task<Result<AffiliateBalanceResponse>> GetAffiliateBalanceByIdAsync(int id);
 
     }
 }
