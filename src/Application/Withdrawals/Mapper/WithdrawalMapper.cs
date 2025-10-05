@@ -1,9 +1,6 @@
-using Application.AuditsLog.DTOs;
-using Application.CustomizedOrders.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Application.Withdrawals.DTOs;
 using Domain.Entities;
-
 
 namespace Application.Withdrawals.Mapper;
 
@@ -12,16 +9,40 @@ public class WithdrawalMapper : IEntityMapper<Withdrawal, CreateWithdrawalReques
 {
     public Withdrawal ToEntity(CreateWithdrawalRequest dto)
     {
-        throw new NotImplementedException();
+        return new Withdrawal
+        {
+            Amount = dto.Amount,
+            Status = dto.Status,
+            AffiliateId = dto.AffiliateId,
+            AffiliateBalanceId = dto.AffiliateBalanceId,
+            ProcessedBy = dto.ProcessedBy
+        };
     }
 
     public WithdrawalResponse ToResponse(Withdrawal entity)
     {
-        throw new NotImplementedException();
+        return new WithdrawalResponse
+        {
+            Id = entity.Id,
+            Amount = entity.Amount,
+            Status = entity.Status.ToString(),
+            ProcessedAt = entity.ProcessedAt,
+            AffiliateId = entity.AffiliateId,
+            AffiliateName = entity.Affiliate.FullName,
+            AffiliateBalanceId = entity.AffiliateBalanceId,
+            CurrentBalance = entity.AffiliateBalance.Amount,
+            ProcessedBy = entity.ProcessedBy,
+            ProcessedByName = entity.ProcessedByUser?.FullName
+        };
     }
 
     public void ToUpdateEntity(Withdrawal entity, UpdateWithdrawalRequest dto)
     {
-        throw new NotImplementedException();
+        entity.Amount = dto.Amount ?? entity.Amount;
+        entity.Status = dto.Status ?? entity.Status;
+        entity.ProcessedAt = dto.ProcessedAt ?? entity.ProcessedAt;
+        entity.AffiliateId = dto.AffiliateId ?? entity.AffiliateId;
+        entity.AffiliateBalanceId = dto.AffiliateBalanceId ?? entity.AffiliateBalanceId;
+        entity.ProcessedBy = dto.ProcessedBy ?? entity.ProcessedBy;
     }
 }
