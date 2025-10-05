@@ -19,6 +19,30 @@ namespace Application.Orders.Delivery
             _integrationRepository = integrationRepository;
         }
 
+
+        /// <summary>
+        /// Assigns the given order to an external delivery company by invoking its API.
+        /// </summary>
+        /// <param name="order">The order to be assigned for delivery.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when no active delivery integration is available or the API endpoint is missing.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when the order lacks required customer or item details.
+        /// </exception>
+        /// <remarks>
+        /// This method performs the following steps:
+        /// <list type="number">
+        ///   <item>Retrieves the delivery integration configuration.</item>
+        ///   <item>Validates the presence of API credentials and endpoint.</item>
+        ///   <item>Constructs an HTTP client with required headers.</item>
+        ///   <item>Builds a payload containing order, customer, and customization data.</item>
+        ///   <item>Sends the payload via POST to the external API.</item>
+        ///   <item>Parses the response and updates the order with delivery metadata.</item>
+        /// </list>
+        /// </remarks>
+
         public async Task AssignAsync(Order order)
         {
 
