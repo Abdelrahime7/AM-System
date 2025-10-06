@@ -97,7 +97,8 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
 
         return Ok(result.Value);
     }
-    [HttpPatch]
+
+    [HttpPatch("api/Orders/ChangeStatus")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -116,7 +117,8 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
         return Ok(result.Value);
     }
 
-    [HttpPatch]
+   
+    [HttpPatch("api/Orders/AssignDelivery")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
