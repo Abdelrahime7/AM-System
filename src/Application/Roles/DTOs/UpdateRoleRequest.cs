@@ -4,5 +4,6 @@ namespace Application.Roles.DTOs;
 
 public record UpdateRoleRequest
 {
-    public UserRole RoleType { get; set; }
+    public int Id { get; set; }
+    public UserRole? RoleType { get; set; }
 }
