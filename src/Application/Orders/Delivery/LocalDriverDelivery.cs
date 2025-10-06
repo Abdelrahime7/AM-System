@@ -5,16 +5,18 @@ using Domain.Entities;
 
 namespace Application.Orders.Delivery
 {
-    public class LocalDriverDelivery (int DriverID, IOrderRepository repository) : ILocalDeliveryStrategy
+    public class LocalDriverDelivery (IOrderRepository repository,IUserRepository userRepository) : ILocalDeliveryStrategy
     {
-        private readonly int _DriverID = DriverID;
        private readonly IOrderRepository _repository = repository;
-
+        private readonly IUserRepository _userRepository = userRepository;
       
 
         public async Task AssignAsync(Order order)
       {
-        order.DriverId = _DriverID;
+            var driver = await _userRepository.GetDriver();
+
+            
+        order.DriverId = driver.Id;
         _repository.Update(order);
 
       }
