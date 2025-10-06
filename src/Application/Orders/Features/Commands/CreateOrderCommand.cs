@@ -6,6 +6,7 @@ using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
+using Application.Interfaces.UnitOfWorks;
 using Application.Orders.Delivery;
 using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
@@ -13,19 +14,14 @@ using Domain.Entities;
 
 namespace Application.Orders.Features.Commands;
 
-public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCommands Customercommands,
-    ICustomizedOrderCommands customizedOrderCommands,
-    IOrderDetailCommands orderDetailCommands,
+public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
     ILocalDeliveryStrategy local,
     IExternallDeliverStrategy external,
     IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest,
        OrderResponse> mapper) : IOrderCommands
 {
-  
-    private readonly IOrderRepository _OrderRepository= orderRepository;
-    private readonly ICustomerCommands _Customercommands = Customercommands;
-    private readonly ICustomizedOrderCommands _customizedOrderCommands = customizedOrderCommands;
-    private readonly IOrderDetailCommands _orderDetailCommands = orderDetailCommands;
+
+    private readonly IOrderUnitOfWork _UnitOfWork=unitOfWork; 
 
     private readonly ILocalDeliveryStrategy _local = local;
     private readonly IExternallDeliverStrategy _external = external;
@@ -43,13 +39,14 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
 
         try
         {
-            var customerResult = await _Customercommands.CreateCustomerAsync(createOrderSession.Customer);
-            if (!customerResult.IsSuccess || customerResult.Value == default)
+            var customerResult =  await _UnitOfWork.Customers.CreateCustomerAsync(createOrderSession.Customer);
+            if (!customerResult.IsSuccess )
                 return Result<int>.Failure("Customer creation failed.");
 
             createOrderSession.Order.CustomerId = customerResult.Value;
+
             var order = _mapper.ToEntity(createOrderSession.Order);
-            await _OrderRepository.AddAsync(order);
+            await _UnitOfWork.orderRepository.AddAsync(order);
 
             if (createOrderSession.OrderDetails?.Any() == true)
             {
@@ -58,7 +55,7 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
                     .ToList()
                     .ForEach(d => d.OrderId = order.Id);
 
-                await _orderDetailCommands.AddRangeAsync(createOrderSession.OrderDetails);
+                await _UnitOfWork.OrderDetails.AddRangeAsync(createOrderSession.OrderDetails);
             }
 
             if (createOrderSession.Customizations?.Any() == true)
@@ -68,10 +65,11 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
                     .ToList()
                     .ForEach(c => c.OrderId = order.Id);
 
-                await _customizedOrderCommands.AddRangeAsync(createOrderSession.Customizations);
+                await _UnitOfWork.CustomizedOrders.AddRangeAsync(createOrderSession.Customizations);
             }
 
-           await _OrderRepository.CommitAsync();
+            await _UnitOfWork.SaveChangesAsync();
+            
             return Result<int>.Success(order.Id);
         }
         catch (Exception ex)

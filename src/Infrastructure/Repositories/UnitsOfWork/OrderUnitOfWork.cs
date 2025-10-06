@@ -12,8 +12,7 @@ namespace Infrastructure.Repositories.UnitsOfWork
     {
         private readonly AppDbContext _context;
 
-       
-        public IOrderCommands Orders { get; }
+      
         public ICustomerCommands Customers { get; }
         public ICustomizedOrderCommands CustomizedOrders { get; }
         public IOrderDetailCommands OrderDetails { get; }
@@ -28,7 +27,6 @@ namespace Infrastructure.Repositories.UnitsOfWork
             IOrderDetailCommands orderDetails)
         {
             _context = context;
-            Orders = orders;
             Customers = customers;
             CustomizedOrders = customizedOrders;
             OrderDetails = orderDetails;
