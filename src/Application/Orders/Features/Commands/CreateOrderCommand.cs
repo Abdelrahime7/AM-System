@@ -16,8 +16,8 @@ namespace Application.Orders.Features.Commands;
 public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCommands Customercommands,
     ICustomizedOrderCommands customizedOrderCommands,
     IOrderDetailCommands orderDetailCommands,
-    LocalDriverDelivery local,
-    ExternalCompanyDeliveryStrategy external,
+    ILocalDeliveryStrategy local,
+    IExternallDeliverStrategy external,
     IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest,
        OrderResponse> mapper) : IOrderCommands
 {
@@ -27,8 +27,8 @@ public partial class OrderCommands( IOrderRepository orderRepository,ICustomerCo
     private readonly ICustomizedOrderCommands _customizedOrderCommands = customizedOrderCommands;
     private readonly IOrderDetailCommands _orderDetailCommands = orderDetailCommands;
 
-    private readonly LocalDriverDelivery _local = local;
-    private readonly ExternalCompanyDeliveryStrategy _external= external;
+    private readonly ILocalDeliveryStrategy _local = local;
+    private readonly IExternallDeliverStrategy _external = external;
 
     private readonly IEntityMapper<Order, CreateOrderRequest
         , UpdateOrderRequest, OrderResponse> _mapper = mapper;

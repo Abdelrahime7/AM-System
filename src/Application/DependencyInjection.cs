@@ -97,8 +97,9 @@ public static class DependencyInjection
         services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
 
         //delivery Strategies
-        services.AddScoped<LocalDriverDelivery>();
-        services.AddScoped<ExternalCompanyDeliveryStrategy>();
+        services.AddScoped<ILocalDeliveryStrategy, LocalDriverDelivery>();
+        services.AddScoped<IExternallDeliverStrategy, ExternalCompanyDeliveryStrategy>();
+       
         //
         services.AddHttpClient();
 

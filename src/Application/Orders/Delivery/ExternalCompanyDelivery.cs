@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 
 namespace Application.Orders.Delivery
 {
-    public class ExternalCompanyDeliveryStrategy : IDeliveryStrategy
+    public class ExternalCompanyDeliveryStrategy : IExternallDeliverStrategy
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IDeliveryRepository _integrationRepository;
