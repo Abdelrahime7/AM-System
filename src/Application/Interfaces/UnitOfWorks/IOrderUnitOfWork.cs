@@ -14,6 +14,7 @@ namespace Application.Interfaces.UnitOfWorks
 
     public interface IOrderUnitOfWork : IDisposable
     {
+        IOrderRepository orderRepository { get; }
         IOrderCommands Orders { get; }
         ICustomerCommands Customers { get; }
         ICustomizedOrderCommands CustomizedOrders { get; }

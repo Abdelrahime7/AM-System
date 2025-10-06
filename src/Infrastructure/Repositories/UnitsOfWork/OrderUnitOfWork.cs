@@ -2,6 +2,7 @@
 using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
+using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Infrastructure.Data;
 
@@ -11,10 +12,13 @@ namespace Infrastructure.Repositories.UnitsOfWork
     {
         private readonly AppDbContext _context;
 
+       
         public IOrderCommands Orders { get; }
         public ICustomerCommands Customers { get; }
         public ICustomizedOrderCommands CustomizedOrders { get; }
         public IOrderDetailCommands OrderDetails { get; }
+
+        public IOrderRepository orderRepository => throw new NotImplementedException();
 
         public OrderUnitOfWork(
             AppDbContext context,
