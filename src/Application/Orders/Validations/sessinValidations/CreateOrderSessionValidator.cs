@@ -25,11 +25,9 @@ namespace Application.Orders.Validations.sessinValidations
                 .SetValidator(new CreateOrderRequestValidator());
 
             RuleForEach(x => x.Customizations)
-                .NotNull().WithMessage("Customization entry cannot be null.")
                 .SetValidator(new CreateCustomizedOrderRequestValidator());
 
             RuleForEach(x => x.OrderDetails)
-                .NotNull().WithMessage("Order detail entry cannot be null.")
                 .SetValidator(new CreateOrderDetailRequestValidator());
         }
     }

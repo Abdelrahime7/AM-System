@@ -15,7 +15,7 @@ public partial class OrderQueries
         try
         {
             var Orders = await _repository.GetAllAsync();
-            if (Orders.Count() < 0)
+            if (!Orders.Any())
             {
                 return Result<IEnumerable<ResponseSession>>.Failure("No Orders found");
             }

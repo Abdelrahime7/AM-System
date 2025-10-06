@@ -12,9 +12,6 @@ namespace Application.Interfaces.OrderInterfaces
     {
         Task<Result<IEnumerable<ResponseSession>>> GetAllOrdersAsync();
         Task<Result<ResponseSession>> GetOrderByIDAsync(int id);
-        Task <Result<bool>> ChangeOrderStatusAsync(Order order,OrderStatus status);
-
-
 
     }
 }

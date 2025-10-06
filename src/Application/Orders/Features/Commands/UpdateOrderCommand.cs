@@ -26,18 +26,23 @@ public partial class OrderCommands
                 _OrderRepository.Update(Order);
             }
 
-            if (request.OrderDetails!=null || request.OrderDetails.Any())
+            if (request.OrderDetails != null && request.OrderDetails.Any())
             {
-                request.OrderDetails.ForEach(async D =>
-                  await  _orderDetailCommands.UpdateOrderDetailAsync(D));
-              
+                foreach (var detail in request.OrderDetails)
+                {
+                    await _orderDetailCommands.UpdateOrderDetailAsync(detail);
+                }
             }
-            if (request.Customizations!=null || request.Customizations.Any())
+
+            if (request.Customizations != null && request.Customizations.Any())
             {
-                request.Customizations.ForEach(async C =>
-               await _customizedOrderCommands.UpdateCustomizedOrderAsync(C));
+                foreach (var customization in request.Customizations)
+                {
+                    await _customizedOrderCommands.UpdateCustomizedOrderAsync(customization);
+                }
             }
-           await _OrderRepository.CommitAsync();
+
+            await _OrderRepository.CommitAsync();
 
             return Result<bool>.Success(true);
 

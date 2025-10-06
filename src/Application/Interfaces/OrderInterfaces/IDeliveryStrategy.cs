@@ -8,7 +8,7 @@ using Domain.Enums;
 
 namespace Application.Interfaces.OrderInterfaces
 {
-    public interface IDeliveryStrategy
+    public interface IDeliverStrategy
     {
         Task AssignAsync(Order order);
     }

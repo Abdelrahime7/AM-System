@@ -34,8 +34,7 @@ namespace Application.CustomizedOrders.Validations
             RuleFor(x => x.OrderId)
                 .GreaterThan(0).WithMessage("Order ID must be a positive integer.");
 
-            RuleFor(x => x.ImageUrls)
-                .NotEmpty().WithMessage("At least one image URL is required.");
+            
 
             RuleForEach(x => x.ImageUrls)
                 .NotEmpty().WithMessage("Image URL cannot be empty.")
