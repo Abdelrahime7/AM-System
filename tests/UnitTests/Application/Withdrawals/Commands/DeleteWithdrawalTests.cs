@@ -2,7 +2,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Moq;
 
-namespace WithdrawalRequestValidatorTests.Commands;
+namespace UnitTests.Application.Withdrawals.Commands;
 
 public partial class WithdrawalCommandsTests
 {

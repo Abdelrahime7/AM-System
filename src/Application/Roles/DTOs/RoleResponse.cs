@@ -1,16 +1,15 @@
-using Application.Users.DTOs;
+using Domain.Enums;
 
 namespace Application.Roles.DTOs;
 
+public record RoleResponse
+{
+    public int Id { get; set; }
 
-    public record RoleResponse
-    {
-        public int Id { get; set; }
+    public UserRole RoleType { get; set; } 
 
-        public string RoleType { get; set; } = string.Empty;
-
-        public List<UserResponse> Users { get; set; } = new();
-    }
+    public List<string> UsersName { get; set; } = null!;
+}
 
 
 

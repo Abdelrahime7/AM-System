@@ -1,27 +1,35 @@
-using Application.AuditsLog.DTOs;
-using Application.CustomizedOrders.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Application.Roles.DTOs;
 using Domain.Entities;
-
+using Domain.Enums;
 
 namespace Application.Roles.Mapper;
 
-public class RoleMapper : IEntityMapper<Role, CreateRoleRequest,
-    UpdateRoleRequest, RoleResponse>
+public class RoleMapper : IEntityMapper<Role, CreateRoleRequest, UpdateRoleRequest, RoleResponse>
 {
     public Role ToEntity(CreateRoleRequest dto)
     {
-        throw new NotImplementedException();
+        return new Role
+        {
+            RoleType = dto.RoleType
+        };
     }
 
     public RoleResponse ToResponse(Role entity)
     {
-        throw new NotImplementedException();
+        return new RoleResponse
+        {
+            Id = entity.Id,
+            RoleType = entity.RoleType,
+            UsersName = entity.Users.Select(x => x.FullName).ToList()
+        };
     }
 
     public void ToUpdateEntity(Role entity, UpdateRoleRequest dto)
     {
-        throw new NotImplementedException();
+        if (dto.RoleType.HasValue && Enum.IsDefined(typeof(UserRole), dto.RoleType.Value))
+        {
+            entity.RoleType = dto.RoleType.Value;
+        }
     }
 }
