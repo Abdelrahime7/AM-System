@@ -1,4 +1,6 @@
 ﻿using Application.Interfaces.CustomerInterfaces;
+using Application.Interfaces.CustomizedOrderInterfaces;
+using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
 using System;
@@ -12,13 +14,13 @@ namespace Application.Interfaces.UnitOfWorks
 
     public interface IOrderUnitOfWork : IDisposable
     {
-        IOrderRepository Orders { get; }
-        ICustomerRepository Customers { get; }
-        IDeliveryRepository Deliveries { get; }
-        ICustomizedOrderRepository CustomizedOrders { get; }
+        IOrderCommands Orders { get; }
+        ICustomerCommands Customers { get; }
+        ICustomizedOrderCommands CustomizedOrders { get; }
+        IOrderDetailCommands OrderDetails { get; }
 
-        
         Task<int> SaveChangesAsync();
     }
+
 
 }

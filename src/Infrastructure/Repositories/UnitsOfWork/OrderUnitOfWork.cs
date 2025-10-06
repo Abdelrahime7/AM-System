@@ -1,4 +1,7 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.CustomerInterfaces;
+using Application.Interfaces.CustomizedOrderInterfaces;
+using Application.Interfaces.OrderDetailInterfaces;
+using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.UnitOfWorks;
 using Infrastructure.Data;
 
@@ -8,34 +11,29 @@ namespace Infrastructure.Repositories.UnitsOfWork
     {
         private readonly AppDbContext _context;
 
-        public IOrderRepository Orders { get; }
-        public ICustomerRepository Customers { get; }
-        public IDeliveryRepository Deliveries { get; }
-        public ICustomizedOrderRepository CustomizedOrders { get; }
+        public IOrderCommands Orders { get; }
+        public ICustomerCommands Customers { get; }
+        public ICustomizedOrderCommands CustomizedOrders { get; }
+        public IOrderDetailCommands OrderDetails { get; }
 
         public OrderUnitOfWork(
             AppDbContext context,
-            IOrderRepository orders,
-            ICustomerRepository customers,
-            IDeliveryRepository deliveries,
-            ICustomizedOrderRepository customizedOrders)
+            IOrderCommands orders,
+            ICustomerCommands customers,
+            ICustomizedOrderCommands customizedOrders,
+            IOrderDetailCommands orderDetails)
         {
             _context = context;
             Orders = orders;
             Customers = customers;
-            Deliveries = deliveries;
             CustomizedOrders = customizedOrders;
+            OrderDetails = orderDetails;
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
+        public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public void Dispose() => _context.Dispose();
     }
+
 
 }
