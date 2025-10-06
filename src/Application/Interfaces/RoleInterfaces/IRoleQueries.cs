@@ -1,16 +1,12 @@
-﻿
-
-using Application.Common.Models;
+﻿using Application.Common.Models;
 using Application.Roles.DTOs;
+using Domain.Enums;
 
+namespace Application.Interfaces.RoleInterfaces;
 
-namespace Application.Interfaces.RoleInterfaces
+public interface IRoleQueries
 {
-    public interface IRoleQueries
-    {
-        Task<Result<IEnumerable<RoleResponse>>> GetAllRolesAsync();
-        Task<Result<RoleResponse>> GetRoleByIDAsync(int id);
-      
-
-    }
+    Task<Result<IEnumerable<RoleResponse>>> GetAllRolesAsync();
+    Task<Result<RoleResponse>> GetRoleByIdAsync(int id);
+    Task<Result<RoleResponse>> GetByRoleTypeAsync(UserRole roleType);
 }
