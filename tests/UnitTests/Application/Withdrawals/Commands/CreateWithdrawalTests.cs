@@ -2,11 +2,11 @@ using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
 using Application.Withdrawals.DTOs;
 using Application.Withdrawals.Features.Commands;
-using Domain.Enums;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
-namespace WithdrawalRequestValidatorTests.Commands;
+namespace UnitTests.Application.Withdrawals.Commands;
 
 public partial class WithdrawalCommandsTests
 {
