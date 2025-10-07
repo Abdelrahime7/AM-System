@@ -51,6 +51,7 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
             {
                 foreach (var detail in createOrderSession.OrderDetails.Where(d => d != null))
                 {
+
                     detail.OrderId = order.Id;
                 }
 

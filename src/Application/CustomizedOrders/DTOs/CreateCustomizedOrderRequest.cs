@@ -18,7 +18,7 @@ public record CreateCustomizedOrderRequest
 
     public required decimal CommissionAmount { get; set; }
 
-    public required int OrderId { get; set; }
+    public int? OrderId { get; set; }
 
     public required List<string> ImageUrls { get; set; } = new();
 }
