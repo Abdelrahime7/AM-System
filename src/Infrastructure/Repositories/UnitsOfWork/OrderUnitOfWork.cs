@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories.UnitsOfWork
 
         public OrderUnitOfWork(
             AppDbContext context,
-            IOrderCommands orders,
+     
             ICustomerCommands customers,
             ICustomizedOrderCommands customizedOrders,
             IOrderDetailCommands orderDetails)
