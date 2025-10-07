@@ -7,6 +7,7 @@ using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
+using Application.Interfaces.UnitOfWorks;
 using Application.OrderDetails.DTOs;
 using Application.Orders.Delivery;
 using Application.Orders.DTOs;
@@ -21,11 +22,12 @@ namespace UnitTests.Application.Orders.Commands
 {
     public partial class OrderCommandsTests
     {
-       
-        private readonly Mock<IOrderRepository> _orderRepoMock = new();
+        private readonly Mock<IOrderUnitOfWork> _UnitOfWorkMock;
         private readonly Mock<ICustomerCommands> _customerCommandsMock = new();
-        private readonly Mock<ICustomizedOrderCommands> _customizedOrderCommandsMock = new();
         private readonly Mock<IOrderDetailCommands> _orderDetailCommandsMock = new();
+        private readonly Mock<ICustomizedOrderCommands> _customizedOrderCommandsMock = new();
+        private readonly Mock<IOrderRepository> _orderRepoMock = new();
+
         private readonly Mock<ILocalDeliveryStrategy> _Local=new();
         private readonly Mock<IExternallDeliverStrategy> _External=new();
 
@@ -35,11 +37,14 @@ namespace UnitTests.Application.Orders.Commands
 
         public OrderCommandsTests()
         {
+
+            _UnitOfWorkMock.SetupGet(u => u.Customers).Returns(_customerCommandsMock.Object);
+            _UnitOfWorkMock.SetupGet(u => u.OrderDetails).Returns(_orderDetailCommandsMock.Object);
+            _UnitOfWorkMock.SetupGet(u => u.CustomizedOrders).Returns(_customizedOrderCommandsMock.Object);
+            _UnitOfWorkMock.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
             _orderCommands = new OrderCommands(
-                _orderRepoMock.Object,
-                _customerCommandsMock.Object,
-                _customizedOrderCommandsMock.Object,
-                _orderDetailCommandsMock.Object,
+
+                _UnitOfWorkMock.Object,
                 _Local.Object,
                 _External.Object,
                 _mapperMock.Object
