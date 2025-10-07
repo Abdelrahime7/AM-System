@@ -138,16 +138,16 @@ namespace UnitTests.Application.Orders.validators
                 Order = new CreateOrderRequest
                 {
                     OrderRef = "ORD-123",
-                    OrderType = OrderType.Product,
-                    Status = OrderStatus.Pending,
+                    //OrderType = OrderType.Product,
+                    //Status = OrderStatus.Pending,
                     AffiliateId = 1,
-                    CustomerId = 1,
+                    //CustomerId = 1,
                     ReviewedAt = DateTime.UtcNow.AddMinutes(-5),
                     DepartedAt = DateTime.UtcNow.AddMinutes(-10),
                     DeliveredAt = DateTime.UtcNow,
-                    DriverId = 1,
-                    DeliveryCompanyId = 2,
-                    ReviewedBy = 3
+                    //DriverId = 1,
+                    //DeliveryCompanyId = 2,
+                    //ReviewedBy = 3
                     
                 
                 },

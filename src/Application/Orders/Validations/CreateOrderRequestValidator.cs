@@ -14,8 +14,8 @@ namespace Application.Orders.Validations
             RuleFor(x => x.AffiliateId)
                 .GreaterThan(0).WithMessage("Affiliate ID must be a positive integer.");
 
-            RuleFor(x => x.CustomerId)
-                .GreaterThan(0).WithMessage("Customer ID must be a positive integer.");
+            //RuleFor(x => x.CustomerId)
+            //    .GreaterThan(0).WithMessage("Customer ID must be a positive integer.");
 
             RuleFor(x => x.ReviewedAt)
                 .LessThanOrEqualTo(DateTime.UtcNow).When(x => x.ReviewedAt.HasValue)
