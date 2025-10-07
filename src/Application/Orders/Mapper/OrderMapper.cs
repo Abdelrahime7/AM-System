@@ -3,6 +3,7 @@ using Application.CustomizedOrders.DTOs;
 using Application.Interfaces.Common.Mappers;
 using Application.Orders.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 
 
 namespace Application.Orders.Mapper;
@@ -16,21 +17,17 @@ public class OrderMapper : IEntityMapper<Order, CreateOrderRequest,
         return new Order
         {
             OrderRef = dto.OrderRef ?? string.Empty,
-            OrderType = dto.OrderType,
-            Status = dto.Status,
+            Status = OrderStatus.Pending,
             IsCustomized = dto.IsCustomized,
             ReviewedAt = dto.ReviewedAt,
             DepartedAt = dto.DepartedAt,
             DeliveredAt = dto.DeliveredAt,
             AffiliateId = dto.AffiliateId,
-            DriverId = dto.DriverId,
-            DeliveryCompanyId = dto.DeliveryCompanyId,
-            ReviewedBy = dto.ReviewedBy,
-
+           
+            
             // Navigation properties and collections are left null or handled via separate hydration
             Affiliate = null!,
             Customer = null!,
-            Driver = null,
             DeliveryCompany = null,
             Reviewer = null,
             OrderDetails = [],

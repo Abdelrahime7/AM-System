@@ -45,14 +45,14 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasColumnName("is_customized")
             .HasDefaultValue(false);
 
-        builder.HasOne(o => o.Driver)
-    .WithMany()
-    .HasForeignKey(o => o.DriverId)
-    .IsRequired(false); // This makes the FK optional
+      
 
 
         builder.Property(o => o.DeliveryCompanyId)
             .HasColumnName("delivery_company_id");
+
+        builder.Property(o => o.DriverId)
+           .HasColumnName("driver_id");
 
         builder.Property(o => o.ReviewedBy)
             .HasColumnName("reviewed_by");
@@ -70,6 +70,22 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasColumnType("timestamp with time zone");
 
         // relationships
+
+        builder.HasOne(o => o.Reviewer)
+            .WithMany()
+            .HasForeignKey(o => o.ReviewedBy)
+            .IsRequired(false);
+
+        builder.HasOne(o => o.DeliveryCompany)
+             .WithMany()
+             .HasForeignKey(o => o.DeliveryCompanyId)
+             .IsRequired(false);
+
+        builder.HasOne(o => o.Driver)
+               .WithMany()
+               .HasForeignKey(o => o.DriverId)
+               .IsRequired(false); // This makes the FK optional
+
         builder.HasOne(o => o.Customer)
             .WithMany(c => c.Orders)
             .HasForeignKey(o => o.CustomerId)
