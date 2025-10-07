@@ -15,7 +15,7 @@ namespace Application.Orders.Delivery
       {
             var driver = await _userRepository.GetDriver();
 
-            
+          // it will be audited
         order.DriverId = driver.Id;
         _repository.Update(order);
 

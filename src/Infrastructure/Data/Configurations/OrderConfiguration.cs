@@ -45,8 +45,11 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasColumnName("is_customized")
             .HasDefaultValue(false);
 
-        builder.Property(o => o.DriverId)
-            .HasColumnName("driver_id");
+        builder.HasOne(o => o.Driver)
+    .WithMany()
+    .HasForeignKey(o => o.DriverId)
+    .IsRequired(false); // This makes the FK optional
+
 
         builder.Property(o => o.DeliveryCompanyId)
             .HasColumnName("delivery_company_id");
