@@ -40,7 +40,11 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
             createOrderSession.Order.CustomerId = customerResult.Value;
 
             var order = _mapper.ToEntity(createOrderSession.Order);
-            await _UnitOfWork.orderRepository.AddAsync(order);
+
+            Console.WriteLine("the proccess here");
+
+            await _UnitOfWork._orderRepository.AddAsync(order);
+
 
             if (createOrderSession.OrderDetails?.Any() == true)
             {

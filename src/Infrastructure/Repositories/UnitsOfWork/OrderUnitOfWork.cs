@@ -17,11 +17,12 @@ namespace Infrastructure.Repositories.UnitsOfWork
         public ICustomizedOrderCommands CustomizedOrders { get; }
         public IOrderDetailCommands OrderDetails { get; }
 
-        public IOrderRepository orderRepository => throw new NotImplementedException();
+        public IOrderRepository _orderRepository  {get;}
+
 
         public OrderUnitOfWork(
             AppDbContext context,
-     
+           IOrderRepository orderRepository,
             ICustomerCommands customers,
             ICustomizedOrderCommands customizedOrders,
             IOrderDetailCommands orderDetails)
@@ -30,6 +31,7 @@ namespace Infrastructure.Repositories.UnitsOfWork
             Customers = customers;
             CustomizedOrders = customizedOrders;
             OrderDetails = orderDetails;
+            _orderRepository = orderRepository;
         }
 
         public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();

@@ -11,11 +11,11 @@ public partial class OrderCommands
     {
         try
         {
-            var order = await _UnitOfWork.orderRepository.GetByIdAsync(request.OrderId);
+            var order = await _UnitOfWork._orderRepository.GetByIdAsync(request.OrderId);
             if (order == null)
                 return Result<bool>.Failure("No order found");
 
-            _UnitOfWork.orderRepository.Update(order);
+            _UnitOfWork._orderRepository.Update(order);
 
             return Result<bool>.Success(true);
         }

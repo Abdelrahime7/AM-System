@@ -18,12 +18,12 @@ public partial class OrderCommands
 
             if (request.Order != null)
             {
-                var Order = await _UnitOfWork.orderRepository.GetByIdAsync(request.Order.OrderId);
+                var Order = await _UnitOfWork._orderRepository.GetByIdAsync(request.Order.OrderId);
                 if (Order == null)
                     return Result<bool>.Failure("Order Not Found");
                 
                 _mapper.ToUpdateEntity(Order, request.Order);
-                _UnitOfWork.orderRepository.Update(Order);
+                _UnitOfWork._orderRepository.Update(Order);
             }
 
             if (request.OrderDetails != null && request.OrderDetails.Any())

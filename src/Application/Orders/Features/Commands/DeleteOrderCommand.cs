@@ -8,11 +8,11 @@ public partial class OrderCommands
     {
         try
         {
-            var Order = await _UnitOfWork.orderRepository.GetByIdAsync(id);
+            var Order = await _UnitOfWork._orderRepository.GetByIdAsync(id);
             if (Order == null)
                 return Result<bool>.Failure("Order Not Found");
             else
-                _UnitOfWork.orderRepository.Delete(Order);
+                _UnitOfWork._orderRepository.Delete(Order);
 
             return Result<bool>.Success(true);
         }
