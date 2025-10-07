@@ -53,7 +53,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<int>> Create(CreatOrderSession request)
     {
-        var result = await commands.CreatOrderAsync(request);
+        var result = await commands.CreateOrderAsync(request);
         if (result.IsSuccess)
             return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
 

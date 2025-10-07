@@ -19,6 +19,8 @@ namespace Application.Interfaces.UnitOfWorks
         ICustomizedOrderCommands CustomizedOrders { get; }
         IOrderDetailCommands OrderDetails { get; }
 
+      
+
         Task<int> SaveChangesAsync();
     }
 

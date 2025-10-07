@@ -15,7 +15,7 @@ public partial class CustomerCommands(
     private readonly ICustomerRepository _repository = repository;
     private readonly IEntityMapper<Customer, CreateCustomerRequest, UpdateCustomerRequest, CustomerResponse> _mapper = mapper;
     
-    public async Task<Result<int>> CreateCustomerAsync(CreateCustomerRequest request)
+    public async Task<Result<Customer>> CreateCustomerAsync(CreateCustomerRequest request)
     {
         try
         {
@@ -23,14 +23,14 @@ public partial class CustomerCommands(
             var customer = _mapper.ToEntity(request);
             await _repository.AddAsync(customer);
             Console.WriteLine($" add Succefuly with id  = {customer.Id}   ");
-            return Result<int>.Success(customer.Id);
+            return Result<Customer>.Success(customer);
         }
         catch (Exception ex)
 
         {
            
             Console.WriteLine($"Exception: {ex}");
-            return Result<int>.Failure($"Error creating customer: {ex.Message}");
+            return Result<Customer>.Failure($"Error creating customer: {ex.Message}");
         }
     }
 }

@@ -56,7 +56,7 @@ namespace UnitTests.Application.Orders.Commands
         {
             var session = new CreatOrderSession { Order = null, Customer = null };
 
-            var result = await _orderCommands.CreatOrderAsync(session);
+            var result = await _orderCommands.CreateOrderAsync(session);
 
             Assert.False(result.IsSuccess);
             Assert.Equal("No order requests provided.", result.Error);
@@ -78,9 +78,9 @@ namespace UnitTests.Application.Orders.Commands
             };
 
             _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
-                .ReturnsAsync(Result<int>.Failure("Customer creation failed."));
+                .ReturnsAsync(Result<Customer>.Failure("Customer creation failed."));
 
-            var result = await _orderCommands.CreatOrderAsync(session);
+            var result = await _orderCommands.CreateOrderAsync(session);
 
             Assert.False(result.IsSuccess);
             Assert.Equal("Customer creation failed.", result.Error);
@@ -118,7 +118,12 @@ namespace UnitTests.Application.Orders.Commands
             };
 
             _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
-                .ReturnsAsync(Result<int>.Success(101));
+                .ReturnsAsync(Result<Customer>.Success(new Customer{
+                    FullName=session.Customer.FullName,
+                    Address=session.Customer.Address,
+                    City=session.Customer.City,
+                    Phone=session.Customer.Phone,
+                }));
 
             _mapperMock.Setup(m => m.ToEntity(session.Order))
                 .Returns(orderEntity);
@@ -135,7 +140,7 @@ namespace UnitTests.Application.Orders.Commands
             _orderRepoMock.Setup(r => r.CommitAsync(default))
                 .Returns(Task.CompletedTask);
 
-            var result = await _orderCommands.CreatOrderAsync(session);
+            var result = await _orderCommands.CreateOrderAsync(session);
 
             Assert.True(result.IsSuccess);
             Assert.Equal(42, result.Value);
@@ -160,7 +165,7 @@ namespace UnitTests.Application.Orders.Commands
             _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
                 .ThrowsAsync(new Exception("Unexpected DB error"));
 
-            var result = await _orderCommands.CreatOrderAsync(session);
+            var result = await _orderCommands.CreateOrderAsync(session);
 
             Assert.False(result.IsSuccess);
             Assert.Contains("Failed to create order", result.Error);

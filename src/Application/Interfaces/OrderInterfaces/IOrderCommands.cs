@@ -10,7 +10,7 @@ namespace Application.Interfaces.OrderInterfaces
 {
     public interface IOrderCommands
     {
-        Task<Result<int>> CreatOrderAsync(CreatOrderSession CreatOrdersession);
+        Task<Result<int>> CreateOrderAsync(CreatOrderSession CreatOrdersession);
         Task<Result<bool>> DeleteOrderAsync(int ID);
         Task<Result<bool>> UpdateOrderAsync(UpdateOrderSession request);
         Task<Result<bool>> AssignOrderToDelivery(Order order);

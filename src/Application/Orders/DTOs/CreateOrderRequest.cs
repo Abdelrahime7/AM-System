@@ -20,7 +20,7 @@ public class CreateOrderRequest
 
     public int AffiliateId { get; set; }
 
-    public int CustomerId { get; set; }
+    public int ?CustomerId { get; set; }
 
     public int? DriverId { get; set; }
 

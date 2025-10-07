@@ -26,57 +26,59 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
 
 
 
-    public async Task<Result<int>> CreatOrderAsync(CreatOrderSession createOrderSession)
+    public async Task<Result<int>> CreateOrderAsync(CreatOrderSession createOrderSession)
     {
         if (createOrderSession?.Order == null || createOrderSession.Customer == null)
             return Result<int>.Failure("No order requests provided.");
 
         try
         {
-            var customerResult =  await _UnitOfWork.Customers.CreateCustomerAsync(createOrderSession.Customer);
-            if (!customerResult.IsSuccess )
+            // Step 1: Create customer 
+            var customerResult = await _UnitOfWork.Customers.CreateCustomerAsync(createOrderSession.Customer);
+            if (!customerResult.IsSuccess)
                 return Result<int>.Failure("Customer creation failed.");
 
-            createOrderSession.Order.CustomerId = customerResult.Value;
-
+           
+            // Step 3: Map and prepare order
             var order = _mapper.ToEntity(createOrderSession.Order);
-
-            Console.WriteLine("the proccess here");
+           order.Customer = customerResult.Value;
+            
 
             await _UnitOfWork._orderRepository.AddAsync(order);
 
-
+            // Step 4: Add order details if present
             if (createOrderSession.OrderDetails?.Any() == true)
             {
-                createOrderSession.OrderDetails
-                    .Where(d => d != null)
-                    .ToList()
-                    .ForEach(d => d.OrderId = order.Id);
+                foreach (var detail in createOrderSession.OrderDetails.Where(d => d != null))
+                {
+                    detail.OrderId = order.Id;
+                }
 
                 await _UnitOfWork.OrderDetails.AddRangeAsync(createOrderSession.OrderDetails);
             }
 
+            // Step 5: Add customizations if present
             if (createOrderSession.Customizations?.Any() == true)
             {
-                createOrderSession.Customizations
-                    .Where(c => c != null)
-                    .ToList()
-                    .ForEach(c => c.OrderId = order.Id);
+                foreach (var customization in createOrderSession.Customizations.Where(c => c != null))
+                {
+                    customization.OrderId = order.Id;
+                }
 
                 await _UnitOfWork.CustomizedOrders.AddRangeAsync(createOrderSession.Customizations);
             }
 
+            // Step 6: Commit all changes
             await _UnitOfWork.SaveChangesAsync();
-            
+
             return Result<int>.Success(order.Id);
         }
         catch (Exception ex)
         {
-            // Optionally log ex
             return Result<int>.Failure($"Failed to create order: {ex.Message}");
         }
-
     }
+
 
 
 
