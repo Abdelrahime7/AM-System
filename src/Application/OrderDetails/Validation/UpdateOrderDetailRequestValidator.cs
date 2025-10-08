@@ -32,11 +32,11 @@ namespace Application.OrderDetails.Validation
                 .WithMessage("Total commission must be non-negative.");
 
             RuleFor(x => x.OrderId)
-                .GreaterThan(0).When(x => x.OrderId.HasValue)
+                .GreaterThan(0).When(x => x.OrderId.HasValue||x.OrderId!=null)
                 .WithMessage("Order ID must be a positive integer.");
 
             RuleFor(x => x.ProductId)
-                .GreaterThan(0).When(x => x.ProductId.HasValue)
+                .GreaterThan(0).When(x => x.ProductId.HasValue||x.ProductId!=null)
                 .WithMessage("Product ID must be a positive integer.");
 
             RuleFor(x => x)

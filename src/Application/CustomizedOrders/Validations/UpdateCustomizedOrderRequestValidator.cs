@@ -23,7 +23,7 @@ namespace Application.CustomizedOrders.Validations
                 .WithMessage("Dimensions must not exceed 100 characters.");
 
             RuleFor(x => x.Status)
-                .IsInEnum().When(x => x.Status.HasValue)
+                .IsInEnum().When(x => x.Status.HasValue ||x.Status!=null )
                 .WithMessage("Invalid customized order status.");
 
             RuleFor(x => x.TotalPrice)
@@ -35,12 +35,13 @@ namespace Application.CustomizedOrders.Validations
                 .WithMessage("Commission amount must be non-negative.");
 
             RuleFor(x => x.OrderId)
-                .GreaterThan(0).When(x => x.OrderId.HasValue)
+                .GreaterThan(0).When(x => x.OrderId.HasValue||x.OrderId!=null)
                 .WithMessage("Order ID must be a positive integer.");
 
             RuleForEach(x => x.ImageUrls)
                 .NotEmpty().WithMessage("Image URL cannot be empty.")
                 .Must(url => Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                .When(x=>x.ImageUrls!=null)
                 .WithMessage("Each image URL must be a valid absolute URI.");
         }
     }
