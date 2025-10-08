@@ -50,25 +50,15 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
             if (createOrderSession.OrderDetails?.Any() == true)
             {
 
-                foreach (var detail in createOrderSession.OrderDetails.Where(d => d != null))
-                {
-
-                    detail.OrderId = order.Id;
-                }
-
-                await _UnitOfWork.OrderDetails.AddRangeAsync(createOrderSession.OrderDetails);
+                await _UnitOfWork.OrderDetails.
+                    AddRangeAsync(createOrderSession.OrderDetails,order);
             }
 
             // Step 5: Add customizations if present
             if (createOrderSession.Customizations?.Any() == true)
             {
-
-                foreach (var customization in createOrderSession.Customizations.Where(c => c != null))
-                {
-                    customization.OrderId = order.Id;
-                }
-
-                await _UnitOfWork.CustomizedOrders.AddRangeAsync(createOrderSession.Customizations);
+                await _UnitOfWork.CustomizedOrders.
+                    AddRangeAsync(createOrderSession.Customizations,order);
             }
 
             // Step 6: Commit all changes

@@ -14,12 +14,18 @@ public partial class OrderDetailCommands (IOrderDetailRepository repository,
     private readonly IOrderDetailRepository _repository= repository;
     private readonly IEntityMapper<OrderDetail, CreateOrderDetailRequest,
         UpdateOrderDetailRequest, OrderDetailResponse> _mapper = mapper;
-    public async Task<Result> AddRangeAsync(List<CreateOrderDetailRequest> orderDetailRequests)
+    public async Task<Result> AddRangeAsync(List<CreateOrderDetailRequest> orderDetailRequests, Order order)
     {
         try
         {
             List<OrderDetail> details = orderDetailRequests
-                                    .Select(_mapper.ToEntity)
+                                    .Select(req =>
+                                    {
+                                        var entity = _mapper.ToEntity(req);
+                                        entity.Order = order;
+                                        return entity;
+
+                                    })
                                     .ToList();
 
            await _repository.AddRangeAsync(details);

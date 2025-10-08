@@ -20,14 +20,21 @@ public partial class CustomizedOrderCommands(ICustomizedOrderRepository reposito
 
 
 
-    public async Task<Result> AddRangeAsync(List<CreateCustomizedOrderRequest> orderRequests)
+    public async Task<Result> AddRangeAsync(List<CreateCustomizedOrderRequest> orderRequests ,Order order)
     {
         try
         {
-          
+
             List<CustomizedOrder> customizedsOrder = orderRequests
-                                    .Select(_mapper.ToEntity)
-                                    .ToList();
+                     .Select(req =>
+                       {
+                           var entity = _mapper.ToEntity(req);
+                            entity.Order = order;
+                           return entity;
+                        })
+                    .ToList();
+
+
 
             await _repository.AddRangeAsync(customizedsOrder);
             return Result.Success();
