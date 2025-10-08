@@ -49,6 +49,7 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
             // Step 4: Add order details if present
             if (createOrderSession.OrderDetails?.Any() == true)
             {
+
                 foreach (var detail in createOrderSession.OrderDetails.Where(d => d != null))
                 {
 
@@ -61,6 +62,7 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
             // Step 5: Add customizations if present
             if (createOrderSession.Customizations?.Any() == true)
             {
+
                 foreach (var customization in createOrderSession.Customizations.Where(c => c != null))
                 {
                     customization.OrderId = order.Id;

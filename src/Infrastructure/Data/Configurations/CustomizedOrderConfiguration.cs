@@ -52,5 +52,10 @@ public class CustomizedOrderConfiguration : IEntityTypeConfiguration<CustomizedO
             .WithOne(i => i.CustomizedOrder)
             .HasForeignKey(i => i.CustomizedOrderId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(co => co.Order).WithMany(o => o.Customizations)
+           .HasForeignKey(c => c.OrderId).OnDelete(DeleteBehavior.Cascade);
+
+
     }
 }

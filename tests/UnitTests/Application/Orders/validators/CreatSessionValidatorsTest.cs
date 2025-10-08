@@ -27,14 +27,14 @@ namespace UnitTests.Application.Orders.validators
                 Order = new CreateOrderRequest(),
                 Customizations = [new CreateCustomizedOrderRequest
                 {
-                    CommissionAmount=100m,
+              //    CommissionAmount=100m,
                     Description=" normal mirorr ",
                     Status=Domain.Enums.CustomizedOrderStatus.Approved,
                     Dimensions="30*100",
                     ImageUrls=["",""],
                     Name="miror",
                     OrderId=1,
-                    TotalPrice=200m
+            //    TotalPrice=200m
                 }],
                 OrderDetails = [new CreateOrderDetailRequest()]
             };
@@ -54,14 +54,14 @@ namespace UnitTests.Application.Orders.validators
                 Phone="+213-544332211"},
                 Order = null,
                 Customizations = [new CreateCustomizedOrderRequest{
-                    CommissionAmount=100m,
+            //      CommissionAmount=100m,
                     Description=" normal mirorr ",
                     Status=Domain.Enums.CustomizedOrderStatus.Approved,
                     Dimensions="30*100",
                     ImageUrls=["",""],
                     Name="miror",
                     OrderId=1,
-                    TotalPrice=200m
+              //    TotalPrice=200m
 
 
                 }
@@ -108,14 +108,14 @@ namespace UnitTests.Application.Orders.validators
                 },
                 Order = new CreateOrderRequest(),
                 Customizations = [new CreateCustomizedOrderRequest {
-                      CommissionAmount=100m,
+              //      CommissionAmount=100m,
                     Description=" normal mirorr ",
                     Status=Domain.Enums.CustomizedOrderStatus.Approved,
                     Dimensions="30*100",
                     ImageUrls=["",""],
                     Name="miror",
                     OrderId=1,
-                    TotalPrice=200m
+           //       TotalPrice=200m
                 }],
                 OrderDetails = [null]
             };
@@ -151,14 +151,14 @@ namespace UnitTests.Application.Orders.validators
                     
                 
                 },
-                Customizations = [new CreateCustomizedOrderRequest {   CommissionAmount=100m,
+                Customizations = [new CreateCustomizedOrderRequest { //CommissionAmount=100m,
                     Description=" normal mirorr ",
                     Status=Domain.Enums.CustomizedOrderStatus.Approved,
                     Dimensions="30*100",
                     ImageUrls=["https://api.yourdomain.com/orders/42"],
                     Name="miror",
                     OrderId=1,
-                    TotalPrice=200m,
+               //   TotalPrice=200m,
                     
                 }
                 ],

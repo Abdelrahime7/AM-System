@@ -29,11 +29,11 @@ namespace Application.CustomizedOrders.Validations
                     RuleFor(x => x.Status)
                         .IsInEnum().WithMessage("Invalid customized order status.");
 
-                    RuleFor(x => x.TotalPrice)
-                        .GreaterThanOrEqualTo(0).WithMessage("Total price must be non-negative.");
+                    //RuleFor(x => x.TotalPrice)
+                    //    .GreaterThanOrEqualTo(0).WithMessage("Total price must be non-negative.");
 
-                    RuleFor(x => x.CommissionAmount)
-                        .GreaterThanOrEqualTo(0).WithMessage("Commission amount must be non-negative.");
+                    //RuleFor(x => x.CommissionAmount)
+                    //    .GreaterThanOrEqualTo(0).WithMessage("Commission amount must be non-negative.");
 
                     RuleFor(x => x.OrderId)
                         .GreaterThan(0).WithMessage("Order ID must be a positive integer.");

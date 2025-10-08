@@ -100,14 +100,14 @@ namespace UnitTests.Application.Orders.Commands
                 Order = new CreateOrderRequest(),
                 OrderDetails = [new CreateOrderDetailRequest()],
                 Customizations = [new CreateCustomizedOrderRequest {
-            CommissionAmount = 100m,
+         // CommissionAmount = 100m,
             Description = "",
             Dimensions = "30*100",
             ImageUrls = [],
             Name = "",
             OrderId = 1,
             Status = CustomizedOrderStatus.Approved,
-            TotalPrice = 111000m
+         // TotalPrice = 111000m
         }]
             };
 
