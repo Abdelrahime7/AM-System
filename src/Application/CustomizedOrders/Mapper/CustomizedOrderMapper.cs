@@ -35,6 +35,7 @@ public class CustomizedOrderMapper : IEntityMapper<CustomizedOrder, CreateCustom
        
         return new CustomizedOrderResponse
         {
+            id = entity.Id,
             Name = entity.Name,
             Description = entity.Description,
             Dimensions = entity.Dimensions,

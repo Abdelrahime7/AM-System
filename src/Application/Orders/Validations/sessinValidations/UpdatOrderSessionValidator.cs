@@ -13,7 +13,7 @@ namespace Application.Orders.Validations.sessinValidations
         {
             RuleFor(x => x.Order)
                 .NotNull().WithMessage("Order update data is required.")
-                .SetValidator(new UpdateOrderRequestValidator());
+                .SetValidator( new UpdateOrderRequestValidator());
 
             RuleForEach(x => x.Customizations)
                 .NotNull().WithMessage("Customization update entry cannot be null.")
