@@ -131,11 +131,11 @@ namespace UnitTests.Application.Orders.Commands
             _orderRepoMock.Setup(r => r.AddAsync(orderEntity))
                 .Returns(Task.CompletedTask);
 
-            _orderDetailCommandsMock.Setup(d => d.AddRangeAsync(It.IsAny<List<CreateOrderDetailRequest>>()))
-                .ReturnsAsync(Result.Success());
+            //_orderDetailCommandsMock.Setup(d => d.AddRangeAsync(It.IsAny<List<CreateOrderDetailRequest>>()))
+            //    .ReturnsAsync(Result.Success());
 
-            _customizedOrderCommandsMock.Setup(c => c.AddRangeAsync(It.IsAny<List<CreateCustomizedOrderRequest>>()))
-                .ReturnsAsync(Result.Success());
+            //_customizedOrderCommandsMock.Setup(c => c.AddRangeAsync(It.IsAny<List<CreateCustomizedOrderRequest>>()))
+            //    .ReturnsAsync(Result.Success());
 
             _orderRepoMock.Setup(r => r.CommitAsync(default))
                 .Returns(Task.CompletedTask);

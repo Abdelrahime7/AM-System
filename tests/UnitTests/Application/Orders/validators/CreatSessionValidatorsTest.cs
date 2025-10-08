@@ -163,7 +163,7 @@ namespace UnitTests.Application.Orders.validators
                 }
                 ],
                 OrderDetails = [new CreateOrderDetailRequest { Quantity=1,
-                OrderId=1,
+                //OrderId=1,
                 ProductId=1}]
             };
 

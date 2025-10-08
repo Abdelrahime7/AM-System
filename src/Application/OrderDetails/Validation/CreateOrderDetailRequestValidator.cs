@@ -31,8 +31,8 @@ namespace Application.OrderDetails.Validation
                     .Equal(x => x.Quantity * x.UnitCommission)
                     .WithMessage("Total commission must equal Quantity × UnitCommission.");
 
-                RuleFor(x => x.OrderId)
-                    .GreaterThan(0).WithMessage("Order ID must be a positive integer.");
+                //RuleFor(x => x.OrderId)
+                //    .GreaterThan(0).WithMessage("Order ID must be a positive integer.");
 
                 RuleFor(x => x.ProductId)
                     .GreaterThan(0).WithMessage("Product ID must be a positive integer.");
