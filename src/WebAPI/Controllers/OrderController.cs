@@ -93,7 +93,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
         var result = await commands.DeleteOrderAsync(id);
 
         if (!result.IsSuccess)
-            return BadRequest("Customer not deleted");
+            return BadRequest("Order not deleted");
 
         return Ok(result.Value);
     }
@@ -105,9 +105,9 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
 
-    public async Task<ActionResult<bool>> ChangeOrderStatus(UpdateOrderRequest request)
+    public async Task<ActionResult<bool>> ChangeOrderStatus(ChangeOrderStatus request)
     {
-        if (request.OrderId < 1)
+        if (request.Id < 1)
             return NoContent();
         var result = await commands.ChangeOrderStatusAsync(request);
 

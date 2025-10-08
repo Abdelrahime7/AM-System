@@ -24,7 +24,7 @@ namespace UnitTests.Application.Orders.validators
             var session = new CreatOrderSession
             {
                 Customer = null,
-                Order = new CreateOrderRequest(),
+                Order = new ChangeOrderStatus(),
                 Customizations = [new CreateCustomizedOrderRequest
                 {
               //    CommissionAmount=100m,
@@ -85,7 +85,7 @@ namespace UnitTests.Application.Orders.validators
                     FullName = "johnSmithe",
                     Phone = "+213-544332211"
                 },
-                Order = new CreateOrderRequest(),
+                Order = new ChangeOrderStatus(),
                 Customizations = [null],
                 OrderDetails = [new CreateOrderDetailRequest()]
             };
@@ -106,7 +106,7 @@ namespace UnitTests.Application.Orders.validators
                     FullName = "johnSmithe",
                     Phone = "+213-544332211"
                 },
-                Order = new CreateOrderRequest(),
+                Order = new ChangeOrderStatus(),
                 Customizations = [new CreateCustomizedOrderRequest {
               //      CommissionAmount=100m,
                     Description=" normal mirorr ",
@@ -135,7 +135,7 @@ namespace UnitTests.Application.Orders.validators
                     Address = "city 1000 residance"
                 , Phone = "+213612345678"
                 },
-                Order = new CreateOrderRequest
+                Order = new ChangeOrderStatus
                 {
                     OrderRef = "ORD-123",
                     //OrderType = OrderType.Product,

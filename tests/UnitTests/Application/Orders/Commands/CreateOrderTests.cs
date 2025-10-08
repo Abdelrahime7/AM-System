@@ -31,7 +31,7 @@ namespace UnitTests.Application.Orders.Commands
         private readonly Mock<ILocalDeliveryStrategy> _Local=new();
         private readonly Mock<IExternallDeliverStrategy> _External=new();
 
-        private readonly Mock<IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest, OrderResponse>> _mapperMock = new();
+        private readonly Mock<IEntityMapper<Order, ChangeOrderStatus, UpdateOrderRequest, OrderResponse>> _mapperMock = new();
 
         private readonly OrderCommands _orderCommands;
 
@@ -74,7 +74,7 @@ namespace UnitTests.Application.Orders.Commands
                     Phone = "+213-566644433"
 
                 },
-                Order = new CreateOrderRequest()
+                Order = new ChangeOrderStatus()
             };
 
             _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
@@ -97,7 +97,7 @@ namespace UnitTests.Application.Orders.Commands
                     City = "algiers",
                     Phone = "+213-566644433"
                 },
-                Order = new CreateOrderRequest(),
+                Order = new ChangeOrderStatus(),
                 OrderDetails = [new CreateOrderDetailRequest()],
                 Customizations = [new CreateCustomizedOrderRequest {
          // CommissionAmount = 100m,
@@ -159,7 +159,7 @@ namespace UnitTests.Application.Orders.Commands
                     City = "algiers",
                     Phone = "+213-566644433"
                 },
-                Order = new CreateOrderRequest()
+                Order = new ChangeOrderStatus()
             };
 
             _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))

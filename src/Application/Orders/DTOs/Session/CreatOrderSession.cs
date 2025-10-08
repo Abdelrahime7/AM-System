@@ -9,7 +9,7 @@ public class CreatOrderSession
 
 {
    public CreateCustomerRequest?  Customer { get; set; }
-   public CreateOrderRequest? Order { get; set; }
+   public ChangeOrderStatus? Order { get; set; }
    public List<CreateCustomizedOrderRequest?> Customizations { get; set; } = [];
    public List<CreateOrderDetailRequest?> OrderDetails { get; set; } = [];
       
