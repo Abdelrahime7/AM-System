@@ -18,19 +18,19 @@ public partial class OrderCommands
 
             if (request.Order != null)
             {
-                var Order = await _OrderRepository.GetByIdAsync(request.Order.OrderId);
+                var Order = await _UnitOfWork.orderRepository.GetByIdAsync(request.Order.OrderId);
                 if (Order == null)
                     return Result<bool>.Failure("Order Not Found");
                 
                 _mapper.ToUpdateEntity(Order, request.Order);
-                _OrderRepository.Update(Order);
+                _UnitOfWork.orderRepository.Update(Order);
             }
 
             if (request.OrderDetails != null && request.OrderDetails.Any())
             {
                 foreach (var detail in request.OrderDetails)
                 {
-                    await _orderDetailCommands.UpdateOrderDetailAsync(detail);
+                    await _UnitOfWork.OrderDetails.UpdateOrderDetailAsync(detail);
                 }
             }
 
@@ -38,11 +38,11 @@ public partial class OrderCommands
             {
                 foreach (var customization in request.Customizations)
                 {
-                    await _customizedOrderCommands.UpdateCustomizedOrderAsync(customization);
+                    await _UnitOfWork.CustomizedOrders.UpdateCustomizedOrderAsync(customization);
                 }
             }
 
-            await _OrderRepository.CommitAsync();
+            await _UnitOfWork.SaveChangesAsync();
 
             return Result<bool>.Success(true);
 

@@ -24,11 +24,12 @@ namespace Application.Orders.Validations.sessinValidations
                 .NotNull().WithMessage("Order details are required.")
                 .SetValidator(new CreateOrderRequestValidator());
 
-            RuleForEach(x => x.Customizations)
-                .SetValidator(new CreateCustomizedOrderRequestValidator());
 
-            RuleForEach(x => x.OrderDetails)
-                .SetValidator(new CreateOrderDetailRequestValidator());
+            //RuleForEach(x => x.Customizations)
+            //    .SetValidator(new CreateCustomizedOrderRequestValidator());
+
+            //RuleForEach(x => x.OrderDetails)
+            //    .SetValidator(new CreateOrderDetailRequestValidator());
         }
     }
 

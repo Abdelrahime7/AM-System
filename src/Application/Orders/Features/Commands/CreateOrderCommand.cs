@@ -1,13 +1,7 @@
 using Application.Common.Models;
-using Application.Delivery.DTOs;
 using Application.Interfaces.Common.Mappers;
-using Application.Interfaces.CustomerInterfaces;
-using Application.Interfaces.CustomizedOrderInterfaces;
-using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
-using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
-using Application.Orders.Delivery;
 using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
 using Domain.Entities;
