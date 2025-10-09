@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Services;
 
 namespace Infrastructure;
 
@@ -81,7 +82,8 @@ public static class DependencyInjection
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
-
+        services.AddScoped<IFileStorageService, FileStorageService>();
+        
         return services;
     }
 }

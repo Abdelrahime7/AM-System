@@ -16,7 +16,7 @@ using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.DeliveryInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
-using Application.Interfaces.ProductImageInterfaces;
+using Application.Interfaces.ProductImagesInterfaces;
 using Application.Interfaces.ProductInterfaces;
 using Application.Interfaces.RoleInterfaces;
 using Application.Interfaces.TokenInterfaces;
