@@ -41,5 +41,10 @@ public class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
         builder.Property(od => od.TotalCommission)
             .HasColumnName("total_commission")
             .HasColumnType("decimal(8,2)");
+
+        //relationships
+        builder.HasOne(d => d.Order).WithMany(o => o.OrderDetails)
+            .HasForeignKey(d => d.OrderId).OnDelete(DeleteBehavior.Cascade);
+
     }
 }

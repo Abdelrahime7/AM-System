@@ -31,6 +31,8 @@ namespace Application.Users.Mapper
         {
             return new UserResponse
             {
+
+                
                 FullName = entity.FullName,
                 Email = entity.Email,
                 Phone = entity.Phone,

@@ -1,7 +1,9 @@
 using Application.Interfaces.Repositories;
+using Application.Interfaces.UnitOfWorks;
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.UnitsOfWork;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -84,6 +86,10 @@ public static class DependencyInjection
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
         services.AddScoped<IFileStorageService, FileStorageService>();
         
+
+        //UoW
+        services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
+
         return services;
     }
 }

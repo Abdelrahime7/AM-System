@@ -27,4 +27,6 @@ public class Order
 
     public int? ReviewedBy { get; set; }
     public User? Reviewer { get; set; }
+    public ICollection<OrderDetail> ?OrderDetails { get; set; }
+    public ICollection<CustomizedOrder>? Customizations { get; set; }
 }
