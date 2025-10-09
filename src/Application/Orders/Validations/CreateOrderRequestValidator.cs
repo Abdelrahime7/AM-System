@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Orders.Validations
 {
-    public class CreateOrderRequestValidator : AbstractValidator<ChangeOrderStatus>
+    public class CreateOrderRequestValidator : AbstractValidator<CreateOrderRequest>
     {
         public CreateOrderRequestValidator()
         {

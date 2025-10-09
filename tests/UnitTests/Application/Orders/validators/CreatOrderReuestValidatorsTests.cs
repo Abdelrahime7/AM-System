@@ -13,7 +13,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void OrderRef_TooLong_ShouldHaveValidationError()
         {
-            var model = new ChangeOrderStatus { OrderRef = new string('X', 51) };
+            var model = new CreateOrderRequest { OrderRef = new string('X', 51) };
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.OrderRef)
                   .WithErrorMessage("Order reference must not exceed 50 characters.");
@@ -39,7 +39,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void AffiliateId_LessThanOrEqualZero_ShouldHaveValidationError()
         {
-            var model = new ChangeOrderStatus { AffiliateId = 0 };
+            var model = new CreateOrderRequest { AffiliateId = 0 };
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.AffiliateId)
                   .WithErrorMessage("Affiliate ID must be a positive integer.");
@@ -57,7 +57,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void ReviewedAt_InFuture_ShouldHaveValidationError()
         {
-            var model = new ChangeOrderStatus { ReviewedAt = DateTime.UtcNow.AddMinutes(5) };
+            var model = new CreateOrderRequest { ReviewedAt = DateTime.UtcNow.AddMinutes(5) };
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.ReviewedAt)
                   .WithErrorMessage("ReviewedAt cannot be in the future.");
@@ -66,7 +66,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void DepartedAt_InFuture_ShouldHaveValidationError()
         {
-            var model = new ChangeOrderStatus { DepartedAt = DateTime.UtcNow.AddHours(1) };
+            var model = new CreateOrderRequest { DepartedAt = DateTime.UtcNow.AddHours(1) };
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.DepartedAt)
                   .WithErrorMessage("DepartedAt cannot be in the future.");
@@ -75,7 +75,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void DeliveredAt_BeforeDepartedAt_ShouldHaveValidationError()
         {
-            var model = new ChangeOrderStatus
+            var model = new CreateOrderRequest
             {
                 DepartedAt = DateTime.UtcNow,
                 DeliveredAt = DateTime.UtcNow.AddMinutes(-10)
@@ -115,7 +115,7 @@ namespace UnitTests.Application.Orders.validators
         [Fact]
         public void ValidModel_ShouldPassValidation()
         {
-            var model = new ChangeOrderStatus
+            var model = new CreateOrderRequest
             {
                 OrderRef = "ORD-123",
                 //OrderType = OrderType.Product,

@@ -9,10 +9,10 @@ using Domain.Enums;
 namespace Application.Orders.Mapper;
 
 
-public class OrderMapper : IEntityMapper<Order, ChangeOrderStatus,
+public class OrderMapper : IEntityMapper<Order, CreateOrderRequest,
     UpdateOrderRequest, OrderResponse>
 {
-    public  Order ToEntity(ChangeOrderStatus dto)
+    public  Order ToEntity(CreateOrderRequest dto)
     {
         return new Order
         {

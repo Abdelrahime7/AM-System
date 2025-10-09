@@ -25,11 +25,11 @@ namespace Application.Orders.Validations.sessinValidations
                 .SetValidator(new CreateOrderRequestValidator());
 
 
-            //RuleForEach(x => x.Customizations)
-            //    .SetValidator(new CreateCustomizedOrderRequestValidator());
+            RuleForEach(x => x.Customizations)
+                .SetValidator(new CreateCustomizedOrderRequestValidator());
 
-            //RuleForEach(x => x.OrderDetails)
-            //    .SetValidator(new CreateOrderDetailRequestValidator());
+            RuleForEach(x => x.OrderDetails)
+                .SetValidator(new CreateOrderDetailRequestValidator());
         }
     }
 

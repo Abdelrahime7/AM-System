@@ -11,7 +11,7 @@ namespace Application.Orders.Features.Commands;
 public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
     ILocalDeliveryStrategy local,
     IExternallDeliverStrategy external,
-    IEntityMapper<Order, ChangeOrderStatus, UpdateOrderRequest,
+    IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest,
        OrderResponse> mapper) : IOrderCommands
 {
 
@@ -20,7 +20,7 @@ public partial class OrderCommands( IOrderUnitOfWork unitOfWork,
     private readonly ILocalDeliveryStrategy _local = local;
     private readonly IExternallDeliverStrategy _external = external;
 
-    private readonly IEntityMapper<Order, ChangeOrderStatus
+    private readonly IEntityMapper<Order, CreateOrderRequest
         , UpdateOrderRequest, OrderResponse> _mapper = mapper;
 
 

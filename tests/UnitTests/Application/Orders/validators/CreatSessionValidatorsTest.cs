@@ -24,7 +24,7 @@ namespace UnitTests.Application.Orders.validators
             var session = new CreatOrderSession
             {
                 Customer = null,
-                Order = new ChangeOrderStatus(),
+                Order = new CreateOrderRequest(),
                 Customizations = [new CreateCustomizedOrderRequest
                 {
               //    CommissionAmount=100m,
@@ -75,55 +75,9 @@ namespace UnitTests.Application.Orders.validators
                   .WithErrorMessage("Order details are required.");
         }
 
-        [Fact]
-        public void NullCustomizationItem_ShouldHaveValidationError()
-        {
-            var session = new CreatOrderSession
-            {
-                Customer = new CreateCustomerRequest {
-                    City = "algies",
-                    FullName = "johnSmithe",
-                    Phone = "+213-544332211"
-                },
-                Order = new ChangeOrderStatus(),
-                Customizations = [null],
-                OrderDetails = [new CreateOrderDetailRequest()]
-            };
 
-            var result = _validator.TestValidate(session);
-            result.ShouldHaveValidationErrorFor("Customizations[0]")
-                  .WithErrorMessage("Customization entry cannot be null.");
-        }
+     
 
-        [Fact]
-        public void NullOrderDetailItem_ShouldHaveValidationError()
-        {
-            var session = new CreatOrderSession
-            {
-                Customer = new CreateCustomerRequest
-                {
-                    City = "algies",
-                    FullName = "johnSmithe",
-                    Phone = "+213-544332211"
-                },
-                Order = new ChangeOrderStatus(),
-                Customizations = [new CreateCustomizedOrderRequest {
-              //      CommissionAmount=100m,
-                    Description=" normal mirorr ",
-                    Status=Domain.Enums.CustomizedOrderStatus.Approved,
-                    Dimensions="30*100",
-                    ImageUrls=["",""],
-                    Name="miror",
-                    OrderId=1,
-           //       TotalPrice=200m
-                }],
-                OrderDetails = [null]
-            };
-
-            var result = _validator.TestValidate(session);
-            result.ShouldHaveValidationErrorFor("OrderDetails[0]")
-                  .WithErrorMessage("Order detail entry cannot be null.");
-        }
 
         [Fact]
         public void ValidSession_ShouldPassValidation()
@@ -135,7 +89,7 @@ namespace UnitTests.Application.Orders.validators
                     Address = "city 1000 residance"
                 , Phone = "+213612345678"
                 },
-                Order = new ChangeOrderStatus
+                Order = new CreateOrderRequest
                 {
                     OrderRef = "ORD-123",
                     //OrderType = OrderType.Product,

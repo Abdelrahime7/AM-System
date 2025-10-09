@@ -9,20 +9,18 @@ using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Application.OrderDetails.DTOs;
-using Application.Orders.Delivery;
 using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
 using Application.Orders.Features.Commands;
 using Domain.Entities;
-using Domain.Enums;
-using Infrastructure.Repositories;
+
 using Moq;
 
 namespace UnitTests.Application.Orders.Commands
 {
     public partial class OrderCommandsTests
     {
-        private readonly Mock<IOrderUnitOfWork> _UnitOfWorkMock;
+        private readonly Mock<IOrderUnitOfWork> _UnitOfWorkMock=new();
         private readonly Mock<ICustomerCommands> _customerCommandsMock = new();
         private readonly Mock<IOrderDetailCommands> _orderDetailCommandsMock = new();
         private readonly Mock<ICustomizedOrderCommands> _customizedOrderCommandsMock = new();
@@ -31,7 +29,7 @@ namespace UnitTests.Application.Orders.Commands
         private readonly Mock<ILocalDeliveryStrategy> _Local=new();
         private readonly Mock<IExternallDeliverStrategy> _External=new();
 
-        private readonly Mock<IEntityMapper<Order, ChangeOrderStatus, UpdateOrderRequest, OrderResponse>> _mapperMock = new();
+        private readonly Mock<IEntityMapper<Order, CreateOrderRequest, UpdateOrderRequest, OrderResponse>> _mapperMock = new();
 
         private readonly OrderCommands _orderCommands;
 
@@ -50,125 +48,137 @@ namespace UnitTests.Application.Orders.Commands
                 _mapperMock.Object
             );
         }
-
-        [Fact]
-        public async Task CreatOrderAsync_NullOrderOrCustomer_ReturnsFailure()
-        {
-            var session = new CreatOrderSession { Order = null, Customer = null };
-
-            var result = await _orderCommands.CreateOrderAsync(session);
-
-            Assert.False(result.IsSuccess);
-            Assert.Equal("No order requests provided.", result.Error);
-        }
-
-        [Fact]
-        public async Task CreatOrderAsync_CustomerCreationFails_ReturnsFailure()
-        {
-            var session = new CreatOrderSession
+     
+            [Fact]
+            public async Task CreateOrderAsync_ValidSession_ReturnsSuccessWithOrderId()
             {
-                Customer = new CreateCustomerRequest
+                // Arrange
+                var customer =  new CreateCustomerRequest { 
+                    FullName="jOhn smith",
+                    City="algiers",
+                    Phone="+213799880965"
+                    
+                };
+                var orderRequest = new CreateOrderRequest { OrderRef = "ORD-001" };
+                var orderEntity = new Order { Id = 99,OrderRef=orderRequest.OrderRef };
+
+                var session = new CreatOrderSession
                 {
-                    FullName = "",
-                    City = "algiers",
-                    Phone = "+213-566644433"
+                    Customer = customer,
+                    Order = orderRequest,
+                    OrderDetails = new List<CreateOrderDetailRequest>(),
+                    Customizations = new List<CreateCustomizedOrderRequest>()
+                };
 
-                },
-                Order = new ChangeOrderStatus()
-            };
+            
+            
+                _customerCommandsMock
+                    .Setup(c => c.CreateCustomerAsync(customer))
+                    .ReturnsAsync(Result<Customer>.Success( new Customer { City=customer.City,
+                    FullName=customer.FullName,
+                    Phone=customer.Phone,
+                    }
+                        ));
 
-            _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
-                .ReturnsAsync(Result<Customer>.Failure("Customer creation failed."));
+                _mapperMock
+                    .Setup(m => m.ToEntity(orderRequest))
+                    .Returns(orderEntity);
 
-            var result = await _orderCommands.CreateOrderAsync(session);
+                _orderRepoMock
+                    .Setup(r => r.AddAsync(orderEntity))
+                    .Returns(Task.CompletedTask);
 
-            Assert.False(result.IsSuccess);
-            Assert.Equal("Customer creation failed.", result.Error);
-        }
+                _orderDetailCommandsMock
+                    .Setup(d => d.AddRangeAsync(session.OrderDetails, orderEntity))
+                    .ReturnsAsync(Result.Success);
 
-        [Fact]
-        public async Task CreatOrderAsync_ValidSession_ReturnsSuccess()
-        {
-            var session = new CreatOrderSession
+                _customizedOrderCommandsMock
+                    .Setup(c => c.AddRangeAsync(session.Customizations, orderEntity))
+                    .ReturnsAsync(Result.Success);
+
+                _UnitOfWorkMock
+                    .SetupGet(u => u._orderRepository)
+                    .Returns(_orderRepoMock.Object);
+
+                // Act
+                var result = await _orderCommands.CreateOrderAsync(session);
+
+                // Assert
+                Assert.True(result.IsSuccess);
+                Assert.Equal(99, result.Value);
+                _orderRepoMock.Verify(r => r.AddAsync(orderEntity), Times.Once);
+                _UnitOfWorkMock.Verify(u => u.SaveChangesAsync(), Times.Once);
+            }
+
+            [Fact]
+            public async Task CreateOrderAsync_NullOrderOrCustomer_ReturnsFailure()
             {
-                Customer = new CreateCustomerRequest
+                // Arrange
+                var session = new CreatOrderSession
                 {
-                    FullName = "",
-                    City = "algiers",
-                    Phone = "+213-566644433"
-                },
-                Order = new ChangeOrderStatus(),
-                OrderDetails = [new CreateOrderDetailRequest()],
-                Customizations = [new CreateCustomizedOrderRequest {
-         // CommissionAmount = 100m,
-            Description = "",
-            Dimensions = "30*100",
-            ImageUrls = [],
-            Name = "",
-            OrderId = 1,
-            Status = CustomizedOrderStatus.Approved,
-         // TotalPrice = 111000m
-        }]
-            };
+                    Customer = null,
+                    Order = null
+                };
 
-            var orderEntity = new Order
+                // Act
+                var result = await _orderCommands.CreateOrderAsync(session);
+
+                // Assert
+                Assert.False(result.IsSuccess);
+                Assert.Equal("No order requests provided.", result.Error);
+            }
+
+            [Fact]
+            public async Task CreateOrderAsync_CustomerCreationFails_ReturnsFailure()
             {
-                Id = 42,
-                OrderRef = "e122653712531"
-            };
-
-            _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
-                .ReturnsAsync(Result<Customer>.Success(new Customer{
-                    FullName=session.Customer.FullName,
-                    Address=session.Customer.Address,
-                    City=session.Customer.City,
-                    Phone=session.Customer.Phone,
-                }));
-
-            _mapperMock.Setup(m => m.ToEntity(session.Order))
-                .Returns(orderEntity);
-
-            _orderRepoMock.Setup(r => r.AddAsync(orderEntity))
-                .Returns(Task.CompletedTask);
-
-            //_orderDetailCommandsMock.Setup(d => d.AddRangeAsync(It.IsAny<List<CreateOrderDetailRequest>>()))
-            //    .ReturnsAsync(Result.Success());
-
-            //_customizedOrderCommandsMock.Setup(c => c.AddRangeAsync(It.IsAny<List<CreateCustomizedOrderRequest>>()))
-            //    .ReturnsAsync(Result.Success());
-
-            _orderRepoMock.Setup(r => r.CommitAsync(default))
-                .Returns(Task.CompletedTask);
-
-            var result = await _orderCommands.CreateOrderAsync(session);
-
-            Assert.True(result.IsSuccess);
-            Assert.Equal(42, result.Value);
-        }
-
-
-        [Fact]
-        public async Task CreatOrderAsync_ThrowsException_ReturnsFailure()
-        {
-            var session = new CreatOrderSession
-            {
-                Customer =
-                new CreateCustomerRequest
+                // Arrange
+                var session = new CreatOrderSession
                 {
-                    FullName = "",
-                    City = "algiers",
-                    Phone = "+213-566644433"
-                },
-                Order = new ChangeOrderStatus()
-            };
+                    Customer = new CreateCustomerRequest
+                    { City= "Algiers",FullName="john smith",
+                     Phone="+213799886754"},
+                    Order = new CreateOrderRequest()
+                };
 
-            _customerCommandsMock.Setup(c => c.CreateCustomerAsync(session.Customer))
-                .ThrowsAsync(new Exception("Unexpected DB error"));
+                _customerCommandsMock
+                    .Setup(c => c.CreateCustomerAsync(session.Customer))
+                    .ReturnsAsync(Result<Customer>.Failure("DB error"));
 
-            var result = await _orderCommands.CreateOrderAsync(session);
+                // Act
+                var result = await _orderCommands.CreateOrderAsync(session);
 
-            Assert.False(result.IsSuccess);
-            Assert.Contains("Failed to create order", result.Error);
-        }
-    }
+                // Assert
+                Assert.False(result.IsSuccess);
+                Assert.Equal("Customer creation failed.", result.Error);
+            }
+
+            [Fact]
+            public async Task CreateOrderAsync_ThrowsException_ReturnsFailureWithMessage()
+            {
+                // Arrange
+                var session = new CreatOrderSession
+                {
+                    Customer = new CreateCustomerRequest
+                    {
+                        City = "Algiers",
+                        FullName = "john smith",
+                        Phone = "+213799886754"
+                    },
+                    Order = new CreateOrderRequest()
+                };
+
+                _customerCommandsMock
+                    .Setup(c => c.CreateCustomerAsync(session.Customer))
+                    .ThrowsAsync(new Exception("Unexpected failure"));
+
+                // Act
+                var result = await _orderCommands.CreateOrderAsync(session);
+
+                // Assert
+                Assert.False(result.IsSuccess);
+                Assert.Contains("Failed to create order", result.Error);
+            }
+     }
+
+
 }
