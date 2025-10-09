@@ -15,7 +15,7 @@ namespace UnitTests.Application.Orders.Queries
 
         private readonly Mock<IOrderRepository> _orderRepoMock = new();
       
-        private readonly Mock<IEntityMapper<Order, ChangeOrderStatus,
+        private readonly Mock<IEntityMapper<Order, CreateOrderRequest,
             UpdateOrderRequest, OrderResponse>> _mapperMock = new();
 
         private readonly Mock<IEntityMapper<Customer, CreateCustomerRequest, UpdateCustomerRequest

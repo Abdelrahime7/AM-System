@@ -14,7 +14,7 @@ using Domain.Entities;
 namespace Application.Orders.Features.Queries;
 
 public partial class OrderQueries (IOrderRepository repository,
-   IEntityMapper<Order,ChangeOrderStatus,UpdateOrderRequest
+   IEntityMapper<Order,CreateOrderRequest,UpdateOrderRequest
        ,OrderResponse> mapper,
 
      IEntityMapper<Customer, CreateCustomerRequest, UpdateCustomerRequest
@@ -33,7 +33,7 @@ public partial class OrderQueries (IOrderRepository repository,
     private readonly IOrderRepository _repository= repository;
  
 
-    private readonly IEntityMapper<Order, ChangeOrderStatus,
+    private readonly IEntityMapper<Order, CreateOrderRequest,
         UpdateOrderRequest, OrderResponse> _mapper= mapper;
 
     private readonly IEntityMapper<Customer, CreateCustomerRequest, UpdateCustomerRequest
