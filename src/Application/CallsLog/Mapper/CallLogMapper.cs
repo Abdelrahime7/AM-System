@@ -10,18 +10,38 @@ namespace Application.CallsLog.Mapper;
 public class CallLogMapper : IEntityMapper<CallLog, CreateCallLogRequest,
     UpdateCallLogRequest, CallLogrResponse>
 {
+
     public CallLog ToEntity(CreateCallLogRequest dto)
     {
-        throw new NotImplementedException();
+        return new CallLog
+        {
+            CustomerPhone = dto.CustomerPhone,
+
+            CallResult = dto.CallResult,
+            CalledAt = dto.CalledAt,
+            AgentId = dto.AgentId,
+            OrderId = dto.OrderId,
+        };
     }
 
     public CallLogrResponse ToResponse(CallLog entity)
     {
-        throw new NotImplementedException();
+        return new CallLogrResponse
+        {
+            CustomerPhone = entity.CustomerPhone,
+            CallResult = entity.CallResult.ToString(),
+            CalledAt = entity.CalledAt,
+            OrderReference = entity.Order.OrderRef,
+            AgentName = entity.Agent.FullName
+        };
     }
 
     public void ToUpdateEntity(CallLog entity, UpdateCallLogRequest dto)
     {
-        throw new NotImplementedException();
+        entity.CustomerPhone = dto.CustomerPhone ?? entity.CustomerPhone;
+        entity.CallResult = dto.CallResult ?? entity.CallResult;
+        entity.CalledAt = dto.CalledAt ?? entity.CalledAt;
+        entity.OrderId = dto.OrderId ?? entity.OrderId;
+        entity.AgentId = dto.AgentId ?? entity.AgentId;
     }
 }
