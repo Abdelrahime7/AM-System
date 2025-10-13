@@ -16,4 +16,6 @@ public class User
     // Navigation properties
     public Role? Role { get; set; }
     public int? RoleId { get; set; }
+
+    public List<CallLog> callLogs { get; set; } = new();
 }

@@ -28,11 +28,15 @@ public class CallLogMapper : IEntityMapper<CallLog, CreateCallLogRequest,
     {
         return new CallLogrResponse
         {
+            Id= entity.Id,
+            OrderId= entity.OrderId,
+            AgentId= entity.AgentId,
             CustomerPhone = entity.CustomerPhone,
             CallResult = entity.CallResult.ToString(),
             CalledAt = entity.CalledAt,
             OrderReference = entity.Order.OrderRef,
             AgentName = entity.Agent.FullName
+
         };
     }
 
