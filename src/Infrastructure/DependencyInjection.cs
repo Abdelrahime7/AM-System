@@ -55,7 +55,7 @@ public static class DependencyInjection
                 ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
                 ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
                 IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY")!)),
                 ClockSkew = TimeSpan.Zero
             };
         });
