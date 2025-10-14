@@ -11,12 +11,11 @@ namespace Infrastructure.Data
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            // var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
-            optionsBuilder.UseNpgsql("Host = localhost; Port = 5432; " +
-                "Database = AMS; Username = postgres; Password = 1234");
+             var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+            optionsBuilder.UseNpgsql(connectionString);
 
             return new AppDbContext(optionsBuilder.Options);
         }
     }
 }
-}
+
