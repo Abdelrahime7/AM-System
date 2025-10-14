@@ -10,6 +10,7 @@ namespace Application.Interfaces.CustomizedOrderInterfaces
     public interface ICustomizedOrderCommands
     {
         Task<Result<int>> CreatCustomizedOrderAsync(CreateCustomizedOrderRequest request);
+        Task<Result> AddRangeAsync(List<CreateCustomizedOrderRequest> request, Order order);
         Task<Result<bool>> DeleteCustomizedOrderAsync(int ID);
         Task<Result<bool>> UpdateCustomizedOrderAsync(UpdateCustomizedOrderRequest request);
        

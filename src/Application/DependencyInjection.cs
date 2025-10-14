@@ -16,7 +16,7 @@ using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.DeliveryInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
-using Application.Interfaces.ProductImageInterfaces;
+using Application.Interfaces.ProductImagesInterfaces;
 using Application.Interfaces.ProductInterfaces;
 using Application.Interfaces.RoleInterfaces;
 using Application.Interfaces.TokenInterfaces;
@@ -24,6 +24,7 @@ using Application.Interfaces.UserInterfaces;
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.OrderDetails.Features.Commands;
 using Application.OrderDetails.Features.Queries;
+using Application.Orders.Delivery;
 using Application.Orders.Features.Commands;
 using Application.Orders.Features.Queries;
 using Application.ProductImages.Features.Commands;
@@ -95,9 +96,12 @@ public static class DependencyInjection
         services.AddScoped<IWithdrawalCommands, WithdrawalCommands>();
         services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
 
-
-
-
+        //delivery Strategies
+        services.AddScoped<ILocalDeliveryStrategy, LocalDriverDelivery>();
+        services.AddScoped<IExternallDeliverStrategy, ExternalCompanyDeliveryStrategy>();
+       
+        //
+        services.AddHttpClient();
 
         // validators
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();

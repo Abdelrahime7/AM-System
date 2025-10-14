@@ -5,4 +5,5 @@ namespace Application.Interfaces.Repositories;
 public interface ICustomerRepository : IGenericRepository<Customer>
 {
     Task<Customer?> GetByNameAsync(string name);
+   
 }

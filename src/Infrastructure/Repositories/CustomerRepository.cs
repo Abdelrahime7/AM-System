@@ -14,4 +14,12 @@ public class CustomerRepository(AppDbContext context) : GenericRepository<Custom
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.FullName == name);
     }
+
+    public override async Task AddAsync(Customer entity)
+    {
+        await context.Customers. AddAsync(entity);
+
+    }
+
+  
 }

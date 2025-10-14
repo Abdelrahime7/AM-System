@@ -1,28 +1,75 @@
 using Application.Common.Models;
-using Application.Delivery.DTOs;
 using Application.Interfaces.Common.Mappers;
-using Application.Interfaces.DeliveryInterfaces;
-using Application.Interfaces.ProductImageInterfaces;
+using Application.Interfaces.ProductImagesInterfaces;
 using Application.Interfaces.Repositories;
 using Application.ProductImages.DTOs;
 using Domain.Entities;
 
 namespace Application.ProductImages.Features.Commands;
 
-public partial class ProductImageCommands : IProductImageCommands
+public partial class ProductImageCommands(
+    IProductImageRepository repository,
+    IFileStorageService fileStorageService,
+    IEntityMapper<ProductImage, CreateProductImageRequest, UpdateProductImageRequest, ProductImageResponse> mapper)
+    : IProductImageCommands
 {
-    public Task<Result<int>> CreatProductImageAsync(CreateProductImageRequest request)
+    private readonly IProductImageRepository _repository = repository;
+    private readonly IFileStorageService _fileStorageService = fileStorageService;
+    private readonly IEntityMapper<ProductImage, CreateProductImageRequest, UpdateProductImageRequest, ProductImageResponse> _mapper = mapper;
+
+    public async Task<Result<int>> CreateProductImageAsync(CreateProductImageRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            string imageUrl;
+            await using (var stream = request.ImageFile.OpenReadStream())
+            {
+                var fileExtension = Path.GetExtension(request.ImageFile.FileName).ToLowerInvariant();
+                var fileName = $"{Guid.NewGuid()}{fileExtension}";
+                imageUrl = await _fileStorageService.UploadFileAsync(stream, fileName, request.ImageFile.ContentType);
+            }
+            
+            // If setting as primary, ensure only one primary image exists
+            if (request.IsPrimary)
+            {
+                if (request.ProductId.HasValue)
+                {
+                    await ResetPrimaryImagesForProductAsync(request.ProductId.Value);
+                }
+                else if (request.CustomizedOrderId.HasValue)
+                {
+                    await ResetPrimaryImagesForCustomizedOrderAsync(request.CustomizedOrderId.Value);
+                }
+            }
+            
+            var productImage = _mapper.ToEntity(request);
+            productImage.ImageUrl = imageUrl;
+            await _repository.AddAsync(productImage);
+            return Result<int>.Success(productImage.Id);
+        }
+        catch (Exception e)
+        {
+            return Result<int>.Failure($"Error creating product image: {e.Message}");
+        }
     }
 
-    public Task<Result<bool>> DeleteProductImageAsync(int ID)
+    private async Task ResetPrimaryImagesForProductAsync(int productId)
     {
-        throw new NotImplementedException();
+        var existingPrimaryImages = await _repository.GetByProductIdAsync(productId);
+        foreach (var image in existingPrimaryImages.Where(img => img.IsPrimary))
+        {
+            image.IsPrimary = false;
+            _repository.Update(image);
+        }
     }
 
-    public Task<Result<bool>> UpdateProductImageAsync(UpdateProductImageRequest request)
+    private async Task ResetPrimaryImagesForCustomizedOrderAsync(int customizedOrderId)
     {
-        throw new NotImplementedException();
+        var existingPrimaryImages = await _repository.GetByCustomizedOrderIdAsync(customizedOrderId);
+        foreach (var image in existingPrimaryImages.Where(img => img.IsPrimary))
+        {
+            image.IsPrimary = false;
+            _repository.Update(image);
+        }
     }
 }

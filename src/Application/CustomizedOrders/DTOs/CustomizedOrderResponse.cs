@@ -2,8 +2,7 @@ namespace Application.CustomizedOrders.DTOs;
 
 public record CustomizedOrderResponse
 {
-    public int Id { get; set; }
-
+    public int id {  get; set; }
     public string Name { get; set; } = string.Empty;
 
     public string? Description { get; set; }

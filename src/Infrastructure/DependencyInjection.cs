@@ -1,7 +1,9 @@
 using Application.Interfaces.Repositories;
+using Application.Interfaces.UnitOfWorks;
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.UnitsOfWork;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Services;
 
 namespace Infrastructure;
 
@@ -81,6 +84,11 @@ public static class DependencyInjection
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
+        services.AddScoped<IFileStorageService, FileStorageService>();
+        
+
+        //UoW
+        services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
 
         return services;
     }

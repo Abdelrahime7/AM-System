@@ -321,9 +321,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("reviewed_by");
 
-                    b.Property<int?>("ReviewerId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text")
@@ -342,7 +339,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("OrderRef")
                         .IsUnique();
 
-                    b.HasIndex("ReviewerId");
+                    b.HasIndex("ReviewedBy");
 
                     b.ToTable("orders", (string)null);
                 });
@@ -700,7 +697,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.CustomizedOrder", b =>
                 {
                     b.HasOne("Domain.Entities.Order", "Order")
-                        .WithMany()
+                        .WithMany("Customizations")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -732,7 +729,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.User", "Reviewer")
                         .WithMany()
-                        .HasForeignKey("ReviewerId");
+                        .HasForeignKey("ReviewedBy");
 
                     b.Navigation("Affiliate");
 
@@ -748,7 +745,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.OrderDetail", b =>
                 {
                     b.HasOne("Domain.Entities.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -851,6 +848,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.CustomizedOrder", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Customizations");
+
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.Product", b =>

@@ -4,6 +4,7 @@ namespace Application.CustomizedOrders.DTOs;
 
 public record UpdateCustomizedOrderRequest
 {
+    public int Id { get; set; }
     public string? Name { get; set; }
 
     public string? Description { get; set; }
