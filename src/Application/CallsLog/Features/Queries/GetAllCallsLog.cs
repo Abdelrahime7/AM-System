@@ -6,15 +6,24 @@ using Application.Interfaces.CallLogInterfaces;
 
 namespace Application.CallsLog.Features.Queries;
 
-public partial class CallLogQueries : ICallLogQueries
+public partial class CallLogQueries 
 {
-    public Task<Result<IEnumerable<CallLogrResponse>>> GetAllCallLogsAsync()
+    public async Task<Result<IEnumerable<CallLogrResponse>>> GetAllCallLogsAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var callLogs = await _repository.GetAllAsync();
+            if (!callLogs.Any())
+                return Result<IEnumerable<CallLogrResponse>>.Failure("No callLogs Found");
+
+            var response = callLogs.ToList().Select(c => _mapper.ToResponse(c));
+            return Result<IEnumerable<CallLogrResponse>>.Success(response);
+        }
+        catch (Exception ex)
+        {
+            return Result<IEnumerable<CallLogrResponse>>.Failure($"failed to fetch callLogs: {ex.Message}");
+        }
     }
 
-    public Task<Result<CallLogrResponse>> GetCallLogByIDAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

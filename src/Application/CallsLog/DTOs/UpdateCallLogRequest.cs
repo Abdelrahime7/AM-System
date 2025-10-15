@@ -4,6 +4,7 @@ namespace Application.CallsLog.DTOs;
 
 public record UpdateCallLogRequest
 {
+    public int Id { get; set; }
     public string? CustomerPhone { get; set; }
 
     public CallResult? CallResult { get; set; }

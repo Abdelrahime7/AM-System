@@ -25,6 +25,7 @@ public class Order
     public int? DeliveryCompanyId { get; set; }
     public DeliveryIntegration? DeliveryCompany { get; set; }
 
+    public CallLog ?CallLog  { get; set; }
     public int? ReviewedBy { get; set; }
     public User? Reviewer { get; set; }
     public ICollection<OrderDetail> ?OrderDetails { get; set; }

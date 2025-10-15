@@ -2,7 +2,7 @@ namespace Domain.Enums;
 
 public enum CallResult
 {
-    Confirmed,
+    Confirmed=1,
     Rejected,
     NoResponse
 }
