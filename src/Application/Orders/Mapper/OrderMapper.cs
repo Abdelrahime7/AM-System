@@ -51,19 +51,19 @@ public class OrderMapper : IEntityMapper<Order, CreateOrderRequest,
             DeliveredAt = entity.DeliveredAt,
 
             AffiliateId = entity.AffiliateId,
-            AffiliateName = entity.Affiliate?.FullName ?? string.Empty,
+          
 
             CustomerId = entity.CustomerId,
             CustomerName = entity.Customer?.FullName ?? string.Empty,
 
             DriverId = entity.DriverId,
-            DriverName = entity.Driver?.FullName,
+           
 
             DeliveryCompanyId = entity.DeliveryCompanyId,
             DeliveryCompanyName = entity.DeliveryCompany?.Name,
 
             ReviewedBy = entity.ReviewedBy,
-            ReviewerName = entity.Reviewer?.FullName
+           
         };
     }
 

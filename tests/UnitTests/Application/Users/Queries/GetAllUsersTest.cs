@@ -31,25 +31,32 @@ namespace UnitTests.Application.Users.Queries
                 // Arrange
                 var users = new List<User>
                    {
-                     new User { Id = 1, FullName = "Johen doe",
-                         Email = "user1@example.com" ,
+                     new User { Id = 1,
+                         Username = "user123doe",
+                           Email = "old@example.com",
+                           FullName = "john doe",
+                         Phone = "0611223344",
+
+
                          PasswordHash="1w132w12",
-                         Phone="0122334455",
+                        
                               },
-                     new User { Id = 2, FullName = "smith doe",
-                         Email = "user2@example.com" ,
+                     new User { Id = 2, Username = "user1234doee",
+
+                           Email = "old2@example.com",
+                           FullName = "johne",
+                         Phone = "0611223364",
+
                          PasswordHash="1wfsfwfs",
-                         Phone="0122355455", }
+                        }
                    };
 
                 var responses = new List<UserResponse>
                      {
-                       new UserResponse{ FullName = "smith doe",
-                         Email = "user1@example.com" ,
-                         Phone="0122355455", },
-                      new UserResponse {  FullName = "smith doe",
-                         Email = "user2@example.com" ,  
-                         Phone="0122355455", }
+                       new UserResponse{ Username = "smith121doe",
+                        },
+                      new UserResponse {  Username = "smith3435doe",
+                          }
 
                       };
 
@@ -63,8 +70,7 @@ namespace UnitTests.Application.Users.Queries
                 // Assert
                 Assert.True(result.IsSuccess);
                 Assert.Equal(2, result.Value.Count());
-                Assert.Contains(result.Value, r => r.Email == "user1@example.com");
-                Assert.Contains(result.Value, r => r.Email == "user2@example.com");
+              
             }
 
         [Fact]

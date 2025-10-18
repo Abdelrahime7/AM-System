@@ -28,11 +28,9 @@ public class WithdrawalMapper : IEntityMapper<Withdrawal, CreateWithdrawalReques
             Status = entity.Status.ToString(),
             ProcessedAt = entity.ProcessedAt,
             AffiliateId = entity.AffiliateId,
-            AffiliateName = entity.Affiliate.FullName,
             AffiliateBalanceId = entity.AffiliateBalanceId,
             CurrentBalance = entity.AffiliateBalance.Amount,
             ProcessedBy = entity.ProcessedBy,
-            ProcessedByName = entity.ProcessedByUser?.FullName
         };
     }
 

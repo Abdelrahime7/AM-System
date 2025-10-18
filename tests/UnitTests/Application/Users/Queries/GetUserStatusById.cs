@@ -21,18 +21,18 @@ namespace UnitTests.Application.Users.Queries
 
                 Id = userId,
                 PasswordHash="ewrwr-rwr-",
-                FullName="john smithe",
-                Phone="0122334455",
-                Email="user@ex.com",
+                Username="john smithe",
+                Email = "old@example.com",
+                FullName = "john doe",
+                Phone = "0611223344",
+
                 Status = UserStatus.Active
             };
 
             var response = new UserResponse
             {
                 Status = user.Status,
-                FullName = user.FullName,
-                Phone = user.Phone,
-                Email = user.Email,
+               
 
             };
 

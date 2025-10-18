@@ -14,9 +14,10 @@ public partial class WithdrawalQueriesTests
         const int requestId = 10;
         var user = new User
         {
-            FullName = "John Doe",
-            Email = null!,
-            Phone = null!,
+            Username = "user123doe",
+            Email = "old@example.com",
+            FullName = "john doe",
+            Phone = "0611223344",
             PasswordHash = null!
         };
 
@@ -24,9 +25,10 @@ public partial class WithdrawalQueriesTests
 
         var processedByUser = new User
         {
-            FullName = "Admin User",
-            Email = null!,
-            Phone = null!,
+            Username = "user123doe",
+            Email = "old@example.com",
+            FullName = "john doe",
+            Phone = "0611223344",
             PasswordHash = null!
         };
         
@@ -51,11 +53,11 @@ public partial class WithdrawalQueriesTests
             Status = withdrawal.Status.ToString(),
             ProcessedAt = withdrawal.ProcessedAt,
             AffiliateId = withdrawal.AffiliateId,
-            AffiliateName = withdrawal.Affiliate.FullName,
+          
             AffiliateBalanceId = withdrawal.AffiliateBalanceId,
             CurrentBalance = withdrawal.AffiliateBalance.Amount,
             ProcessedBy = withdrawal.ProcessedBy,
-            ProcessedByName = withdrawal.ProcessedByUser.FullName
+            
         };
 
         _mockRepository.Setup(r => r.GetByIdAsync(requestId))

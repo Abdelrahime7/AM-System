@@ -15,13 +15,15 @@ namespace Application.Users.Mapper
 
             return new User
             {
-                FullName = dto.FullName,
-                Email = dto.Email,
-                Phone = dto.Phone,
+               Username = dto.UserName,
+               FullName = dto.FullName,
+               Phone=dto.Phone,
+               Email= dto.Email,
+
                 PasswordHash = PasswordHasher.HashPassword(null!, dto.PasswordHash),
-                CcpNumber = dto.CcpNumber,
+               
                 Status = dto.Status,
-                RoleId = dto.RoleId,
+               
             };
         }
 
@@ -32,13 +34,13 @@ namespace Application.Users.Mapper
             return new UserResponse
             {
 
-                
+
+                Username = entity.Username,
                 FullName = entity.FullName,
-                Email = entity.Email,
                 Phone = entity.Phone,
-                LastLoginAt = entity.LastLoginAt,
-                RoleId = entity.RoleId,
-                Status= entity.Status,
+                Email = entity.Email,
+           
+                Status = entity.Status,
             };
         }
 
@@ -47,13 +49,13 @@ namespace Application.Users.Mapper
         {
 
             user.Id = dto.Id;
+            user.Username     = dto.Username     ?? user.Username;
             user.FullName     = dto.FullName     ?? user.FullName;
-            user.PasswordHash = dto.PasswordHash ?? user.PasswordHash;
             user.Email        = dto.Email        ?? user.Email;
             user.Phone        = dto.Phone        ?? user.Phone;
-            user.CcpNumber    = dto.CcpNumber    ?? user.CcpNumber;
+            user.Status       = dto.Status       ?? user.Status;
+            user.PasswordHash = dto.PasswordHash ?? user.PasswordHash;
             user.LastLoginAt  = dto.LastLoginAt  ?? user.LastLoginAt;
-            user.RoleId       = dto.RoleId       ?? user.RoleId;
 
             if (dto.Status.HasValue && Enum.IsDefined(typeof(UserStatus), dto.Status.Value))
             {

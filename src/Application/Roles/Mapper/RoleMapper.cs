@@ -21,7 +21,7 @@ public class RoleMapper : IEntityMapper<Role, CreateRoleRequest, UpdateRoleReque
         {
             Id = entity.Id,
             RoleType = entity.RoleType,
-            UsersName = entity.Users.Select(x => x.FullName).ToList()
+         
         };
     }
 

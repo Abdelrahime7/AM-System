@@ -38,9 +38,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Property(u => u.CcpNumber)
-            .HasColumnName("ccp_number")
-            .HasMaxLength(255);
+      
 
         builder.Property(u => u.Status)
             .HasColumnName("status")
@@ -51,13 +49,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("last_login_at")
             .HasColumnType("timestamp with time zone");
 
-        builder.Property(u => u.RoleId)
-            .HasColumnName("role_id");
 
-        // Relationships
-        builder.HasOne(u => u.Role)
-            .WithMany(r => r.Users)
-            .HasForeignKey(u => u.RoleId)
-            .OnDelete(DeleteBehavior.SetNull);
+      
     }
 }

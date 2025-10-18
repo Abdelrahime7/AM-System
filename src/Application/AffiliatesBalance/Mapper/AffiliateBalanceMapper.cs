@@ -22,7 +22,6 @@ public class AffiliateBalanceMapper : IEntityMapper<AffiliateBalance, CreateAffi
             Id = entity.Id,
             Amount = entity.Amount,
             AffiliateId = entity.AffiliateId,
-            AffiliateName = entity.Affiliate?.FullName
         };
     }
 

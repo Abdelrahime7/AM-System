@@ -17,9 +17,7 @@ namespace UnitTests.Application.Users.Commands
             var request = new UpdateUserRequest
             {
                 Id = 1,
-                FullName = "Updated Name",
-                Email = "updated@example.com",
-                Phone = "0511223344",
+                Username = "user1234",
                 PasswordHash = "user22334",
                 Status = UserStatus.Active
             };
@@ -27,18 +25,21 @@ namespace UnitTests.Application.Users.Commands
             var existingUser = new User
             {
                 Id = request.Id,
-                Email = "old@example.com",
-                FullName = "john doe",
-                Phone = "0611223344",
+                FullName = "Updated Name",
+                Email = "updated@example.com",
+                Phone = "0511223344",
+                Username = "user1234",
                 PasswordHash = "qwerty"
             };
             var updatedUser = new User
             {
                 Id = request.Id,
+                FullName =request.FullName,
                 Email = request.Email,
-                FullName = request.FullName,
-                Status = (UserStatus)request.Status,
                 Phone = request.Phone,
+                Username =request.Username,
+                Status = (UserStatus)request.Status,
+               
                 PasswordHash = request.PasswordHash,
             };
 
@@ -77,9 +78,7 @@ namespace UnitTests.Application.Users.Commands
             var request = new UpdateUserRequest
             {
                 Id = 999,
-                FullName = "Updated Name",
-                Email = "updated@example.com",
-                Phone = "0511223344",
+
                 PasswordHash = "user22334",
                 Status = UserStatus.Active
             };

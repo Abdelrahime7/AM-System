@@ -15,12 +15,13 @@ namespace UnitTests.Application.Users.Validators
     {
         CreateUserRequest request = 
             new CreateUserRequest{
-            FullName = "",
+            UserName = "",
             PasswordHash = "32321",
-            Phone = "0122334455",
-            Email = "usersaa",
-           CcpNumber="1",
-                               };
+                Email = "old@example.com",
+                FullName = "john doe",
+                Phone = "0611223344",
+            };
+
         [Fact]
         public void OnActionExecuting_ShouldSetBadRequest_WhenValidationFails()
         {
@@ -83,11 +84,13 @@ namespace UnitTests.Application.Users.Validators
             // Arrange
             var validRequest = new CreateUserRequest
             {
-                FullName = "Fatima",
-                Email = "fatima@example.com",
-                Phone = "0551234567",
+                UserName = "Fatima",
+               
                 PasswordHash = "StrongPass123",
-                CcpNumber = "12345678-90"
+                Email = "old@example.com",
+                FullName = "john doe",
+                Phone = "0611223344",
+
             };
 
             var validatorMock = new Mock<IValidator<CreateUserRequest>>();

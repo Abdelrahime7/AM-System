@@ -15,6 +15,7 @@ namespace UnitTests.Application.Users.Commands
             var  existingUser = new User
             {
                 Id = userId,
+                Username="user11",
                 Email = "old@example.com",
                 FullName = "john doe",
                 Phone = "0611223344",
@@ -63,7 +64,9 @@ namespace UnitTests.Application.Users.Commands
                 Email = "old@example.com",
                 FullName = "john doe",
                 Phone = "0611223344",
-                PasswordHash = "qwerty"
+                PasswordHash = "qwerty",
+                Username = "john doe",
+             
             };
 
             _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(UsertoDelete);

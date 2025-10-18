@@ -34,7 +34,7 @@ namespace Application.Products.Mappers
                 Dimensions = entity.Dimensions,
                 TotalOrders = entity.TotalOrders,
                 CreatedByUserId = entity.CreatedByUserId,
-                CreatedByName = entity.CreatedBy?.FullName,
+               
                 /* Refactor Later
                  Images = entity.Images.Select(img => new ProductImageResponse
                 {

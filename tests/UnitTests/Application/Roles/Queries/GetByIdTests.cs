@@ -18,9 +18,10 @@ public partial class RoleQueriesTests
             RoleType = UserRole.Admin,
             Users = new List<User> { new User
                 {
-                    FullName = "John Doe",
-                    Email = null!,
-                    Phone = null!,
+                   Username="user123",
+                           Email = "old@example.com",
+                           FullName = "john doe",
+                         Phone = "0611223344",
                     PasswordHash = null!
                 }
             }
