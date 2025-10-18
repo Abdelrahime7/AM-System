@@ -15,13 +15,11 @@ namespace Application.Users.Mapper
 
             return new User
             {
-                FullName = dto.FullName,
-                Email = dto.Email,
-                Phone = dto.Phone,
+               Username = dto.UserName,
                 PasswordHash = PasswordHasher.HashPassword(null!, dto.PasswordHash),
-                CcpNumber = dto.CcpNumber,
+               
                 Status = dto.Status,
-                RoleId = dto.RoleId,
+               
             };
         }
 
@@ -32,13 +30,11 @@ namespace Application.Users.Mapper
             return new UserResponse
             {
 
-                
-                FullName = entity.FullName,
-                Email = entity.Email,
-                Phone = entity.Phone,
+
+                Username = entity.Username,
                 LastLoginAt = entity.LastLoginAt,
-                RoleId = entity.RoleId,
-                Status= entity.Status,
+
+                Status = entity.Status,
             };
         }
 
@@ -47,13 +43,9 @@ namespace Application.Users.Mapper
         {
 
             user.Id = dto.Id;
-            user.FullName     = dto.FullName     ?? user.FullName;
+            user.Username     = dto.Username     ?? user.Username;
             user.PasswordHash = dto.PasswordHash ?? user.PasswordHash;
-            user.Email        = dto.Email        ?? user.Email;
-            user.Phone        = dto.Phone        ?? user.Phone;
-            user.CcpNumber    = dto.CcpNumber    ?? user.CcpNumber;
             user.LastLoginAt  = dto.LastLoginAt  ?? user.LastLoginAt;
-            user.RoleId       = dto.RoleId       ?? user.RoleId;
 
             if (dto.Status.HasValue && Enum.IsDefined(typeof(UserStatus), dto.Status.Value))
             {
