@@ -15,12 +15,23 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        builder.Property(u => u.Username)
-            .HasColumnName("Username")
-            .HasMaxLength(255)
+        builder.Property(u => u.FullName)
+            .HasColumnName("full_name")
+            .HasMaxLength(100)
             .IsRequired();
 
+        builder.Property(u => u.Email)
+            .HasColumnName("email")
+            .HasColumnType("varchar")
+            .HasMaxLength(150)
+            .IsRequired();
 
+        builder.HasIndex(u => u.Email)
+            .IsUnique();
+
+        builder.Property(u => u.Phone)
+            .HasColumnName("phone")
+            .HasMaxLength(20);
 
         builder.Property(u => u.PasswordHash)
             .HasColumnName("password_hash")
@@ -37,6 +48,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.LastLoginAt)
             .HasColumnName("last_login_at")
             .HasColumnType("timestamp with time zone");
+
 
       
     }
