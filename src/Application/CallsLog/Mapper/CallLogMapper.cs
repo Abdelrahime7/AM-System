@@ -35,7 +35,7 @@ public class CallLogMapper : IEntityMapper<CallLog, CreateCallLogRequest,
             CallResult = entity.CallResult.ToString(),
             CalledAt = entity.CalledAt,
             OrderReference = entity.Order.OrderRef,
-            AgentName = entity.Agent.FullName
+           
 
         };
     }

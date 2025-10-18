@@ -57,10 +57,11 @@ public partial class RoleCommandsTests
             Users = new List<User> { new User
                 {
                     Id = 1,
-                    FullName = "John Doe",
-                    Email = null!,
-                    Phone = null!,
-                    PasswordHash = null!
+                    Username = "user1234",
+                    PasswordHash = null!,
+                           Email = "old@example.com",
+                           FullName = "john doe",
+                         Phone = "0611223344",
                 }
             }
         };

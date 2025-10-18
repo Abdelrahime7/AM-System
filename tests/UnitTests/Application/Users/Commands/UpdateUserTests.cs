@@ -17,9 +17,7 @@ namespace UnitTests.Application.Users.Commands
             var request = new UpdateUserRequest
             {
                 Id = 1,
-                FullName = "Updated Name",
-                Email = "updated@example.com",
-                Phone = "0511223344",
+              
                 PasswordHash = "user22334",
                 Status = UserStatus.Active
             };
@@ -27,11 +25,11 @@ namespace UnitTests.Application.Users.Commands
             var user = new User
             {
                 Id = 1,
-                FullName = "Old Name",
-                Email = "OlderVersion@example.com",
-                Phone = "0511223344",
-                PasswordHash = "user123",
-                Status = UserStatus.Inactive
+             Username="1132user",
+                Email = "old@example.com",
+                FullName = "john doe",
+                Phone = "0611223344",
+                PasswordHash = "qwerty"
             };
             
             _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(user);
@@ -56,9 +54,7 @@ namespace UnitTests.Application.Users.Commands
             var request = new UpdateUserRequest
             {
                 Id = 999,
-                FullName = "Updated Name",
-                Email = "updated@example.com",
-                Phone = "0511223344",
+              
                 PasswordHash = "user22334",
                 Status = UserStatus.Active
             };
@@ -86,20 +82,18 @@ namespace UnitTests.Application.Users.Commands
             var request = new UpdateUserRequest
             {
                 Id = 1,
-                FullName = "Updated Name",
-                Email = "updated@example.com",
-                Phone = "0511223344",
+               
                 PasswordHash = "user22334",
                 Status = UserStatus.Active
             };
             var user = new User
             {
                 Id = request.Id,
-                Email = request.Email,
-                FullName = request.FullName,
-                Status = (UserStatus)request.Status,
-                Phone = request.Phone,
-                PasswordHash = request.PasswordHash,
+              Username  ="22usernae",
+                Email = "old@example.com",
+                FullName = "john doe",
+                Phone = "0611223344",
+                PasswordHash = "qwerty"
             };
 
             _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(user);

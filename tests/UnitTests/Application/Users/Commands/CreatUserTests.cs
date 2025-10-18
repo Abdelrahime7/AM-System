@@ -30,22 +30,25 @@ namespace UnitTests.Application.Users.Commands
             // Arrange
             var request = new CreateUserRequest
             {
-                FullName="john doe",
-                Email = "test@example.com",
+              UserName = "user1234",
                 PasswordHash = "StrongPass123!",
+                FullName = "john doe",
+                Email = "test@example.com",
                 Phone = "0540112233",
-                CcpNumber="12345678-10",
+
                 Status = UserStatus.Pending,
-                RoleId= 1
+             
             };
 
             var user = new User {
                 Id=42,
+                
+                Username = "user1234",
                 FullName = request.FullName,
-                PasswordHash=request.PasswordHash,
+                PasswordHash = request.PasswordHash,
                 Email = request.Email,
-                Phone=request.Phone,
-                CcpNumber=request.CcpNumber,
+                Phone = request.Phone,
+              
                 Status = request.Status };
 
             _mapperMock.Setup(m => m.ToEntity(request)).Returns(user);
@@ -65,19 +68,25 @@ namespace UnitTests.Application.Users.Commands
         public async Task CreatUserAsync_ShouldReturnFailure_WhenExceptionIsThrown()
         {
             // Arrange
-            var request = new CreateUserRequest {
-                FullName= "qwqq",
-                Phone= "0000000000",
-                PasswordHash= "dummy",
-                Email = "fail@example.com" };
+            var request = new CreateUserRequest
+            {
+                FullName = "qwqq",
+                Phone = "0000000000",
+                PasswordHash = "dummy",
+                Email = "fail@example.com",
+            
+               UserName = "user1234",
+                
+            };
             var user = new User
             {
-                FullName=request.FullName,
+               Username =request.UserName,
+                FullName = request.FullName,
                 Email = request.Email,
                 PasswordHash = request.PasswordHash,
                 Status = UserStatus.Pending,
                 Phone = request.Phone,
-                RoleId = 1
+
             };
 
             _mapperMock.Setup(m => m.ToEntity(request)).Returns(user);

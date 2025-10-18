@@ -16,6 +16,10 @@ namespace Application.Users.Mapper
             return new User
             {
                Username = dto.UserName,
+               FullName = dto.FullName,
+               Phone=dto.Phone,
+               Email= dto.Email,
+
                 PasswordHash = PasswordHasher.HashPassword(null!, dto.PasswordHash),
                
                 Status = dto.Status,
@@ -32,8 +36,10 @@ namespace Application.Users.Mapper
 
 
                 Username = entity.Username,
-                LastLoginAt = entity.LastLoginAt,
-
+                FullName = entity.FullName,
+                Phone = entity.Phone,
+                Email = entity.Email,
+           
                 Status = entity.Status,
             };
         }
@@ -44,6 +50,10 @@ namespace Application.Users.Mapper
 
             user.Id = dto.Id;
             user.Username     = dto.Username     ?? user.Username;
+            user.FullName     = dto.FullName     ?? user.FullName;
+            user.Email        = dto.Email        ?? user.Email;
+            user.Phone        = dto.Phone        ?? user.Phone;
+            user.Status       = dto.Status       ?? user.Status;
             user.PasswordHash = dto.PasswordHash ?? user.PasswordHash;
             user.LastLoginAt  = dto.LastLoginAt  ?? user.LastLoginAt;
 

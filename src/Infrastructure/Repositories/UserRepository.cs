@@ -12,12 +12,12 @@ namespace Infrastructure.Repositories
     {
         public async  Task<User> GetDriver()
         {
-           
+           throw new NotImplementedException();
             
-            var deiver = await context.Users.
-                Where(u=>u.Role.RoleType==UserRole.Driver)
-                .FirstOrDefaultAsync();
-            return deiver;
+            //var deiver = await context.Users.
+            //    Where(u=>u.Role.RoleType==UserRole.Driver)
+            //    .FirstOrDefaultAsync();
+            //return deiver;
          }
     }
 }

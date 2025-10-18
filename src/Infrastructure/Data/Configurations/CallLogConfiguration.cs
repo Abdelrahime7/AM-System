@@ -37,9 +37,7 @@ public class CallLogConfiguration : IEntityTypeConfiguration<CallLog>
             .HasColumnType("timestamp with time zone")
             .IsRequired();
         // relationships :
-        builder.HasOne(c => c.Agent).
-            WithMany(a => a.callLogs).
-            HasForeignKey(c => c.AgentId);
+       
 
         builder.HasOne(c => c.Order).
             WithOne(o => o.CallLog).
