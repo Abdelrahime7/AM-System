@@ -5,12 +5,9 @@ namespace Application.Users.DTOs
     public record UserResponse
     {
         public int Id { get; set; }
-        public required string FullName { get; set; }
-        public required string Email { get; set; }
-        public required string Phone { get; set; }
-        public string? CcpNumber { get; set; }
+        public  string Username { get; set; }
         public UserStatus Status { get; set; }
         public DateTime? LastLoginAt { get; set; }
-        public int? RoleId { get; set; }
+      
     }
 }
