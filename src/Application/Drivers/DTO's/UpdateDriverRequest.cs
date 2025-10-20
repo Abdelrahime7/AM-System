@@ -1,7 +1,7 @@
 ﻿
 namespace Application.Drivers.DTO_s
 {
-    internal class UpdateDriverRequest
+    public class UpdateDriverRequest
     {
         public int Id { get; set; }
         public bool? IsLocal { get; set; }
