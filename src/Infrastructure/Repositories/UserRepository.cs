@@ -19,5 +19,10 @@ namespace Infrastructure.Repositories
             //    .FirstOrDefaultAsync();
             //return deiver;
          }
+
+        public override async Task AddAsync(User entity)
+        {
+          await  context.Users.AddAsync(entity);
+        }
     }
 }
