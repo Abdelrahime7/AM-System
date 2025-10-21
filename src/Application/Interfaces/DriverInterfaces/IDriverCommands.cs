@@ -9,7 +9,7 @@ namespace Application.Interfaces.DriverInterfaces
     {
         public Task<Result<int>> CreateDriverAsync(CreatDriverSession request);
         public Task<Result<bool>> DeleteDriverAsnc(int Id);
-        public  Task <Result<bool>> UpdateDriverAsnc(UpdateDriverRequest request);
+        public  Task <Result<bool>> UpdateDriverAsnc(UpdateDriverSession request);
 
         public Result<bool> ChangeDriverAvaillability(Driver driver);
     }
