@@ -8,12 +8,15 @@ using Application.Customers.Features.Commands;
 using Application.Customers.Features.Queries;
 using Application.CustomizedOrders.Features.Commands;
 using Application.CustomizedOrders.Features.Queries;
+using Application.Drivers.features.Commands;
+using Application.Drivers.features.Queries;
 using Application.Interfaces.AffiliateBalanceInterfaces;
 using Application.Interfaces.AuditLogInterfaces;
 using Application.Interfaces.CallLogInterfaces;
 using Application.Interfaces.CustomerInterfaces;
 using Application.Interfaces.CustomizedOrderInterfaces;
 using Application.Interfaces.DeliveryInterfaces;
+using Application.Interfaces.DriverInterfaces;
 using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.ProductImagesInterfaces;
@@ -95,6 +98,10 @@ public static class DependencyInjection
         // Token Services
         services.AddScoped<IWithdrawalCommands, WithdrawalCommands>();
         services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
+
+        //Driver Services
+        services.AddScoped<IDriverCommands, DriverCommands>();
+        services.AddScoped<IDriverQueries,DriverQueries>();
 
         //delivery Strategies
         services.AddScoped<ILocalDeliveryStrategy, LocalDriverDelivery>();
