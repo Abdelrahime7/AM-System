@@ -1,5 +1,7 @@
 ﻿using Application.Common.Models;
+using Application.Drivers.DTO_s;
 using Domain.Entities;
+using System.Threading.Tasks;
 
 
 namespace Application.Drivers.features.Commands
@@ -7,16 +9,17 @@ namespace Application.Drivers.features.Commands
     partial class DriverCommands
 
     {
-        public Result<bool> ChangeDriverAvaillability(Driver driver)
+        public async Task<Result<bool>> ChangeDriverAvaillability(ChangeAvailability availability)
         {
 
             try
             {
+                var driver = await _repository.GetByIdAsync(availability.DriverID);
                 if (driver == null)
                     return Result<bool>.Failure("no driver ");
-               if( driver.IsAvailable )
-                    driver.IsAvailable = false;
-               else driver.IsAvailable = true;
+
+                driver.IsAvailable = availability.Availability;
+             
 
                     _repository.Update(driver);
                 return Result<bool>.Success(true);

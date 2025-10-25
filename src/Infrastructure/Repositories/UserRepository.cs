@@ -23,6 +23,7 @@ namespace Infrastructure.Repositories
         public override async Task AddAsync(User entity)
         {
           await  context.Users.AddAsync(entity);
+
         }
     }
 }

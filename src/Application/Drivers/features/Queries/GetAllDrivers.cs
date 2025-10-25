@@ -34,12 +34,11 @@ namespace Application.Drivers.features.Queries
 
                 var responses = new List<DriverSessionResponse>();
 
-                var tasks = Drivers.Select(driver => GetById(driver.Id)).ToList();
-                var results = await Task.WhenAll(tasks);
 
-                foreach (var result in results)
+                foreach (var Driver in Drivers)
                 {
-                    responses.Add(result.Value);
+                    var response = await GetById(Driver.Id);
+                    responses.Add(response.Value);
                 }
 
                 return Result<IEnumerable<DriverSessionResponse>>.Success(responses);

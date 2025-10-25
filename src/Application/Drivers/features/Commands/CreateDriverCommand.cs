@@ -14,7 +14,9 @@ namespace Application.Drivers.features.Commands
     partial class DriverCommands (IDriverRepository repository,
         IUserCommands commands,
          IEntityMapper<Driver,CreateDriverRequest,
-             UpdateDriverRequest,DriverResponse> mapper) : IDriverCommands 
+             UpdateDriverRequest,DriverResponse> mapper
+        ) : IDriverCommands
+
     {
         private readonly IDriverRepository _repository = repository;
         private readonly IUserCommands _userCommands = commands;
@@ -41,8 +43,6 @@ namespace Application.Drivers.features.Commands
 
          }
 
-      
-
-      
+        
     }
 }

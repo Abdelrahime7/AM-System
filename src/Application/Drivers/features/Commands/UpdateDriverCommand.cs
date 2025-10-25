@@ -1,6 +1,7 @@
 ﻿using Application.Common.Models;
 using Application.Drivers.DTO_s;
 using Application.Drivers.DTO_s.session;
+using Domain.Entities;
 
 
 namespace Application.Drivers.features.Commands
@@ -12,10 +13,16 @@ namespace Application.Drivers.features.Commands
             try
             {
                 var Driver = await _repository.GetByIdAsync(request.DriverRequest.Id);
+               
                 if (Driver == null)
                     return Result<bool>.Failure("Driver not found");
 
+                if (request.UserRequest!=null)
+                {
+                  await  _userCommands.UpdateUserAsync(request.UserRequest);
+                }
                 _mapper.ToUpdateEntity(Driver, request.DriverRequest);
+
                 _repository.Update(Driver);
                 return Result<bool>.Success(true);
             }
