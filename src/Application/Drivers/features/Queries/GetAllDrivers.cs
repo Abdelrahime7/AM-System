@@ -10,7 +10,7 @@ using Domain.Entities;
 
 namespace Application.Drivers.features.Queries
 {
-    partial class DriverQueries(IDriverRepository repository,
+   public partial class DriverQueries(IDriverRepository repository,
          IEntityMapper<Driver, CreateDriverRequest, UpdateDriverRequest,
              DriverResponse>  mapper, 
          IEntityMapper<User, CreateUserRequest, UpdateUserRequest,

@@ -61,6 +61,7 @@ public partial class ProductCommandsTests
         
         //Assert
         Assert.False(result.IsSuccess);
-        Assert.Contains("Error updating product: DB Error", result.Error);
+        Assert.Contains("Error Deleting product: DB Error", result.Error);
+
     }
 }

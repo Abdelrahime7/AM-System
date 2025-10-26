@@ -11,8 +11,8 @@ namespace Application.Drivers.Mapper
         {
             return new Driver
             {
-                IsAvailable = dto.IsAvailable,
-                IsLocal = dto.IsLocal,
+                IsAvailable = (bool)dto.IsAvailable,
+                IsLocal = (bool)dto.IsLocal,
               //  UserID = dto.UserID,
 
 

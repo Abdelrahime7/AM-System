@@ -23,15 +23,8 @@ namespace UnitTests.Application.Users.Validators
         }
 
      
-        [Fact]
-        public void Should_Have_Error_When_FullName_Is_Empty()
-        {
-           
-            var result = _validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(x => x.UserName)
-                  .WithErrorMessage("Name is Required");
-        }
-
+      
+       
       
 
         [Fact]

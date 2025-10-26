@@ -11,7 +11,7 @@ using Domain.Entities;
 
 namespace Application.Drivers.features.Commands
 {
-    partial class DriverCommands (IDriverRepository repository,
+   public partial class DriverCommands (IDriverRepository repository,
         IUserCommands commands,
          IEntityMapper<Driver,CreateDriverRequest,
              UpdateDriverRequest,DriverResponse> mapper
