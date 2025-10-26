@@ -19,10 +19,10 @@ public partial class CustomerCommands(
     {
         try
         {
-            Console.WriteLine($" enter the method    ");
+          
             var customer = _mapper.ToEntity(request);
             await _repository.AddAsync(customer);
-            Console.WriteLine($" add Succefuly with id  = {customer.Id}   ");
+          
             return Result<Customer>.Success(customer);
         }
         catch (Exception ex)

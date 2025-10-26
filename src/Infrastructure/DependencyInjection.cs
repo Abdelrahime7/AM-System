@@ -1,9 +1,13 @@
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
+using Application.Interfaces.WithdrawalInterfaces;
+using Application.Withdrawals.Features.Commands;
+using Application.Withdrawals.Features.Queries;
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.UnitsOfWork;
+using Infrastructure.Services;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Infrastructure.Services;
 
 namespace Infrastructure;
 
@@ -55,7 +58,7 @@ public static class DependencyInjection
                 ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
                 ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
                 IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY")!)),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)),
                 ClockSkew = TimeSpan.Zero
             };
         });
@@ -85,7 +88,9 @@ public static class DependencyInjection
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
         services.AddScoped<IFileStorageService, FileStorageService>();
-        
+        services.AddScoped<IDriverRepository, DriverRepository>();
+      
+
 
         //UoW
         services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();

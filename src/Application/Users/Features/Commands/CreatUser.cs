@@ -15,18 +15,18 @@ namespace Application.Users.Features.Commands
         private readonly IEntityMapper<User, CreateUserRequest,UpdateUserRequest,UserResponse> _mapper = mapper;
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<Result<int>> CreatUserAsync(CreateUserRequest request)
+        public async Task<Result<User>> CreatUserAsync(CreateUserRequest request)
         {
             try
             {
                 var user = _mapper.ToEntity(request);
                 await _userRepository.AddAsync(user);
 
-                return Result<int>.Success(user.Id);
+                return Result<User>.Success(user);
             }
             catch (Exception ex)
             {
-                return Result<int>.Failure($"Failed to create user: {ex.Message}");
+                return Result<User>.Failure($"Failed to create user: {ex.Message}");
             }
 
         }

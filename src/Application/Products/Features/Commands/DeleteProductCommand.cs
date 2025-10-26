@@ -17,7 +17,7 @@ public partial class ProductCommands
         }
         catch (Exception e)
         {
-            return Result<bool>.Failure($"Error updating product: {e.Message}");
+            return Result<bool>.Failure($"Error Deleting product: {e.Message}");
         }
     }
 }

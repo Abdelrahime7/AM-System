@@ -23,6 +23,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<CallLog> CallLogs { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
     public DbSet<Token> Tokens { get; set; }
+public DbSet<Driver> Drivers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
