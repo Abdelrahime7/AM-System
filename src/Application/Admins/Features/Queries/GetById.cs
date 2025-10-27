@@ -1,24 +1,51 @@
-﻿using Application.Admins.DTO_s.session;
+﻿using Application.Admins.Dto_s;
+using Application.Admins.DTO_s.session;
 using Application.Common.Models;
 using Application.Interfaces.AdminInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Application.Interfaces.Common.Mappers;
+using Application.Interfaces.Repositories;
+using Application.Users.DTOs;
+using Domain.Entities;
 
 namespace Application.Admins.Features.Queries
 {
-    partial class AdminQueries() : IAdminQueries
+    partial class AdminQueries(IAdminRepository repository,
+         IEntityMapper<Admin,CreateAdminRequest,UpdateAdminRequest,
+             AdminResponse> mapper,
+          IEntityMapper<User, CreateUserRequest, UpdateUserRequest,
+             UserResponse> Usermapper) : IAdminQueries
     {
-        public Task<Result<IEnumerable<AdminSessionResponse>>> GetAllAdmins()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<Result<AdminSessionResponse>> GetById(int id)
+        private readonly IAdminRepository _repository;
+        private readonly IEntityMapper<Admin, CreateAdminRequest, UpdateAdminRequest,
+             AdminResponse> _mapper = mapper;
+        IEntityMapper<User, CreateUserRequest, UpdateUserRequest,
+              UserResponse> _Usermapper = Usermapper;
+
+      
+        public async Task<Result<AdminSessionResponse>> GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Admin = await _repository.GetByIdAsync(id);
+                if (Admin == null)
+                    return Result<AdminSessionResponse>.Failure("No Admin Found");
+
+                var AdminResponse = _mapper.ToResponse(Admin);
+                var UserResponse = _Usermapper.ToResponse(Admin.user);
+
+                var response = new AdminSessionResponse
+                {
+                    UserResponse = UserResponse,
+                    AdminResponse = AdminResponse
+                };
+
+                return Result<AdminSessionResponse>.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return Result<AdminSessionResponse>.Failure($"failed to fetch Admin: {ex.Message}");
+            }
         }
     }
 }
