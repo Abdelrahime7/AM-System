@@ -1,3 +1,5 @@
+using Application.Admins.Features.Commands;
+using Application.Admins.Features.Queries;
 using Application.AffiliatesBalance.Features.Commands;
 using Application.AffiliatesBalance.Features.Queries;
 using Application.AuditsLog.Features.Commands;
@@ -10,6 +12,7 @@ using Application.CustomizedOrders.Features.Commands;
 using Application.CustomizedOrders.Features.Queries;
 using Application.Drivers.features.Commands;
 using Application.Drivers.features.Queries;
+using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.AffiliateBalanceInterfaces;
 using Application.Interfaces.AuditLogInterfaces;
 using Application.Interfaces.CallLogInterfaces;
@@ -53,6 +56,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        // Admins Services
+        services.AddScoped<IAdminCommands, AdminCommands>();
+        services.AddScoped<IAdminQueries, AdminQueries>();
+
+        //Customer Services
         //Users Services
         services.AddScoped<IUserCommands, UserCommands>();
         services.AddScoped<IUserQueries, UsersQueries>();

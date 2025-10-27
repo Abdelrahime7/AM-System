@@ -1,4 +1,3 @@
-using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 

@@ -2,7 +2,7 @@
 using Application.Users.DTOs;
 
 
-namespace Application.Drivers.DTO_s.session
+namespace Application.Admins.DTO_s.session
 {
     public class AdminSessionResponse
     {
