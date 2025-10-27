@@ -1,8 +1,7 @@
+using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
-using Application.Interfaces.WithdrawalInterfaces;
-using Application.Withdrawals.Features.Commands;
-using Application.Withdrawals.Features.Queries;
+
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
@@ -89,7 +88,9 @@ public static class DependencyInjection
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IDriverRepository, DriverRepository>();
-      
+        services.AddScoped<IAdminRepository, AdminRepository>();
+
+
 
 
         //UoW
