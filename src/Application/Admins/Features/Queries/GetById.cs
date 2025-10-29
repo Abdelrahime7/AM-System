@@ -16,7 +16,7 @@ namespace Application.Admins.Features.Queries
              UserResponse> Usermapper) : IAdminQueries
     {
 
-        private readonly IAdminRepository _repository;
+        private readonly IAdminRepository _repository= repository;
         private readonly IEntityMapper<Admin, CreateAdminRequest, UpdateAdminRequest,
              AdminResponse> _mapper = mapper;
         IEntityMapper<User, CreateUserRequest, UpdateUserRequest,

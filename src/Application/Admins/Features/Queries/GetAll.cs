@@ -2,7 +2,6 @@
 
 using Application.Admins.DTO_s.session;
 using Application.Common.Models;
-using Application.Admins.DTO_s.session;
 
 namespace Application.Admins.Features.Queries
 {

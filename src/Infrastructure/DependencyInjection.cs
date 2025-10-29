@@ -89,6 +89,7 @@ public static class DependencyInjection
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IDriverRepository, DriverRepository>();
         services.AddScoped<IAdminRepository, AdminRepository>();
+        services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUser, CurrentUser>();
 
 
