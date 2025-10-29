@@ -35,7 +35,7 @@ namespace Infrastructure.Data.Configurations
             builder.HasOne(d => d.User)
                 .WithOne()
                 .HasForeignKey<Driver>(d => d.UserID)
-                .OnDelete(DeleteBehavior.Cascade); ;
+                .OnDelete(DeleteBehavior.Cascade); 
 
 
 
