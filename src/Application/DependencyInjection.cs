@@ -56,6 +56,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+       
+
         // Admins Services
         services.AddScoped<IAdminCommands, AdminCommands>();
         services.AddScoped<IAdminQueries, AdminQueries>();

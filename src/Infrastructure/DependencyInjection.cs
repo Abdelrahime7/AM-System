@@ -1,6 +1,7 @@
+using Application.Interfaces.CurrentUser;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
-
+using Infrastructure.Currentuser;
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
@@ -88,6 +89,8 @@ public static class DependencyInjection
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IDriverRepository, DriverRepository>();
         services.AddScoped<IAdminRepository, AdminRepository>();
+        services.AddScoped<ICurrentUser, CurrentUser>();
+
 
 
 
