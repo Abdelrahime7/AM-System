@@ -12,7 +12,7 @@ namespace Application.Interfaces.UserInterfaces
         Task<Result<User>> CreatUserAsync(CreateUserRequest request);
         Task<Result<bool>> DeleteUserAsync(int ID);
         Task<Result<bool>> UpdateUserAsync(UpdateUserRequest request);
-        Task<Result<bool>> ChangeUserStatusAsync(UpdateUserRequest request,UserStatus status);
+        Task<Result<bool>> ChangeUserStatusAsync(ChangeStatusRequest request);
 
     }
 }

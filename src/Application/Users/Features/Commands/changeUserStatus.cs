@@ -2,32 +2,30 @@
 
 using Application.Common.Models;
 using Application.Users.DTOs;
-using Domain.Enums;
 
 namespace Application.Users.Features.Commands
 {
     public partial class UserCommands
     {
 
-        public async Task<Result<bool>> ChangeUserStatusAsync(UpdateUserRequest request,UserStatus status)
+        public async Task<Result<bool>> ChangeUserStatusAsync(ChangeStatusRequest request)
         {
             try
             {
-                request.Status = status;
-                var result = await UpdateUserAsync(request);
-                if (result.IsSuccess)
-                {
-            
-                    return result;
-                }
-                else
+                var User =  await _userRepository.GetByIdAsync(request.userID);
+                if (User == null)
+                return Result<bool>.Failure("no driver ");
 
-                    return Result<bool>.Failure($"failed to {status} User");
+                User.Status = request.status;
+
+                   _userRepository.Update(User);
+
+                    return Result<bool>.Success(true);
 
             }
             catch (Exception ex)
             {
-                return Result<bool>.Failure($"failed to {status} User: {ex.Message}");
+                return Result<bool>.Failure($"failed to {request.status} User: {ex.Message}");
             }
 
 
