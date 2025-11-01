@@ -3,7 +3,7 @@ using Application.Users.DTOs;
 
 namespace Application.Admins.Features.Commands
 {
-    partial class AdminCommands
+   public  partial class AdminCommands
     {
         public  async Task<Result<bool>> ChangeUserStatusAsync(ChangeStatusRequest request)
         {

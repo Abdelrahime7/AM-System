@@ -14,17 +14,16 @@ namespace UnitTests.Application.Users.Commands
         public async Task ChangeUserStatusAsync_ShouldReturnSuccess_WhenUpdateSucceeds()
         {
             // Arrange
-            var request = new UpdateUserRequest
+            var request = new ChangeStatusRequest
             {
-                Id = 1,
-                Username = "user1234",
-                PasswordHash = "user22334",
-                Status = UserStatus.Active
+                userID = 1,
+              
+                status = UserStatus.Active
             };
 
             var existingUser = new User
             {
-                Id = request.Id,
+                Id = request.userID,
                 FullName = "Updated Name",
                 Email = "updated@example.com",
                 Phone = "0511223344",
@@ -33,19 +32,19 @@ namespace UnitTests.Application.Users.Commands
             };
             var updatedUser = new User
             {
-                Id = request.Id,
-                FullName =request.FullName,
-                Email = request.Email,
-                Phone = request.Phone,
-                Username =request.Username,
-                Status = (UserStatus)request.Status,
+                Id = request.userID,
+                FullName = existingUser.FullName,
+                Email = existingUser.Email,
+                Phone = existingUser.Phone,
+                Username = existingUser.Username,
+                Status = (UserStatus)request.status,
                
-                PasswordHash = request.PasswordHash,
+                PasswordHash = existingUser.PasswordHash,
             };
 
 
 
-            _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(existingUser);
+            _userRepoMock.Setup(r => r.GetByIdAsync(request.userID)).ReturnsAsync(existingUser);
 
             _mapperMock
                .Setup(m => m.ToUpdateEntity(
@@ -62,7 +61,7 @@ namespace UnitTests.Application.Users.Commands
             _userRepoMock.Setup(r => r.Update(updatedUser));
 
             // Act
-            var result = await _userCommands.ChangeUserStatusAsync(request, UserStatus.Active);
+            var result = await _userCommands.ChangeUserStatusAsync(request);
             // Assert
             Assert.True(result.IsSuccess);
             Assert.True(result.Value);
@@ -75,17 +74,17 @@ namespace UnitTests.Application.Users.Commands
         public async Task ChangeUserStatusAsync_ShouldReturnFailure_WhenUserNotFound()
         {
             // Arrange
-            var request = new UpdateUserRequest
+            var request = new ChangeStatusRequest
             {
-                Id = 999,
+                userID = 999,
 
-                PasswordHash = "user22334",
-                Status = UserStatus.Active
+               
+                status = UserStatus.Active
             };
-            _userRepoMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync((User)null);
+            _userRepoMock.Setup(r => r.GetByIdAsync(request.userID)).ReturnsAsync((User)null);
 
             // Act
-            var result = await _userCommands.ChangeUserStatusAsync(request, UserStatus.Suspended);
+            var result = await _userCommands.ChangeUserStatusAsync(request);
 
             // Assert
             Assert.False(result.IsSuccess);

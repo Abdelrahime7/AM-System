@@ -11,7 +11,7 @@ namespace Application.Admins.Mapper
         {
             return new Admin
             {
-                access = dto.levels
+                access = (Domain.Enums.AccessLevels)dto.levels
 
 
             };

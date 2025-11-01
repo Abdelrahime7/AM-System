@@ -5,7 +5,7 @@ using Application.Common.Models;
 
 namespace Application.Admins.Features.Queries
 {
-    partial class AdminQueries
+  public   partial class AdminQueries
     {
 
         public async  Task<Result<IEnumerable<AdminSessionResponse>>> GetAllAdmins()
