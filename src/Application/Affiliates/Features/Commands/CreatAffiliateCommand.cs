@@ -12,7 +12,7 @@ namespace Application.Affiliates.Features.Commands
     partial class AffiliateCommands( IAffiliateRepository repository,
            IUserCommands  commands,
            IEntityMapper<Affiliate, CreateAffiliateRequest, UpdateAffiliateRequest,
-           AffiliateResponse> mapper ) : IAffiliatCommands
+           AffiliateResponse> mapper ) : IAffiliateCommands
     {
         private readonly IUserCommands _userCommands = commands;
         private readonly IAffiliateRepository _repository = repository;

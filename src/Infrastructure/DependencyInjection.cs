@@ -90,6 +90,8 @@ public static class DependencyInjection
         services.AddScoped<IDriverRepository, DriverRepository>();
         services.AddScoped<IAdminRepository, AdminRepository>();
         services.AddHttpContextAccessor();
+        services.AddScoped<IAffiliateRepository, AffiliateRepository>();
+
         services.AddScoped<ICurrentUser, CurrentUser>();
 
 

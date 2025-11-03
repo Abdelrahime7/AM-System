@@ -5,7 +5,7 @@ using Application.Common.Models;
 
 namespace Application.Interfaces.AffiliateInterfaces
 {
-    public interface IAffiliatCommands
+    public interface IAffiliateCommands
     {
         public Task<Result<int>> CreateAffiliateAsync(CreatAffiliateSession request);
         public Task<Result<bool>> DeleteAffiliateAsnc(int Id);
