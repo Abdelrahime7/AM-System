@@ -11,8 +11,8 @@ namespace Infrastructure.Data
         public AppDbContext CreateDbContext(string[] args)
         {
                 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-             var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
-            optionsBuilder.UseNpgsql(connectionString);
+             var connectionString = Environment.GetEnvironmentVariable("");
+            optionsBuilder.UseNpgsql("Host = localhost; Port = 5432; Database = AMS; Username = postgres; Password = 1234");
 
             return new AppDbContext(optionsBuilder.Options);
         }
