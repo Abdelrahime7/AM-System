@@ -5,8 +5,8 @@ namespace Application.Affiliates.DTO_s
     public class CreateAffiliateRequest
     {
          
-        public int  ReferralCode { get; set; }
-        public decimal  CommissionRate { get; set; }
+        public int ? ReferralCode { get; set; }
+        public decimal ? CommissionRate { get; set; }
       
 
     }

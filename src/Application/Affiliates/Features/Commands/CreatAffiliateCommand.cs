@@ -9,7 +9,7 @@ using Domain.Entities;
 
 namespace Application.Affiliates.Features.Commands
 {
-    partial class AffiliateCommands( IAffiliateRepository repository,
+   public partial class AffiliateCommands( IAffiliateRepository repository,
            IUserCommands  commands,
            IEntityMapper<Affiliate, CreateAffiliateRequest, UpdateAffiliateRequest,
            AffiliateResponse> mapper ) : IAffiliateCommands
