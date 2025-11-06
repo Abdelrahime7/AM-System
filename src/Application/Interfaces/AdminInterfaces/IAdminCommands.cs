@@ -3,7 +3,6 @@
 using Application.Admins.DTO_s.session;
 using Application.Common.Models;
 using Application.Users.DTOs;
-using Domain.Enums;
 
 namespace Application.Interfaces.AdminInterfaces
 {
