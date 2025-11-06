@@ -21,14 +21,21 @@ namespace Application.Affiliates.Features.Commands
 
         public async Task<Result<int>> CreateAffiliateAsync(CreatAffiliateSession request)
         {
+
             try
             {
+               
                 var User = await _userCommands.CreatUserAsync(request.UserRequest);
 
+
                 var Affiliate = _mapper.ToEntity(request.AffiliateRequest);
+               
 
                 Affiliate.user = User.Value;
+                
+
                 await _repository.AddAsync(Affiliate);
+               
 
                 return Result<int>.Success(Affiliate.Id);
 

@@ -16,8 +16,6 @@ namespace Application.Affiliates.Validation
             RuleFor(x => x.CommissionRate).NotEmpty().When(x => x != null).
                 WithMessage("Commission Rate required");
 
-            RuleFor(x => x.PartnerSince).NotEmpty().When(x => x != null)
-                .WithMessage("Partner Since date is required ");
         }
     }
 }

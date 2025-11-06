@@ -28,9 +28,11 @@ namespace Infrastructure.Data.Configurations
             builder.Property(x => x.CommissionRate).
                HasColumnName("Commission_Rate");
 
-
-            builder.Property(x => x.PartnerSince).
-               HasColumnName("Partner_Since");
+            builder.Property(x => x.PartnerSince)
+                .HasConversion(
+                    v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v,
+                    v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v
+                );
 
 
             builder.HasOne(x=>x.user).

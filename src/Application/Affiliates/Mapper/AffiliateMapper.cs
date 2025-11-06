@@ -11,10 +11,10 @@ namespace Application.Affiliates.Mapper
         {
             return new Affiliate
             {
-              UserID = dto.UserID,
-              ReferralCode=dto.ReferralCode,
-              CommissionRate=dto.CommissionRate,
-              PartnerSince=dto.PartnerSince
+
+                ReferralCode = dto.ReferralCode,
+                CommissionRate = dto.CommissionRate,
+                PartnerSince = DateTime.UtcNow
 
             };
         }
@@ -35,7 +35,7 @@ namespace Application.Affiliates.Mapper
           entity.UserID   = dto.UserID ??  entity.UserID;
             entity.ReferralCode = dto.ReferralCode ?? entity.ReferralCode;
             entity.CommissionRate = dto.CommissionRate ?? entity.CommissionRate;
-            entity.PartnerSince = dto.PartnerSince ?? entity.PartnerSince;
+          //  entity.PartnerSince = dto.PartnerSince ?? entity.PartnerSince;
 
 
 
