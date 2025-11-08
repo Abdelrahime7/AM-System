@@ -12,7 +12,7 @@ namespace Application.Assisstants.Mapper
             return new Assisstant
             {
                AssignedBy = dto.AssignedBy,
-               UserId = dto.UserId,
+             //  UserId = dto.UserId,
 
 
             };
