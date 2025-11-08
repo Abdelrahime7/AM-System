@@ -4,6 +4,8 @@ using Application.Affiliates.Features.Commands;
 using Application.Affiliates.Features.Queries;
 using Application.AffiliatesBalance.Features.Commands;
 using Application.AffiliatesBalance.Features.Queries;
+using Application.Assisstants.Features.Commands;
+using Application.Assisstants.Features.Queries;
 using Application.AuditsLog.Features.Commands;
 using Application.AuditsLog.Features.Queries;
 using Application.CallsLog.Features.Commands;
@@ -17,6 +19,7 @@ using Application.Drivers.features.Queries;
 using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.AffiliateBalanceInterfaces;
 using Application.Interfaces.AffiliateInterfaces;
+using Application.Interfaces.AssisstantInterfaces;
 using Application.Interfaces.AuditLogInterfaces;
 using Application.Interfaces.CallLogInterfaces;
 using Application.Interfaces.CustomerInterfaces;
@@ -59,6 +62,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+
+        // Assisstants Services
+        services.AddScoped<IAssisstantCommands, AssisstantCommands>();
+        services.AddScoped<IAssisstantQueries, AssisstantQueries>();
+
         // Affiliates Services
         services.AddScoped<IAffiliateCommands, AffiliateCommands>();
         services.AddScoped<IAffiliateQueries, AffiliateQueries>();

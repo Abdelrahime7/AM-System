@@ -91,6 +91,7 @@ public static class DependencyInjection
         services.AddScoped<IAdminRepository, AdminRepository>();
         services.AddHttpContextAccessor();
         services.AddScoped<IAffiliateRepository, AffiliateRepository>();
+        services.AddScoped<IAssisstantRepository, AssisstantRepository>();
 
         services.AddScoped<ICurrentUser, CurrentUser>();
 
