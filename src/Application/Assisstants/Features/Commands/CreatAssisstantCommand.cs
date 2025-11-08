@@ -9,7 +9,7 @@ using Domain.Entities;
 
 namespace Application.Assisstants.Features.Commands
 {
-    partial class AssisstantCommands( IAssisstantRepository repository,
+   public partial class AssisstantCommands( IAssisstantRepository repository,
            IUserCommands  commands,
            IEntityMapper<Assisstant, CreatAssisstantRequest, UpdateAssisstantRequest,
            AssisstantResponse> mapper ) : IAssisstantCommands

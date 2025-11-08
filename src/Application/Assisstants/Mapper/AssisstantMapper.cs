@@ -11,7 +11,7 @@ namespace Application.Assisstants.Mapper
         {
             return new Assisstant
             {
-               AssignedBy = dto.AssignedBy,
+               AssignedBy = (int)dto.AssignedBy,
              //  UserId = dto.UserId,
 
 
