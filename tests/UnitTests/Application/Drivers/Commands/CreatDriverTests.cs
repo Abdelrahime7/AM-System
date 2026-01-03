@@ -9,6 +9,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.UserInterfaces;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 
@@ -34,7 +35,8 @@ namespace UnitTests.Application.Drivers.Commands
         [Fact]
         public async Task CreateDriverAsync_ShouldReturnSuccess_WhenAllStepsSucceed()
         {
-            var userRequest = new CreateUserRequest { 
+            var userRequest = new CreateUserRequest {
+                Role = UserRole.Driver,
                 UserName ="ahed 123",
                 FullName="ahmed sobhi",
                 PasswordHash="weeqweqw312wqq",
@@ -42,7 +44,8 @@ namespace UnitTests.Application.Drivers.Commands
             };
             var driverRequest = new CreateDriverRequest { };
             var user = new User { Id = 1,
-                FullName= userRequest.FullName,
+                Role = userRequest.Role,
+                FullName = userRequest.FullName,
                 PasswordHash = userRequest.PasswordHash,
                 Phone= userRequest.Phone,
                 Username= userRequest.UserName
@@ -75,6 +78,7 @@ namespace UnitTests.Application.Drivers.Commands
         {
             var userRequest = new CreateUserRequest
             {
+                Role = UserRole.Driver,
                 UserName = "ahed 123",
                 FullName = "ahmed sobhi",
                 PasswordHash = "weeqweqw312wqq",
@@ -101,6 +105,7 @@ namespace UnitTests.Application.Drivers.Commands
         {
             var userRequest = new CreateUserRequest
             {
+                Role = UserRole.Driver,
                 UserName = "ahed 123",
                 FullName = "ahmed sobhi",
                 PasswordHash = "weeqweqw312wqq",
@@ -126,6 +131,7 @@ namespace UnitTests.Application.Drivers.Commands
         {
             var userRequest = new CreateUserRequest
             {
+                Role = UserRole.Driver,
                 UserName = "ahed 123",
                 FullName = "ahmed sobhi",
                 PasswordHash = "weeqweqw312wqq",
@@ -134,7 +140,10 @@ namespace UnitTests.Application.Drivers.Commands
             var driverRequest = new CreateDriverRequest { };
             var user = new User
             {
+
                 Id = 1,
+                Role= userRequest.Role,
+
                 FullName = userRequest.FullName,
                 PasswordHash = userRequest.PasswordHash,
                 Phone = userRequest.Phone,

@@ -14,6 +14,7 @@ public partial class WithdrawalQueriesTests
         const int requestId = 10;
         var user = new User
         {
+            Role =UserRole.Admin,
             Username = "user123doe",
             Email = "old@example.com",
             FullName = "john doe",
@@ -25,6 +26,7 @@ public partial class WithdrawalQueriesTests
 
         var processedByUser = new User
         {
+            Role = UserRole.Admin,
             Username = "user123doe",
             Email = "old@example.com",
             FullName = "john doe",

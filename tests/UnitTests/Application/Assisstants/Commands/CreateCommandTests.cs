@@ -42,6 +42,7 @@ namespace UnitTests.Application.Assisstants.Commands
                 var request = new CreatAssisstantSession
                 {
                     userRequest = new CreateUserRequest { FullName="john smith",
+                    Role = Domain.Enums.UserRole.AssistantAdmin,
                      PasswordHash= "erwerwerw",
                       Phone="+213566779977",
                        UserName="qf22313"
@@ -50,6 +51,7 @@ namespace UnitTests.Application.Assisstants.Commands
                 };
 
                 var user = new User { Id = 1,
+                    Role=request.userRequest.Role,
                     FullName= request.userRequest.FullName,
                     PasswordHash=request.userRequest.PasswordHash,
                     Phone=request.userRequest.Phone,
@@ -82,6 +84,8 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
+                    Role = Domain.Enums.UserRole.AssistantAdmin,
+
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -109,6 +113,8 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
+                    Role = Domain.Enums.UserRole.AssistantAdmin,
+
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -120,6 +126,7 @@ namespace UnitTests.Application.Assisstants.Commands
             var user = new User
             {
                 Id = 1,
+                Role= request.userRequest.Role,
                 FullName = request.userRequest.FullName,
                 PasswordHash = request.userRequest.PasswordHash,
                 Phone = request.userRequest.Phone,
@@ -148,6 +155,8 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
+                    Role = Domain.Enums.UserRole.AssistantAdmin,
+
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -159,6 +168,7 @@ namespace UnitTests.Application.Assisstants.Commands
             var user = new User
             {
                 Id = 1,
+                Role = request.userRequest.Role,
                 FullName = request.userRequest.FullName,
                 PasswordHash = request.userRequest.PasswordHash,
                 Phone = request.userRequest.Phone,

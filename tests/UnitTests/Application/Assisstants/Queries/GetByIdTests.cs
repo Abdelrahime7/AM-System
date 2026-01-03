@@ -17,6 +17,8 @@ namespace UnitTests.Application.Assisstants.Queries
         {
             // Arrange
             var Assisstant = new Assisstant { Id = 1, User = new User {
+                Role = Domain.Enums.UserRole.AssistantAdmin,
+
                 Id = 10,
                 FullName= "john smith",
                 Phone="+213566443322",
@@ -72,7 +74,9 @@ namespace UnitTests.Application.Assisstants.Queries
         {
             // Arrange
             var Assisstant = new Assisstant { Id = 1, User = new User { Id = 10,
-             FullName="john smith",
+                Role = Domain.Enums.UserRole.AssistantAdmin,
+
+                FullName = "john smith",
              PasswordHash="34234242w",
              Phone="+2135667788",
              Username ="wddee rr3w"}
