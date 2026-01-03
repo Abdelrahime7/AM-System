@@ -9,6 +9,7 @@ namespace UnitTests.Application.Users.Validators
         private readonly CreatUserRequestValidator _validator;
        readonly CreateUserRequest model = new CreateUserRequest
         {
+           Role =Domain.Enums.UserRole.Admin,
             UserName = "",
             PasswordHash = "32321",
            Email = "old@example.com",
@@ -42,6 +43,8 @@ namespace UnitTests.Application.Users.Validators
         {
             var model1 = new CreateUserRequest
             {
+                Role = Domain.Enums.UserRole.Admin,
+
                 UserName = "Fatimma b",
                 PasswordHash = "strgpass343",
                 Email = "old@example.com",

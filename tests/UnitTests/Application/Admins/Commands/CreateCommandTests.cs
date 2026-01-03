@@ -10,6 +10,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.UserInterfaces;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Admins.Commands
@@ -42,7 +43,8 @@ namespace UnitTests.Application.Admins.Commands
                 var request = new CreatAdminSession
                 {
                     UserRequest = new CreateUserRequest { FullName="john smith",
-                     PasswordHash= "erwerwerw",
+                        Role = UserRole.Admin,
+                        PasswordHash = "erwerwerw",
                       Phone="+213566779977",
                        UserName="qf22313"
                       },
@@ -51,7 +53,8 @@ namespace UnitTests.Application.Admins.Commands
 
                 var user = new User { Id = 1,
                     FullName= request.UserRequest.FullName,
-                    PasswordHash=request.UserRequest.PasswordHash,
+                    Role = UserRole.Admin,
+                    PasswordHash =request.UserRequest.PasswordHash,
                     Phone=request.UserRequest.Phone,
                     Username=request.UserRequest.UserName,
                 };
@@ -83,6 +86,7 @@ namespace UnitTests.Application.Admins.Commands
                 UserRequest = new CreateUserRequest
                 {
                     FullName = "john smith",
+                    Role = UserRole.Admin,
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
                     UserName = "qf22313"
@@ -109,6 +113,7 @@ namespace UnitTests.Application.Admins.Commands
             {
                 UserRequest = new CreateUserRequest
                 {
+                    Role = UserRole.Admin,
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -120,6 +125,7 @@ namespace UnitTests.Application.Admins.Commands
             var user = new User
             {
                 Id = 1,
+                Role = UserRole.Admin,
                 FullName = request.UserRequest.FullName,
                 PasswordHash = request.UserRequest.PasswordHash,
                 Phone = request.UserRequest.Phone,
@@ -148,6 +154,7 @@ namespace UnitTests.Application.Admins.Commands
             {
                 UserRequest = new CreateUserRequest
                 {
+                    Role = UserRole.Admin,
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -159,6 +166,7 @@ namespace UnitTests.Application.Admins.Commands
             var user = new User
             {
                 Id = 1,
+                Role = UserRole.Admin,
                 FullName = request.UserRequest.FullName,
                 PasswordHash = request.UserRequest.PasswordHash,
                 Phone = request.UserRequest.Phone,

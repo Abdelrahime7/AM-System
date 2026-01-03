@@ -25,7 +25,9 @@ namespace UnitTests.Application.Users.Commands
             var user = new User
             {
                 Id = 1,
-             Username="1132user",
+                Role = UserRole.Admin,
+
+                Username = "1132user",
                 Email = "old@example.com",
                 FullName = "john doe",
                 Phone = "0611223344",
@@ -89,6 +91,7 @@ namespace UnitTests.Application.Users.Commands
             var user = new User
             {
                 Id = request.Id,
+                Role=UserRole.Admin,
               Username  ="22usernae",
                 Email = "old@example.com",
                 FullName = "john doe",

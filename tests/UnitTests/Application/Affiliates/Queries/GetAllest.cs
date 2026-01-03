@@ -6,6 +6,7 @@ using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Affiliates.Queries
@@ -34,12 +35,16 @@ namespace UnitTests.Application.Affiliates.Queries
             var Affiliates = new List<Affiliate>
     {
         new Affiliate { Id = 1, user = new User { Id = 10,
+                        Role=UserRole.Affiliate,
+
          FullName="john doe",
          PasswordHash ="ae342rfew",
          Phone="+213755443344",
          Username="abd33reww"}
           },
         new Affiliate { Id = 2, user = new User { Id = 20,
+                                Role=UserRole.Affiliate,
+
          FullName="john smith",
          PasswordHash ="ae34sswrfew",
          Phone="+213755433355",

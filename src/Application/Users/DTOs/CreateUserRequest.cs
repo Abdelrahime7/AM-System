@@ -6,6 +6,7 @@ namespace Application.Users.DTOs
 
         public required string UserName { get; set; }
 
+        public required UserRole Role { get; set; }
         public required string FullName { get; set; }
         public required string Phone { get; set; }
 

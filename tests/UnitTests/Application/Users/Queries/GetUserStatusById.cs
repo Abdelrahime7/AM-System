@@ -20,7 +20,8 @@ namespace UnitTests.Application.Users.Queries
             {
 
                 Id = userId,
-                PasswordHash="ewrwr-rwr-",
+                Role = UserRole.Admin,
+                PasswordHash ="ewrwr-rwr-",
                 Username="john smithe",
                 Email = "old@example.com",
                 FullName = "john doe",

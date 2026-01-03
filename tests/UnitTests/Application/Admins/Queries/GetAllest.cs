@@ -8,6 +8,7 @@ using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Admins.Queries
@@ -36,12 +37,16 @@ namespace UnitTests.Application.Admins.Queries
             var admins = new List<Admin>
     {
         new Admin { Id = 1, user = new User { Id = 10,
+                        Role=UserRole.Admin,
+
          FullName="john doe",
          PasswordHash ="ae342rfew",
          Phone="+213755443344",
          Username="abd33reww"}
           },
         new Admin { Id = 2, user = new User { Id = 20,
+                        Role=UserRole.Admin,
+
          FullName="john smith",
          PasswordHash ="ae34sswrfew",
          Phone="+213755433355",

@@ -17,6 +17,8 @@ namespace UnitTests.Application.Affiliates.Queries
         {
             // Arrange
             var Affiliate = new Affiliate { Id = 1, user = new User {
+                Role = Domain.Enums.UserRole.Affiliate,
+
                 Id = 10,
                 FullName= "john smith",
                 Phone="+213566443322",
@@ -72,7 +74,9 @@ namespace UnitTests.Application.Affiliates.Queries
         {
             // Arrange
             var Affiliate = new Affiliate { Id = 1, user = new User { Id = 10,
-             FullName="john smith",
+                Role = Domain.Enums.UserRole.Affiliate,
+
+                FullName = "john smith",
              PasswordHash="34234242w",
              Phone="+2135667788",
              Username ="wddee rr3w"}

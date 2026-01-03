@@ -6,6 +6,7 @@ using Application.Interfaces.Common.Mappers;
 using Application.Interfaces.Repositories;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Assisstants.Queries
@@ -34,12 +35,16 @@ namespace UnitTests.Application.Assisstants.Queries
             var Assisstants = new List<Assisstant>
     {
         new Assisstant { Id = 1, User = new User { Id = 10,
+                                Role=UserRole.AssistantAdmin,
+
          FullName="john doe",
          PasswordHash ="ae342rfew",
          Phone="+213755443344",
          Username="abd33reww"}
           },
         new Assisstant { Id = 2, User = new User { Id = 20,
+                                        Role=UserRole.AssistantAdmin,
+
          FullName="john smith",
          PasswordHash ="ae34sswrfew",
          Phone="+213755433355",

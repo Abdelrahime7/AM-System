@@ -1,5 +1,6 @@
 ﻿
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Users.Commands
@@ -14,6 +15,8 @@ namespace UnitTests.Application.Users.Commands
             var userId = 1;
             var  existingUser = new User
             {
+                Role = UserRole.Admin,
+
                 Id = userId,
                 Username="user11",
                 Email = "old@example.com",
@@ -60,6 +63,8 @@ namespace UnitTests.Application.Users.Commands
             var userId = 1;
             var UsertoDelete = new User
             {
+                Role = UserRole.Admin,
+
                 Id = userId,
                 Email = "old@example.com",
                 FullName = "john doe",

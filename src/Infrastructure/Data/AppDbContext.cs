@@ -12,7 +12,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Affiliate> Affiliates { get; set; }
     public DbSet<Admin> Admins { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
     public DbSet<AffiliateBalance> AffiliateBalances { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Customer> Customers { get; set; }

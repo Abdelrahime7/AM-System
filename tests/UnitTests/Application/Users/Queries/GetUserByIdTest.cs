@@ -2,6 +2,7 @@
 
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Users.Queries
@@ -17,6 +18,7 @@ namespace UnitTests.Application.Users.Queries
             var userId = 1;
             var user = new User
             {
+                Role = UserRole.Admin,
                 Id = userId,
                 Username = "Jane Doe",
                 Email = "old@example.com",

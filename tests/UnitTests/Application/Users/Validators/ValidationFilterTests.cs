@@ -15,7 +15,9 @@ namespace UnitTests.Application.Users.Validators
     {
         CreateUserRequest request = 
             new CreateUserRequest{
-            UserName = "",
+                Role = Domain.Enums.UserRole.Admin,
+
+                UserName = "",
             PasswordHash = "32321",
                 Email = "old@example.com",
                 FullName = "john doe",
@@ -85,7 +87,8 @@ namespace UnitTests.Application.Users.Validators
             var validRequest = new CreateUserRequest
             {
                 UserName = "Fatima",
-               
+                Role = Domain.Enums.UserRole.Admin,
+
                 PasswordHash = "StrongPass123",
                 Email = "old@example.com",
                 FullName = "john doe",

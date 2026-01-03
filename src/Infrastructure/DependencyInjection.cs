@@ -83,7 +83,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IProductImageRepository, ProductImageRepository>();
-        services.AddScoped<IRoleRepository, RoleRepository>();
+       
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IWithdrawalRepository, WithdrawalRepository>();
         services.AddScoped<IFileStorageService, FileStorageService>();

@@ -3,7 +3,7 @@ using Application.Interfaces.Repositories;
 using Application.Users.DTOs;
 using Application.Users.Features.Queries;
 using Domain.Entities;
-
+using Domain.Enums;
 using Moq;
 
 
@@ -32,6 +32,7 @@ namespace UnitTests.Application.Users.Queries
                 var users = new List<User>
                    {
                      new User { Id = 1,
+                      Role =UserRole.Admin,
                          Username = "user123doe",
                            Email = "old@example.com",
                            FullName = "john doe",
@@ -42,7 +43,7 @@ namespace UnitTests.Application.Users.Queries
                         
                               },
                      new User { Id = 2, Username = "user1234doee",
-
+                      Role =UserRole.Affiliate,
                            Email = "old2@example.com",
                            FullName = "johne",
                          Phone = "0611223364",

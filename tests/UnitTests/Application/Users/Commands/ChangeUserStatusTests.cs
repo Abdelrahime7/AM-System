@@ -23,6 +23,8 @@ namespace UnitTests.Application.Users.Commands
 
             var existingUser = new User
             {
+                Role = UserRole.Admin,
+
                 Id = request.userID,
                 FullName = "Updated Name",
                 Email = "updated@example.com",
@@ -33,6 +35,8 @@ namespace UnitTests.Application.Users.Commands
             var updatedUser = new User
             {
                 Id = request.userID,
+                Role = UserRole.Admin,
+
                 FullName = existingUser.FullName,
                 Email = existingUser.Email,
                 Phone = existingUser.Phone,

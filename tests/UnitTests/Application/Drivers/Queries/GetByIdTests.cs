@@ -3,6 +3,7 @@
 using Application.Drivers.DTO_s;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Drivers.Queries
@@ -19,6 +20,7 @@ namespace UnitTests.Application.Drivers.Queries
                 Id = driverId,
                 User = new User { Id = 10,
                 Username="ahmed123",
+                Role=UserRole.Driver,
                 PasswordHash="wdwerrqw32",
                 Phone="+213755006655",
                 FullName="ahmad hadi"

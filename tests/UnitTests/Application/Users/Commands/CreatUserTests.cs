@@ -31,6 +31,7 @@ namespace UnitTests.Application.Users.Commands
             var request = new CreateUserRequest
             {
               UserName = "user1234",
+              Role =UserRole.Admin,
                 PasswordHash = "StrongPass123!",
                 FullName = "john doe",
                 Email = "test@example.com",
@@ -44,6 +45,7 @@ namespace UnitTests.Application.Users.Commands
                 Id=42,
                 
                 Username = "user1234",
+                Role = UserRole.Admin,
                 FullName = request.FullName,
                 PasswordHash = request.PasswordHash,
                 Email = request.Email,
@@ -70,6 +72,7 @@ namespace UnitTests.Application.Users.Commands
             // Arrange
             var request = new CreateUserRequest
             {
+                Role = UserRole.Admin,
                 FullName = "qwqq",
                 Phone = "0000000000",
                 PasswordHash = "dummy",
@@ -81,6 +84,7 @@ namespace UnitTests.Application.Users.Commands
             var user = new User
             {
                Username =request.UserName,
+                Role = UserRole.Admin,
                 FullName = request.FullName,
                 Email = request.Email,
                 PasswordHash = request.PasswordHash,

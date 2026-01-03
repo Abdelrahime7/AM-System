@@ -10,6 +10,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.UserInterfaces;
 using Application.Users.DTOs;
 using Domain.Entities;
+using Domain.Enums;
 using Moq;
 
 namespace UnitTests.Application.Affiliates.Commands
@@ -42,7 +43,8 @@ namespace UnitTests.Application.Affiliates.Commands
                 var request = new CreatAffiliateSession
                 {
                     UserRequest = new CreateUserRequest { FullName="john smith",
-                     PasswordHash= "erwerwerw",
+                        Role = UserRole.Affiliate,
+                        PasswordHash = "erwerwerw",
                       Phone="+213566779977",
                        UserName="qf22313"
                       },
@@ -51,7 +53,8 @@ namespace UnitTests.Application.Affiliates.Commands
 
                 var user = new User { Id = 1,
                     FullName= request.UserRequest.FullName,
-                    PasswordHash=request.UserRequest.PasswordHash,
+                    Role = request.UserRequest.Role,
+                    PasswordHash =request.UserRequest.PasswordHash,
                     Phone=request.UserRequest.Phone,
                     Username=request.UserRequest.UserName,
                 };
@@ -81,7 +84,7 @@ namespace UnitTests.Application.Affiliates.Commands
             var request = new CreatAffiliateSession
             {
                 UserRequest = new CreateUserRequest
-                {
+                { Role =UserRole.Affiliate,
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -109,6 +112,7 @@ namespace UnitTests.Application.Affiliates.Commands
             {
                 UserRequest = new CreateUserRequest
                 {
+                    Role=UserRole.Affiliate,
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -119,6 +123,7 @@ namespace UnitTests.Application.Affiliates.Commands
 
             var user = new User
             {
+                Role=UserRole.Affiliate,
                 Id = 1,
                 FullName = request.UserRequest.FullName,
                 PasswordHash = request.UserRequest.PasswordHash,
@@ -148,6 +153,7 @@ namespace UnitTests.Application.Affiliates.Commands
             {
                 UserRequest = new CreateUserRequest
                 {
+                    Role = UserRole.Affiliate,
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
                     Phone = "+213566779977",
@@ -159,6 +165,7 @@ namespace UnitTests.Application.Affiliates.Commands
             var user = new User
             {
                 Id = 1,
+                Role = request.UserRequest.Role,
                 FullName = request.UserRequest.FullName,
                 PasswordHash = request.UserRequest.PasswordHash,
                 Phone = request.UserRequest.Phone,
