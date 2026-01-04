@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using Serilog;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Serilog
@@ -93,6 +94,7 @@ if (app.Environment.IsDevelopment())
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await context.Database.MigrateAsync();
 }
+
 
 app.UseSerilogRequestLogging();
 
