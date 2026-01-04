@@ -28,6 +28,8 @@ public static class DependencyInjection
         //Mapper
         services.AddEntityMappers();
 
+
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

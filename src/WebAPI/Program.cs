@@ -2,6 +2,7 @@ using Application;
 using DotNetEnv;
 using Infrastructure;
 using Infrastructure.Data;
+using Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
@@ -9,6 +10,10 @@ using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+
 
 // Add Serilog
 builder.Host.UseSerilog((context, configuration) =>
@@ -58,6 +63,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //Services
+builder.Services.Configure<JwtSetting>(builder.Configuration.GetSection("JwtSettings"));
+
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
