@@ -90,6 +90,9 @@ public static class DependencyInjection
 
         //UoW
         services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
+        //token service
+
+        services.AddScoped<TokenService>();
 
         return services;
     }
