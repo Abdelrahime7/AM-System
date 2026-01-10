@@ -30,7 +30,6 @@ using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.ProductImagesInterfaces;
 using Application.Interfaces.ProductInterfaces;
-using Application.Interfaces.TokenInterfaces;
 using Application.Interfaces.UserInterfaces;
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.OrderDetails.Features.Commands;
@@ -42,8 +41,6 @@ using Application.ProductImages.Features.Commands;
 using Application.ProductImages.Features.Queries;
 using Application.Products.Features.Commands;
 using Application.Products.Features.Queries;
-using Application.Tokens.Features.Commands;
-using Application.Tokens.Features.Queries;
 using Application.Users.Features.Commands;
 using Application.Users.Features.Queries;
 using Application.Users.validation;
@@ -113,10 +110,6 @@ public static class DependencyInjection
      
       
 
-        // Token Services
-        services.AddScoped<ITokenCommands, TokenCommands>();
-        services.AddScoped<ITokenQueries, TokenQueries>();
-        // Token Services
         services.AddScoped<IWithdrawalCommands, WithdrawalCommands>();
         services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
 
