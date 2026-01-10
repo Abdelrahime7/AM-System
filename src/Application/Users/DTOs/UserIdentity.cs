@@ -1,6 +1,8 @@
 ﻿
 
+using Domain.Enums;
+
 namespace Application.Users.DTOs
 {
-    public record UserIdentity(string? Password,string? Username);
+    public record UserIdentity(int? id,UserRole? Role);
 }
