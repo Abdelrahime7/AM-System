@@ -25,11 +25,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-            return BadRequest("Username and password are required.");
+                return BadRequest("Username and password are required.");
 
             var identity = await _credentialChecker.CheckCredentialsAsync(request.Username, request.Password);
             if (identity == null)
@@ -37,21 +36,18 @@ namespace WebAPI.Controllers
 
             var claims = new List<Claim>
             {
-               new Claim(JwtRegisteredClaimNames.Sub, identity.id.ToString()),
-               new Claim(ClaimTypes.Role, identity.Role.ToString())
-            };
+              new Claim(JwtRegisteredClaimNames.Sub, identity.id.ToString()),
+              new Claim(ClaimTypes.Role, identity.Role.ToString()),
+              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+             };
 
-            var accessToken = _tokenService.GenerateAccessToken(claims);
-            var refreshToken = _tokenService.GenerateRefreshToken();
+            var tokens = await _tokenService.GenerateAndStoreTokensAsync(identity.id, claims);
 
-            //save refreshToken in DB with userId
-            _tokenService.StorRefereshToken(refreshToken, identity.id.Value);
-          
-
-            return Ok(new { accessToken, refreshToken });
+            return Ok(tokens);
         }
 
-        
+
+
 
 
 

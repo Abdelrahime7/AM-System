@@ -55,7 +55,7 @@ public class TokenService
     }; 
     }
 
-    public async Task<bool> StorRefereshToken(string token, int UserId)
+    public async Task<bool> StoreRefreshTokenAsync(string token, int UserId)
     {
         var RefereshToken = CreateRefreshToken(token, UserId);
 
@@ -84,6 +84,19 @@ public class TokenService
        _tokenRepository.Update(token);
         return true;
     }
+
+    public async Task<object> GenerateAndStoreTokensAsync(int userId, IEnumerable<Claim> claims)
+    {
+        var accessToken = GenerateAccessToken(claims);
+        var refreshToken = GenerateRefreshToken();
+
+        var success = await StoreRefreshTokenAsync(refreshToken, userId);
+        if (!success)
+            throw new Exception("Failed to store refresh token.");
+
+        return new { accessToken, refreshToken };
+    }
+
 
 
 }
