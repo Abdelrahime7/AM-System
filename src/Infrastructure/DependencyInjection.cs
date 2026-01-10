@@ -1,11 +1,13 @@
 using Application.Interfaces.CurrentUser;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
+using Application.Users.CredentialChecker;
 using Infrastructure.Currentuser;
 using Infrastructure.Data;
 using Infrastructure.Filters;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.UnitsOfWork;
+using Infrastructure.security.CredentialChecker;
 using Infrastructure.Services;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,7 +86,7 @@ public static class DependencyInjection
 
         services.AddScoped<ICurrentUser, CurrentUser>();
 
-
+        services.AddScoped<ICredentialChecker, CredentialChecker>();
 
 
 
