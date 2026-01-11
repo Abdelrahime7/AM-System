@@ -3,8 +3,10 @@ using Application.Admins.DTO_s.session;
 using Application.Common.Models;
 using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.Common.Mappers;
+using Application.Interfaces.RegisterHandler;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UserInterfaces;
+using Application.RoleRequeste;
 using Domain.Entities;
 
 namespace Application.Admins.Features.Commands
@@ -18,6 +20,8 @@ namespace Application.Admins.Features.Commands
         private readonly IAdminRepository _repository = repository;
         private readonly IEntityMapper<Admin, CreateAdminRequest,
             UpdateAdminRequest,   AdminResponse> _mapper=mapper;
+
+        public string RoleName => throw new NotImplementedException();
 
         public async Task<Result<int>> CreateAdminAsync(CreatAdminSession request)
         {
@@ -39,8 +43,6 @@ namespace Application.Admins.Features.Commands
             }
         }
 
-      
-
-      
+       
     }
 }

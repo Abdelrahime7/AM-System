@@ -1,5 +1,6 @@
 using Application.Interfaces.CurrentUser;
 using Application.Interfaces.JwtService;
+using Application.Interfaces.RegisterService;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Application.Users.CredentialChecker;
@@ -88,6 +89,7 @@ public static class DependencyInjection
         services.AddScoped<ICurrentUser, CurrentUser>();
 
         services.AddScoped<ICredentialChecker, CredentialChecker>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
 
 
 
