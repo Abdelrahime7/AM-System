@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.JwtService;
+using Application.Interfaces.Repositories;
 using Application.Users.CredentialChecker;
 using Application.Users.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly TokenService _tokenService;
+        private readonly IJwtService _tokenService;
         private readonly ICredentialChecker _credentialChecker;
         private readonly ITokenRepository _tokenRepository;
 
-        public AuthController(TokenService tokenService,
+        public AuthController(IJwtService tokenService,
             ICredentialChecker credentialChecker,
              ITokenRepository tokenRepository)
         {
