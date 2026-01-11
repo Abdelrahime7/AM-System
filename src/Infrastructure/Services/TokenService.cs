@@ -14,11 +14,11 @@ public class TokenService : IJwtService
 {
     private readonly JwtSetting _settings;
     private readonly ITokenRepository _tokenRepository;
-    private readonly ILogger _logger;
-     
+    private readonly ILogger<TokenService> _logger;
+
     public TokenService(IOptions<JwtSetting> settings ,
         ITokenRepository tokenRepository,
-        ILogger logger)
+        ILogger<TokenService> logger)
     {
         _settings = settings.Value;
         _tokenRepository = tokenRepository;

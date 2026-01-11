@@ -4,6 +4,7 @@ using Application.Interfaces.RegisterService;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Application.Users.CredentialChecker;
+using Domain.Entities;
 using Infrastructure.Currentuser;
 using Infrastructure.Data;
 using Infrastructure.Filters;
@@ -13,6 +14,7 @@ using Infrastructure.security.CredentialChecker;
 using Infrastructure.Services;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -92,7 +94,7 @@ public static class DependencyInjection
         services.AddScoped<IRegistrationService, RegistrationService>();
 
 
-
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         //UoW
         services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
         //token service
