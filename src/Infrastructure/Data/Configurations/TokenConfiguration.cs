@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations;
 
-public class TokenConfiguration : IEntityTypeConfiguration<Token>
+public class TokenConfiguration : IEntityTypeConfiguration<RefereshToken>
 {
-    public void Configure(EntityTypeBuilder<Token> builder)
+    public void Configure(EntityTypeBuilder<RefereshToken> builder)
     {
         builder.ToTable("tokens");
 
@@ -29,8 +29,6 @@ public class TokenConfiguration : IEntityTypeConfiguration<Token>
             .HasColumnType("timestamp with time zone")
             .IsRequired();
 
-        builder.Property(t => t.UsedAt)
-            .HasColumnName("used_at")
-            .HasColumnType("timestamp with time zone");
+       
     }
 }

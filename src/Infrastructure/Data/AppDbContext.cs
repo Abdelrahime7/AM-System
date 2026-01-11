@@ -24,7 +24,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<DeliveryIntegration> DeliveryIntegrations { get; set; }
     public DbSet<CallLog> CallLogs { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
-    public DbSet<Token> Tokens { get; set; }
+    public DbSet<RefereshToken> Tokens { get; set; }
 public DbSet<Driver> Drivers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
