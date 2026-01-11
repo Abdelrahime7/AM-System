@@ -1,11 +1,14 @@
 using Application.Admins.Features.Commands;
 using Application.Admins.Features.Queries;
+using Application.Admins.RegisterHandler;
 using Application.Affiliates.Features.Commands;
 using Application.Affiliates.Features.Queries;
+using Application.Affiliates.RegisterHandler;
 using Application.AffiliatesBalance.Features.Commands;
 using Application.AffiliatesBalance.Features.Queries;
 using Application.Assisstants.Features.Commands;
 using Application.Assisstants.Features.Queries;
+using Application.Assisstants.RegisterHandler;
 using Application.AuditsLog.Features.Commands;
 using Application.AuditsLog.Features.Queries;
 using Application.CallsLog.Features.Commands;
@@ -16,6 +19,7 @@ using Application.CustomizedOrders.Features.Commands;
 using Application.CustomizedOrders.Features.Queries;
 using Application.Drivers.features.Commands;
 using Application.Drivers.features.Queries;
+using Application.Drivers.RegisterHandler;
 using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.AffiliateBalanceInterfaces;
 using Application.Interfaces.AffiliateInterfaces;
@@ -30,6 +34,7 @@ using Application.Interfaces.OrderDetailInterfaces;
 using Application.Interfaces.OrderInterfaces;
 using Application.Interfaces.ProductImagesInterfaces;
 using Application.Interfaces.ProductInterfaces;
+using Application.Interfaces.RegisterHandler;
 using Application.Interfaces.UserInterfaces;
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.OrderDetails.Features.Commands;
@@ -126,6 +131,12 @@ public static class DependencyInjection
 
         // validators
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
+
+        // Handlers (strategy pattern)
+       services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
+       services.AddScoped<IRegisterHandler, DriverRegisterHandler>();
+       services.AddScoped<IRegisterHandler, AfilliatesRegisterHandler>();
+       services.AddScoped<IRegisterHandler, AssisstantRegisterHandler>();
 
         return services;
 
