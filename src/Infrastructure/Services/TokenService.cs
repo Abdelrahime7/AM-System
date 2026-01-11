@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.JwtService;
+using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-public class TokenService 
+public class TokenService : IJwtService
 {
     private readonly JwtSetting _settings;
     private readonly ITokenRepository _tokenRepository;
@@ -97,6 +98,6 @@ public class TokenService
         return new { accessToken, refreshToken };
     }
 
-
-
+   
 }
+     

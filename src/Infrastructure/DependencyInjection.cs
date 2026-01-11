@@ -1,4 +1,5 @@
 using Application.Interfaces.CurrentUser;
+using Application.Interfaces.JwtService;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Application.Users.CredentialChecker;
@@ -94,7 +95,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
         //token service
 
-        services.AddScoped<TokenService>();
+        services.AddScoped<IJwtService,TokenService>();
 
         return services;
     }
