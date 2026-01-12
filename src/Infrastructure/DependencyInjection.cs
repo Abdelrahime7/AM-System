@@ -49,15 +49,22 @@ public static class DependencyInjection
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-                ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                ValidAudience = Environment.GetEnvironmentVariable("JwtSettings__Audience"),
+                ValidIssuer = Environment.GetEnvironmentVariable("JwtSettings__Issuer"),
                 IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JwtSettings__Secret")!)),
                 ClockSkew = TimeSpan.Zero
             };
         });
 
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddAuthorization(options => {
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+            options.AddPolicy("DriverOnly", policy => policy.RequireRole("Driver"));
+            options.AddPolicy("AffiliateOnly", policy => policy.RequireRole("Affiliate"));
+            options.AddPolicy("AssistantOnly", policy => policy.RequireRole("Assistant"));
+           });
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         //register filters
         

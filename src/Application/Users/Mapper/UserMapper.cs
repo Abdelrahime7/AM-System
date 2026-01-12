@@ -20,11 +20,8 @@ namespace Application.Users.Mapper
                FullName = dto.FullName,
                 Phone = dto.Phone,
                 Email = dto.Email,
-
                 PasswordHash = PasswordHasher.HashPassword(null!, dto.PasswordHash),
-
                 Status = dto.Status,
-
             };
         }
 
@@ -33,15 +30,12 @@ namespace Application.Users.Mapper
         public UserResponse ToResponse(User entity)
         {
             return new UserResponse
-            {
-
-
+            { 
                 Username = entity.Username,
                 role= entity.Role,
                 FullName = entity.FullName,
                 Phone = entity.Phone,
                 Email = entity.Email,
-           
                 Status = entity.Status,
             };
         }
