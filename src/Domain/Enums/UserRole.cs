@@ -3,8 +3,7 @@ namespace Domain.Enums;
 public enum UserRole
 {
     Admin,
-    AssistantAdmin,
+    Assistant,
     Affiliate,
     Driver,
-    CallCenterAgent
 }

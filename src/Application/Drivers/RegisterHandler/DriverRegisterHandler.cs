@@ -4,6 +4,8 @@ using Application.Common.Models;
 using Application.Interfaces.DriverInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
+using Domain.Enums;
+using System.Text.Json;
 
 
 namespace Application.Drivers.RegisterHandler
@@ -12,7 +14,7 @@ namespace Application.Drivers.RegisterHandler
     {
         private readonly IDriverCommands _DriverCommands;
 
-        public string RoleName => "Driver";
+        public string RoleName => UserRole.Driver.ToString();
 
         public DriverRegisterHandler(IDriverCommands DriverCommands)
         {
@@ -22,7 +24,7 @@ namespace Application.Drivers.RegisterHandler
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
             // Cast the role-specific payload
-            var DriverReq = request.RoleRequest as CreateDriverRequest;
+            var DriverReq = JsonSerializer.Deserialize<CreateDriverRequest>(request.RoleRequest.ToString());
             if (DriverReq == null)
                 return Result<int>.Failure("Invalid Driver request payload");
 

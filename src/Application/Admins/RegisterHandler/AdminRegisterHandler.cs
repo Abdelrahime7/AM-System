@@ -4,10 +4,12 @@ using Application.Common.Models;
 using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Application.Admins.RegisterHandler
@@ -16,7 +18,7 @@ namespace Application.Admins.RegisterHandler
     {
         private readonly IAdminCommands _adminCommands;
 
-        public string RoleName => "Admin";
+        public string RoleName => UserRole.Admin.ToString();
 
         public AdminRegisterHandler(IAdminCommands adminCommands)
         {
@@ -26,7 +28,11 @@ namespace Application.Admins.RegisterHandler
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
             // Cast the role-specific payload
-            var adminReq = request.RoleRequest as CreateAdminRequest;
+            var adminReq = JsonSerializer.Deserialize<CreateAdminRequest>(
+                    request.RoleRequest.ToString()
+              );
+
+           
             if (adminReq == null)
                 return Result<int>.Failure("Invalid Admin request payload");
 

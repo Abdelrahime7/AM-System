@@ -21,6 +21,7 @@ namespace WebAPI.Controllers
         /// Each role registers itself (unauthenticated).
         /// Admin later approves/rejects.
         /// </summary>
+        /// 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] CreateRoleSession request)

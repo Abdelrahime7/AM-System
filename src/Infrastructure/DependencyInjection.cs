@@ -5,6 +5,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.UnitOfWorks;
 using Application.Users.CredentialChecker;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Currentuser;
 using Infrastructure.Data;
 using Infrastructure.Filters;
@@ -58,10 +59,10 @@ public static class DependencyInjection
         });
               
         services.AddAuthorization(options => {
-            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-            options.AddPolicy("DriverOnly", policy => policy.RequireRole("Driver"));
-            options.AddPolicy("AffiliateOnly", policy => policy.RequireRole("Affiliate"));
-            options.AddPolicy("AssistantOnly", policy => policy.RequireRole("Assistant"));
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRole.Admin.ToString()));
+            options.AddPolicy("DriverOnly", policy => policy.RequireRole(UserRole.Driver.ToString()));
+            options.AddPolicy("AffiliateOnly", policy => policy.RequireRole(UserRole.Affiliate.ToString()));
+            options.AddPolicy("AssistantOnly", policy => policy.RequireRole(UserRole.Assistant.ToString()));
            });
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

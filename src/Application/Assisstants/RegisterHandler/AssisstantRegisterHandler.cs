@@ -6,6 +6,8 @@ using Application.Common.Models;
 using Application.Interfaces.AssisstantInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
+using Domain.Enums;
+using System.Text.Json;
 
 namespace Application.Assisstants.RegisterHandler
 {
@@ -13,7 +15,7 @@ namespace Application.Assisstants.RegisterHandler
     {
         private readonly IAssisstantCommands _AssisstantCommands;
 
-        public string RoleName => "Assisstant";
+        public string RoleName => UserRole.Assistant.ToString();
 
         public AssisstantRegisterHandler(IAssisstantCommands AssisstantCommands)
         {
@@ -23,7 +25,9 @@ namespace Application.Assisstants.RegisterHandler
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
             // Cast the role-specific payload
-            var AssisstantReq = request.RoleRequest as CreatAssisstantRequest;
+            var AssisstantReq = JsonSerializer.Deserialize<
+                CreatAssisstantRequest>(request.RoleRequest.ToString());
+
             if (AssisstantReq == null)
                 return Result<int>.Failure("Invalid Assisstant request payload");
 

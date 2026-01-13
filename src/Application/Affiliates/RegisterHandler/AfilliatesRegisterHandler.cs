@@ -7,6 +7,8 @@ using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.AffiliateInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
+using Domain.Enums;
+using System.Text.Json;
 
 
 namespace Application.Affiliates.RegisterHandler
@@ -16,7 +18,7 @@ namespace Application.Affiliates.RegisterHandler
     {
         private readonly IAffiliateCommands  _affiliateCommands;
 
-        public string RoleName => "Admin";
+        public string RoleName => UserRole.Affiliate.ToString();
 
         public AfilliatesRegisterHandler(IAffiliateCommands affiliateCommands)
         {
@@ -26,15 +28,17 @@ namespace Application.Affiliates.RegisterHandler
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
             // Cast the role-specific payload
-            var adminReq = request.RoleRequest as CreateAffiliateRequest;
-            if (adminReq == null)
+            var AffiliateReq = JsonSerializer.Deserialize<CreateAffiliateRequest>(
+                    request.RoleRequest.ToString()
+              ); 
+            if (AffiliateReq == null)
                 return Result<int>.Failure("Invalid Admin request payload");
 
             // Wrap into your existing CreateAdminSession
             var session = new CreatAffiliateSession
             {
                 UserRequest = request.UserRequest,
-                AffiliateRequest = adminReq
+                AffiliateRequest = AffiliateReq
             };
 
             // Delegate to AdminCommands
