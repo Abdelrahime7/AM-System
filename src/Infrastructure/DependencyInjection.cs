@@ -56,7 +56,7 @@ public static class DependencyInjection
                 ClockSkew = TimeSpan.Zero
             };
         });
-
+              
         services.AddAuthorization(options => {
             options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
             options.AddPolicy("DriverOnly", policy => policy.RequireRole("Driver"));
