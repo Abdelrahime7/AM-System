@@ -1,5 +1,6 @@
 using Application.Affiliates.DTO_s.session;
 using Application.Interfaces.AffiliateInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -13,6 +14,8 @@ public class AffiliateController(IAffiliateCommands AffiliateCommands, IAffiliat
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
+    [Authorize(policy:("ApprovedAdminOrsuperAdmin"))] 
     public async Task<ActionResult<IEnumerable<AffiliateSessionResponse>>> GetAll()
     {
         var result = await AffiliateQueries.GetAllAffiliates();
@@ -29,6 +32,8 @@ public class AffiliateController(IAffiliateCommands AffiliateCommands, IAffiliat
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
     public async Task<ActionResult<AffiliateSessionResponse>> GetById(int id)
     {
         if (id < 1)
@@ -42,21 +47,7 @@ public class AffiliateController(IAffiliateCommands AffiliateCommands, IAffiliat
     }
 
    
-    
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreatAffiliateSession request)
-    {
-        var result = await AffiliateCommands.CreateAffiliateAsync(request);
-        if (result.IsSuccess)
-            return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
-
-        return BadRequest(result.Error);
-    }
-
+ 
 
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -64,6 +55,8 @@ public class AffiliateController(IAffiliateCommands AffiliateCommands, IAffiliat
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<AffiliateSessionResponse>> Update(UpdateAffiliateSession request)
     {
         if (request.AffiliateRequest.Id <= 0) 
@@ -86,6 +79,8 @@ public class AffiliateController(IAffiliateCommands AffiliateCommands, IAffiliat
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<bool>> DeleteAffiliate(int id)
     {
         if (id < 1)

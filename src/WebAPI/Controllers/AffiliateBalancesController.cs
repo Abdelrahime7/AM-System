@@ -1,5 +1,6 @@
 using Application.AffiliatesBalance.DTOs;
 using Application.Interfaces.AffiliateBalanceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -13,6 +14,8 @@ public class AffiliateBalancesController(IAffiliateBalanceCommands commands, IAf
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
+    [Authorize(policy:"ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<IEnumerable<AffiliateBalanceResponse>>> GetAll()
     {
         var result = await queries.GetAllAffiliateBalancesAsync();
@@ -29,6 +32,8 @@ public class AffiliateBalancesController(IAffiliateBalanceCommands commands, IAf
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy:"ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<AffiliateBalanceResponse>> GetById(int id)
     {
         if (id < 1)
@@ -40,12 +45,14 @@ public class AffiliateBalancesController(IAffiliateBalanceCommands commands, IAf
 
         return NotFound();
     }
-    
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = "SuperAdminOnly")]
+
     public async Task<ActionResult<int>> Create(CreateAffiliateBalanceRequest request)
     {
         var result = await commands.CreateAffiliateBalanceAsync(request);
@@ -56,12 +63,16 @@ public class AffiliateBalancesController(IAffiliateBalanceCommands commands, IAf
     }
 
 
+
+
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "SuperAdminOnly")]
+
     public async Task<ActionResult<AffiliateBalanceResponse>> Update(UpdateAffiliateBalanceRequest request)
     {
         if (request.Id <= 0) 
@@ -81,14 +92,15 @@ public class AffiliateBalancesController(IAffiliateBalanceCommands commands, IAf
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<bool>> DeleteCustomer(int id)
+    [Authorize(policy: "SuperAdminOnly")]
+    public async Task<ActionResult<bool>> DeleteAffiliateBalanceAsync(int id)
     {
         if (id < 1)
-            return NoContent();
+            BadRequest("Invalid id"); 
         var result = await commands.DeleteAffiliateBalanceAsync(id);
 
         if (!result.IsSuccess)
-            return BadRequest("Customer not deleted");
+            return BadRequest("affiliate not deleted");
             
         return Ok(result.Value);
     }

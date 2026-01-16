@@ -1,5 +1,6 @@
 using Application.Interfaces.WithdrawalInterfaces;
 using Application.Withdrawals.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -11,6 +12,7 @@ public class WithdrawalsController(IWithdrawalCommands commands, IWithdrawalQuer
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<IEnumerable<WithdrawalResponse>>> GetAll()
     {
         var result = await queries.GetAllWithdrawalsAsync();
@@ -25,6 +27,8 @@ public class WithdrawalsController(IWithdrawalCommands commands, IWithdrawalQuer
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<WithdrawalResponse>> GetById(int id)
     {
         if (id < 1)
@@ -40,7 +44,8 @@ public class WithdrawalsController(IWithdrawalCommands commands, IWithdrawalQuer
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreateWithdrawalRequest request)
+    [Authorize(policy: "ApprovedAffiliateOnly")] 
+    public async Task<ActionResult<int>> ApplyWithdrawalRequest(CreateWithdrawalRequest request)
     {
         var result = await commands.CreateWithdrawalAsync(request);
         if (result.IsSuccess)
@@ -54,6 +59,8 @@ public class WithdrawalsController(IWithdrawalCommands commands, IWithdrawalQuer
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<WithdrawalResponse>> Update(UpdateWithdrawalRequest request)
     {
         if (request.Id <= 0) 
@@ -71,6 +78,8 @@ public class WithdrawalsController(IWithdrawalCommands commands, IWithdrawalQuer
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<bool>> Delete(int id)
     {
         if (id < 1)

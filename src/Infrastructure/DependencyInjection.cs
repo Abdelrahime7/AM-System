@@ -15,11 +15,14 @@ using Infrastructure.security.CredentialChecker;
 using Infrastructure.Services;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace Infrastructure;
@@ -36,6 +39,8 @@ public static class DependencyInjection
         services.AddEntityMappers();
 
 
+
+        JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
         services.AddAuthentication(options =>
         {
@@ -58,14 +63,41 @@ public static class DependencyInjection
             };
         });
               
-        services.AddAuthorization(options => {
-            options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRole.Admin.ToString()));
-            options.AddPolicy("DriverOnly", policy => policy.RequireRole(UserRole.Driver.ToString()));
-            options.AddPolicy("AffiliateOnly", policy => policy.RequireRole(UserRole.Affiliate.ToString()));
-            options.AddPolicy("AssistantOnly", policy => policy.RequireRole(UserRole.Assistant.ToString()));
-           });
+        services.AddAuthorization(options => 
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        {
+        options.AddPolicy("SuperAdminOnly", policy =>
+            policy.RequireRole(UserRole.SuperAdmin.ToString()));
+            options.AddPolicy("ApprovedAdminOrsuperAdmin", policy =>
+                policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Admin,true)));
+
+
+            options.AddPolicy("ApprovedAssisstantOnly", policy =>
+                policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Assistant)));
+            options.AddPolicy("ApprovedAssisstantOrSuperAdmin", policy =>
+               policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Assistant,true)));
+            options.AddPolicy("ApprovedAssisstantOrSuperAdminOrAdmin", policy =>
+              policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Assistant, true,true)));
+
+
+            options.AddPolicy("ApprovedAffiliateOrSuperAdmin", policy =>
+                policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Affiliate,true)));
+            options.AddPolicy("ApprovedAffiliateOnly", policy =>
+              policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Affiliate, true)));
+            options.AddPolicy("ApprovedAffiliateOrSuperAdminOrAdmin", policy =>
+             policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Assistant, true, true)));
+
+
+            options.AddPolicy("ApprovedDriverOrSuperAdmin", policy =>
+               policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Driver,true)));
+            options.AddPolicy("ApprovedDriverOrSuperAdminOrAdmin", policy =>
+               policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Driver, true,true)));
+            options.AddPolicy("ApprovedDriverOnly", policy =>
+                policy.Requirements.Add(new ApprovedRoleRequirement(UserRole.Driver)));
+        });
+
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         //register filters
         
@@ -108,6 +140,10 @@ public static class DependencyInjection
         //token service
 
         services.AddScoped<IJwtService,TokenService>();
+
+        //auth
+        services.AddScoped<IAuthorizationHandler, ApprovedRoleHandler>();
+
 
         return services;
     }

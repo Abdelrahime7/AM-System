@@ -23,7 +23,7 @@ namespace Infrastructure.security.CredentialChecker
 
             public async Task<UserIdentity?> CheckCredentialsAsync(string username, string password)
             {
-            var user = await _DbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
+            var user = await _DbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
             if (user == null) return null;
 
             // Verify password

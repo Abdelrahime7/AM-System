@@ -23,6 +23,9 @@ namespace WebAPI.Controllers
         /// </summary>
         /// 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+     
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] CreateRoleSession request)
         {
