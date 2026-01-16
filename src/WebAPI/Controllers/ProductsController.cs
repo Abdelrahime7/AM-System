@@ -1,7 +1,9 @@
 
 using Application.Interfaces.ProductInterfaces;
 using Application.Products.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers;
 
@@ -18,6 +20,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
     public async Task<ActionResult<IEnumerable<ProductResponse>>> GetAll()
     {
         var result = await _productQueries.GetAllAsync();
@@ -34,6 +37,8 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<ProductResponse>> GetById(int id)
     {
         if (id < 1)
@@ -52,6 +57,8 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<ProductResponse>> GetByName(string name)
     {
         if (string.IsNullOrEmpty(name))
@@ -69,10 +76,12 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<int>> Create(CreateProductRequest request)
     {
-        //Uncomment later when we add JWT
-        // request.CreatedByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+      
+         request.CreatedByUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _productCommands.CreateProductAsync(request);
         if (result.IsSuccess)
             return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
@@ -87,6 +96,8 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAffiliateOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<ProductResponse>> Update(UpdateProductRequest request)
     {
         if (request.Id <= 0) 
@@ -108,6 +119,7 @@ public class ProductsController(IProductQueries productQueries, IProductCommands
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy:"ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<bool>> Delete(int id)
     {
         if (id < 1)

@@ -1,6 +1,7 @@
 using Application.CallsLog.DTOs;
 
 using Application.Interfaces.CallLogInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -14,6 +15,8 @@ public class CallLogController(ICallLogCommands Commands, ICallLogQueries Querie
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<IEnumerable<CallLogrResponse>>> GetAll()
     {
         var result = await Queries.GetAllCallLogsAsync();
@@ -30,6 +33,8 @@ public class CallLogController(ICallLogCommands Commands, ICallLogQueries Querie
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<CallLogrResponse>> GetById(int id)
     {
         if (id < 1)
@@ -49,6 +54,8 @@ public class CallLogController(ICallLogCommands Commands, ICallLogQueries Querie
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(policy: "ApprovedAssisstantOnly")]
+
     public async Task<ActionResult<int>> Create(CreateCallLogRequest request)
     {
         var result = await Commands.CreatCallLogAsync(request);
@@ -65,6 +72,7 @@ public class CallLogController(ICallLogCommands Commands, ICallLogQueries Querie
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "SuperAdminOnly")]
     public async Task<ActionResult<CallLogrResponse>> Update(UpdateCallLogRequest request)
     {
         if (request.Id <= 0) 
@@ -84,6 +92,8 @@ public class CallLogController(ICallLogCommands Commands, ICallLogQueries Querie
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+
+    [Authorize(policy: "SuperAdminOnly")]
     public async Task<ActionResult<bool>> Delete(int id)
     {
         if (id < 1)

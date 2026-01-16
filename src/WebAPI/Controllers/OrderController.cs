@@ -3,6 +3,7 @@ using Application.Orders.DTOs;
 using Application.Orders.DTOs.Session;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -16,6 +17,8 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<IEnumerable<ResponseSession>>> GetAll()
     {
         var result = await queries.GetAllOrdersAsync();
@@ -32,6 +35,8 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<ResponseSession>> GetById(int id)
     {
         if (id < 1)
@@ -51,6 +56,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(policy: "ApprovedAffiliateOnly")]
     public async Task<ActionResult<int>> Create(CreatOrderSession request)
     {
         var result = await commands.CreateOrderAsync(request);
@@ -67,6 +73,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<ResponseSession>> Update(UpdateOrderSession request)
     {
         if (request == null)
@@ -86,6 +93,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<bool>> Delete(int id)
     {
         if (id < 1)
@@ -100,19 +108,18 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
 
     [HttpPatch("api/Orders/ChangeStatus")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-
+    [Authorize(policy: "ApprovedDriverOrSuperAdminOrAdmin")]
     public async Task<ActionResult<bool>> ChangeOrderStatus(ChangeOrderStatus request)
     {
-        if (request.Id < 1)
-            return NoContent();
+        if (request.Id < 1||request==null)
+            return BadRequest();
         var result = await commands.ChangeOrderStatusAsync(request);
 
         if (!result.IsSuccess)
-            return BadRequest("Customer not deleted");
+            return BadRequest("Order Status not changed");
 
         return Ok(result.Value);
     }
@@ -124,6 +131,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
 
     public async Task<ActionResult<bool>> AssignOrderToDelivery(Order order)
     {
@@ -132,7 +140,7 @@ public class OrderController(IOrderCommands commands, IOrderQueries queries) : C
         var result = await commands.AssignOrderToDelivery(order);
 
         if (!result.IsSuccess)
-            return BadRequest("Customer not deleted");
+            return BadRequest("Order not Assigned");
 
         return Ok(result.Value);
     }

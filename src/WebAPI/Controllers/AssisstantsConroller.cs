@@ -1,5 +1,6 @@
 using Application.Assisstants.Dto_s.session;
 using Application.Interfaces.AssisstantInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -13,6 +14,7 @@ public class AssisstantController(IAssisstantCommands AssisstantCommands, IAssis
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "ApprovedAssisstantOrSuperAdminOrAdmin")]
     public async Task<ActionResult<IEnumerable<AssisstantSessionResponse>>> GetAll()
     {
         var result = await AssisstantQueries.GetAllAssisstants();
@@ -29,6 +31,8 @@ public class AssisstantController(IAssisstantCommands AssisstantCommands, IAssis
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAssisstantOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<AssisstantSessionResponse>> GetById(int id)
     {
         if (id < 1)
@@ -43,19 +47,7 @@ public class AssisstantController(IAssisstantCommands AssisstantCommands, IAssis
 
    
     
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreatAssisstantSession request)
-    {
-        var result = await AssisstantCommands.CreateAssisstantAsync(request);
-        if (result.IsSuccess)
-            return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
-
-        return BadRequest(result.Error);
-    }
+    
 
 
     [HttpPut]
@@ -64,6 +56,8 @@ public class AssisstantController(IAssisstantCommands AssisstantCommands, IAssis
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<AssisstantSessionResponse>> Update(UpdateAssisstantSession request)
     {
         if (request.AssisstantRequest.Id <= 0) 
@@ -86,6 +80,8 @@ public class AssisstantController(IAssisstantCommands AssisstantCommands, IAssis
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "SuperAdminOnly")]
+
     public async Task<ActionResult<bool>> DeleteAssisstant(int id)
     {
         if (id < 1)

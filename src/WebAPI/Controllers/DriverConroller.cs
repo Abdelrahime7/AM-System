@@ -2,6 +2,7 @@ using Application.Drivers.DTO_s;
 using Application.Drivers.DTO_s.session;
 using Application.Interfaces.DriverInterfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -15,6 +16,8 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<IEnumerable<DriverSessionResponse>>> GetAll()
     {
         var result = await DriverQueries.GetAllDrivers();
@@ -31,6 +34,7 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedDriverOrSuperAdminOrAdmin")]
     public async Task<ActionResult<DriverSessionResponse>> GetById(int id)
     {
         if (id < 1)
@@ -43,22 +47,7 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
         return NotFound();
     }
 
-   
-    
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreatDriverSession request)
-    {
-        var result = await DriverCommands.CreateDriverAsync(request);
-        if (result.IsSuccess)
-            return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
-
-        return BadRequest(result.Error);
-    }
-
+  
 
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -66,6 +55,8 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<DriverSessionResponse>> Update(UpdateDriverSession request)
     {
         if (request.DriverRequest.Id <= 0) 
@@ -85,6 +76,8 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedDriverOrSuperAdminOrAdmin")]
+
     public async Task<ActionResult<bool>> ChangeDriverAvaillabilityte(ChangeAvailability availability)
     {
        
@@ -104,6 +97,8 @@ public class DriverController(IDriverCommands DriverCommands, IDriverQueries Dri
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<bool>> DeleteDriver(int id)
     {
         if (id < 1)

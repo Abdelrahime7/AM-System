@@ -2,6 +2,7 @@ using Application.Delivery.DTOs;
 using Application.Interfaces.CustomerInterfaces;
 using Application.Interfaces.DeliveryInterfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -16,6 +17,8 @@ public class DeliveryIntegrationController(IDeliveryIntegrationCommands commands
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<IEnumerable<DeliveryIntegration>>> GetAll()
     {
         var result = await Queries.GetAllAsync();
@@ -32,6 +35,8 @@ public class DeliveryIntegrationController(IDeliveryIntegrationCommands commands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<DeliveryIntegration>> GetById(int id)
     {
         if (id < 1)
@@ -51,6 +56,8 @@ public class DeliveryIntegrationController(IDeliveryIntegrationCommands commands
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<int>> Create(CreateDeliveryIntegrationRequest request)
     {
         var result = await commands.CreateDeliveryIntegrationAsync(request);
@@ -67,6 +74,8 @@ public class DeliveryIntegrationController(IDeliveryIntegrationCommands commands
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<DeliveryIntegrationResponse>> Update(UpdateDeliveryIntegrationRequest request)
     {
         if (request.Id <= 0) 
@@ -86,6 +95,8 @@ public class DeliveryIntegrationController(IDeliveryIntegrationCommands commands
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [Authorize(policy: "ApprovedAdminOrsuperAdmin")]
+
     public async Task<ActionResult<bool>> DeleteDeliveryIntegration(int id)
     {
         if (id < 1)

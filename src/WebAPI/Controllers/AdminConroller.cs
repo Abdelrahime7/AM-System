@@ -1,9 +1,11 @@
 using Application.Admins.DTO_s.session;
 using Application.Interfaces.AdminInterfaces;
 using Application.Users.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
+
 
 [Route("api/Admins")]
 [ApiController]
@@ -14,6 +16,8 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
+    [Authorize(Policy = "ApprovedAdminOrsuperAdmin")]
     public async Task<ActionResult<IEnumerable<AdminSessionResponse>>> GetAll()
     {
         var result = await AdminQueries.GetAllAdmins();
@@ -24,6 +28,7 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
         return NoContent();
     }
 
+    [Authorize(Policy = "ApprovedAdminOrsuperAdmin")]
     [HttpGet("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -42,22 +47,6 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
         return NotFound();
     }
 
-   
-    
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> Create(CreatAdminSession request)
-    {
-        var result = await AdminCommands.CreateAdminAsync(request);
-        if (result.IsSuccess)
-            return CreatedAtAction(nameof(GetById), new { id = result.Value }, request);
-
-        return BadRequest(result.Error);
-    }
-
 
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -65,6 +54,8 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    [Authorize(Policy = "SuperAdminOnly")]
     public async Task<ActionResult<AdminSessionResponse>> Update(UpdateAdminSession request)
     {
         if (request.AdminRequest.Id <= 0) 
@@ -72,7 +63,7 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
         
         var result = await AdminCommands.UpdateAdminAsnc(request);
         if (result.IsSuccess)
-            return Ok(true);
+            return Ok(result.Value); ;
 
         return NotFound(result.Error);
     }
@@ -84,6 +75,7 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = "SuperAdminOnly")]
     public async Task<ActionResult<bool>> ChangeAdminAvaillabilityte(ChangeStatusRequest request )
     {
        
@@ -103,10 +95,12 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+
+    [Authorize(Policy = "SuperAdminOnly")]
     public async Task<ActionResult<bool>> DeleteAdmin(int id)
     {
         if (id < 1)
-            return NoContent();
+            return BadRequest("Invalid id"); ;
         var result = await AdminCommands.DeleteAdminAsnc(id);
 
         if (!result.IsSuccess)
