@@ -8,7 +8,6 @@ public class CallLog
     public required string CustomerPhone { get; set; }
     public CallResult CallResult { get; set; }
     public DateTime CalledAt { get; set; }
-
     public int OrderId { get; set; }
     public Order Order { get; set; } = null!;
     
