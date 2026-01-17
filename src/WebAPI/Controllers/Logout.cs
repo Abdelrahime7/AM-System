@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.Interfaces.JwtService;
+using Application.Users.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,21 +10,21 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LogoutController : ControllerBase
     {
-        private readonly TokenService _service;
+        private readonly IJwtService  _service;
 
-        public LogoutController(TokenService service)
+        public LogoutController(IJwtService service)
         {
             _service = service;
         }
 
         [Authorize]
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] string tokenValue)
+        public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
         {
-            if (string.IsNullOrWhiteSpace(tokenValue))
+            if (string.IsNullOrWhiteSpace(request.TokenValue))
                 return BadRequest(new { success = false, message = "Token value is required." });
 
-            var result = await _service.RevokeRefreshTokenAsync(tokenValue);
+            var result = await _service.RevokeRefreshTokenAsync(request.TokenValue);
 
             if (!result)
                 return BadRequest(new { success = false, message = "Revocation failed or token not found." });
