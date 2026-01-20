@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:amsfront/features/Splash/widgets/_bmglogo.dart';
-import 'package:amsfront/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 
 class SplashScreen extends StatelessWidget {
@@ -32,17 +32,7 @@ class SplashScreen extends StatelessWidget {
                  SizedBox(
                    width: 200,
                    child: ElevatedButton(
-                     onPressed: () {
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(
-                           builder: (context) => Scaffold(
-                             appBar: AppBar(title: const Text('About Us')),
-                             body: const Center(child: Text('About Us Page')),
-                           ),
-                         ),
-                       );
-                     },
+                     onPressed: () => context.push('/about'),
                      child: const Text('About Us'),
                    ),
                  ),
@@ -50,17 +40,7 @@ class SplashScreen extends StatelessWidget {
                  SizedBox(
                    width: 200,
                    child: ElevatedButton(
-                     onPressed: () {
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(
-                           builder: (context) => Scaffold(
-                             appBar: AppBar(title: const Text('Our Works')),
-                             body: const Center(child: Text('Our Works Page')),
-                           ),
-                         ),
-                       );
-                     },
+                     onPressed: () => context.push('/works'),
                      child: const Text('Our Works'),
                    ),
                  ),
@@ -68,12 +48,7 @@ class SplashScreen extends StatelessWidget {
                  SizedBox(
                    width: 200,
                    child: ElevatedButton(
-                     onPressed: () {
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(builder: (context) => const LoginScreen()),
-                       );
-                     },
+                     onPressed: () => context.push('/login'),
                      child: const Text('Sign In'),
                    ),
                  ),
