@@ -1,4 +1,4 @@
-import 'package:amsfront/features/auth/presentation/pages/login_screen.dart';
+import 'package:amsfront/features/Splash/presentation/pages/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +23,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen());
+      home: const SplashScreen());
   }
 }
