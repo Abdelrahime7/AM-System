@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 
  Widget buildTextInput({
+
     required String hint,
+    
     bool obscureText = false,
-    TextInputType? keyboardType,
+    TextInputType? keyboardType, 
+    required TextEditingController controller,
   }) {
     return Container(
       height: 56,
@@ -14,6 +17,7 @@ import 'package:flutter/material.dart';
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
         style: const TextStyle(
