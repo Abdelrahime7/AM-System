@@ -2,6 +2,7 @@
 using Application.Interfaces.Repositories;
 using Application.Users.CredentialChecker;
 using Application.Users.DTOs;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,6 +39,7 @@ namespace WebAPI.Controllers
             var identity = await _credentialChecker.CheckCredentialsAsync(request.Username, request.Password);
             if (identity == null)
                 return Unauthorized("Invalid username or password.");
+            UserRole role = identity.Role.Value;
 
             var claims = new List<Claim>
             {
@@ -47,8 +49,9 @@ namespace WebAPI.Controllers
              };
 
             var tokens = await _tokenService.GenerateAndStoreTokensAsync(identity.id, claims);
-
-            return Ok(tokens);
+           var response = new {Role= role,  tokens=tokens };
+            
+            return Ok(response);
         }
 
 
