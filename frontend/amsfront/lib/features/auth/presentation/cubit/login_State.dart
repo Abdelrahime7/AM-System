@@ -8,9 +8,14 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final String message;
+ final String message;
+  
 
-  LoginSuccess(this.message);
+
+
+   LoginSuccess(this.message);
+  
+
 }
 
 class LoginFailure extends LoginState {

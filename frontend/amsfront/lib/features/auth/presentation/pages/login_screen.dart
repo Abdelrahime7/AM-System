@@ -1,3 +1,5 @@
+import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/app/switcher.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_cubit.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_state.dart';
 import 'package:amsfront/features/auth/presentation/widgets/_buildTextInput.dart';
@@ -6,7 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key}); 
+  const LoginScreen({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,10 @@ class LoginScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              // Navigate to the next screen on success
+              // Navigate t
+            roles role =context.read<LoginCubit>().role;
+            switcher s=switcher(role);
+            s.routing(context);
             
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
