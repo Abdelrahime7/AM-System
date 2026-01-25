@@ -1,3 +1,4 @@
+import 'package:amsfront/app/di/injector/injectors.dart';
 import 'package:amsfront/app/enums/roles.dart';
 import 'package:amsfront/app/switcher.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_cubit.dart';
@@ -6,6 +7,8 @@ import 'package:amsfront/features/auth/presentation/widgets/_buildTextInput.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -20,7 +23,7 @@ class LoginScreen extends StatelessWidget {
         statusBarBrightness: Brightness.dark,
       ),
       child: BlocProvider(
-        create: (context) => LoginCubit(),
+        create: (context) =>getIt<LoginCubit>(),
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {

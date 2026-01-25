@@ -2,8 +2,11 @@ import 'package:amsfront/app/routers/app_router.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:amsfront/app/di/injector/injectors.dart';
+
 
 void main() {
+  setupDependencies();
   runApp(DevicePreview(
     enabled: !kReleaseMode,
     isToolbarVisible: false,
@@ -13,6 +16,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   // This widget is the root of your application.

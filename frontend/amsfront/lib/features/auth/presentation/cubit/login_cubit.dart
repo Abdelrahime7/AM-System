@@ -1,13 +1,14 @@
-import 'dart:math';
-
 import 'package:amsfront/app/enums/roles.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:amsfront/features/auth/data/repositories/auth_repository.dart';
+
+
 
 class LoginCubit extends Cubit<LoginState> {
-  final random = Random(); // random int from 0 to 4 Roles role = Roles.values[r];
-  LoginCubit() : super(LoginInitial());
+  final AuthRepository repository;
+  LoginCubit(this.repository) : super(LoginInitial());
 
 
   final TextEditingController usernameController = TextEditingController();
@@ -15,23 +16,25 @@ class LoginCubit extends Cubit<LoginState> {
   roles role =roles.Assistant;
   
 
+Future<void> login() async
+ {
+   emit(LoginLoading());
+    try
+     { 
+      String username = usernameController.text;
+      String password = passwordController.text;
+      final user = await repository.login(username, password);
 
-  void login() async {
-    emit(LoginLoading());
-    // Simulate a network request
-    await Future.delayed(const Duration(seconds: 2));
-
-
-
-    if (usernameController.text == "Username1" &&
-        passwordController.text == "12345") {
-      emit(LoginSuccess('Login successful'));
- 
-    } else {
-      emit(LoginFailure('Invalid credentials.'));
-    }
-  }
-
+      emit(LoginSuccess("login successful"));
+      role=user.role;
+      
+    
+      
+       }
+        catch (e)
+         { emit(LoginFailure(e.toString())); }
+         }
+        
   @override
   Future<void> close() {
     usernameController.dispose();
