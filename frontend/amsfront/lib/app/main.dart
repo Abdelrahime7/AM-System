@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(DevicePreview(
     enabled: !kReleaseMode,
+    isToolbarVisible: false,
+    backgroundColor:  const Color.fromARGB(255, 44, 54, 83),
     builder: (context) => const MyApp(),
   ));
 }
