@@ -27,13 +27,13 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-              // Navigate t
-            roles role =context.read<LoginCubit>().role;
-            switcher s=switcher(role);
-            s.routing(context);
+              // Assumes LoginSuccess state now holds the user object, e.g.,
+              // `class LoginSuccess extends LoginState { final UserModel user; ... }`
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text("Login Successful!")));
+
+              final userRole = state.user.roleEnum;
+              switcher(userRole).routing(context);
             
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
