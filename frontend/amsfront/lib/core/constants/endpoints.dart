@@ -1,5 +1,5 @@
 
 class Endpoints {
-static const login = "/auth/login";
-
+static const baseUrl = "https://api.myapp.com"; // change per environment
+ static const login = "/api/Auth/login";
 }
