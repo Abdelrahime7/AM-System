@@ -11,7 +11,9 @@ class AuthService {
     final response = await apiClient.post(
       Endpoints.login,
       data: {"username": username, "password": password},
+      
     );
+    print(response.data);
     return UserModel.fromJson(response.data);
   }
 }
