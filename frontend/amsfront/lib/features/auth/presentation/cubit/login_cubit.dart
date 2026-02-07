@@ -11,22 +11,39 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   int role = 0;
-
   Future<void> login() async {
     emit(LoginLoading());
     try {
-      String username = usernameController.text;
-      String password = passwordController.text;
-      final user = await repository.login(username, password);
+  final user = await repository.login(
+    usernameController.text,
+    passwordController.text,
+  );
+  role = user.role;
+  emit(LoginSuccess("Login successful"));
+} on DioException catch (e) { // ✅ correct for Dio v5
+  String errorMessage = 'An error occurred';
 
-      emit(LoginSuccess("login successful"));
-      role = user.role;
-    } on DioException catch (e) {
-     
-      emit(LoginFailure(e.response?.data['message'] ?? 'A network error occurred. Please try again.'));
-    } catch (e) {
-      emit(LoginFailure('An unexpected error occurred. Please try again.'));
+  if (e.response != null) {
+    final data = e.response!.data;
+
+    if (data is Map && data.containsKey('message')) {
+      errorMessage = data['message'];
+    } else if (data is String) {
+      errorMessage = data;
+    } else {
+      errorMessage = data.toString();
     }
+  } else {
+    errorMessage = 'Network error. Please try again.';
+  }
+
+  emit(LoginFailure(errorMessage));
+  } catch (e) {
+  emit(LoginFailure('Unexpected error: ${e.toString()}'));
+
+
+}
+
   }
 
   @override

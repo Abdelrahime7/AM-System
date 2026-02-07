@@ -10,8 +10,8 @@ namespace Application.Affiliates.Validation
             RuleFor(x=>x.ReferralCode).NotEmpty().
                 GreaterThan(0).WithMessage("Referral Code required");
 
-            RuleFor(x => x.CommissionRate).NotEmpty().When(x => x!=null).
-                WithMessage("Commission Rate required");
+          ///  RuleFor(x => x.CommissionRate).NotEmpty().When(x => x!=null).
+           //     WithMessage("Commission Rate required");
 
            
 

@@ -49,8 +49,9 @@ class AffiliateScreen extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
+        backgroundColor:  const Color(0xFF111722),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 44, 54, 83),
+        backgroundColor:  const Color(0xFF111722),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),

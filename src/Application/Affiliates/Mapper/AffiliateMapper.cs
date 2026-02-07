@@ -13,7 +13,7 @@ namespace Application.Affiliates.Mapper
             {
 
                 ReferralCode = dto.ReferralCode,
-                CommissionRate = dto.CommissionRate,
+                CommissionRate = 10.00m,//default comission value .
                 PartnerSince = DateTime.UtcNow
 
             };
