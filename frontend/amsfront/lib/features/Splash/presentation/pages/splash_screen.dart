@@ -45,6 +45,13 @@ class SplashScreen extends StatelessWidget {
                 route: '/login',
                 isPrimary: true,
               ),
+              const SizedBox(height: 16),
+            
+               const _MenuButton(
+                title: 'Sign up',
+                route: '/register',
+                isPrimary: true,
+              ),
               const SizedBox(height: 48),
             ],
           ),

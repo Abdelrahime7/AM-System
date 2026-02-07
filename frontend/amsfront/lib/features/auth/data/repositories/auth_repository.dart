@@ -9,9 +9,11 @@ class AuthRepository {
 
   Future<UserModel> login(String username, String password) async {
     try {
+
       return await service.login(username, password);
     } catch (e) {
-      throw Exception("Login failed: $e");
+      rethrow;
+      
     }
   }
 }

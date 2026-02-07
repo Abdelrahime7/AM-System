@@ -7,6 +7,7 @@ import 'package:amsfront/features/auth/presentation/widgets/_buildTextInput.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 
 
@@ -27,13 +28,14 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              // Assumes LoginSuccess state now holds the user object, e.g.,
-              // `class LoginSuccess extends LoginState { final UserModel user; ... }`
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text("Login Successful!")));
-
-              final userRole = state.user.roleEnum;
-              switcher(userRole).routing(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+              // Navigate t
+            int role =context.read<LoginCubit>().role;
+            roles _role = roles.values[role] ;
+          
+            switcher.routing(context,_role);
             
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -257,10 +259,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    debugPrint('Create account pressed');
-                                    // Navigator.pushNamed(context, 'signup');
-                                  },
+                                  onTap:()=> context.push('/register'),
                                   child: const Text(
                                     'Create Account',
                                     style: TextStyle(

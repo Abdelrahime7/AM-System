@@ -19,6 +19,6 @@ class ApiClient {
   }
 
   Future<Response> get(String endpoint) => dio.get(endpoint);
-  Future<Response> post(String endpoint, {dynamic data}) =>
+  Future<Response> post(String endpoint, {dynamic data, required Options options}) =>
       dio.post(endpoint, data: data);
 }
