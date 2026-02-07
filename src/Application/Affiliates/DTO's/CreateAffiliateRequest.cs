@@ -6,7 +6,6 @@ namespace Application.Affiliates.DTO_s
     {
          
         public int ? ReferralCode { get; set; }
-        public decimal ? CommissionRate { get; set; }
       
 
     }
