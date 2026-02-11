@@ -3,7 +3,7 @@ import 'package:amsfront/app/enums/roles.dart';
 import 'package:amsfront/app/switcher.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_cubit.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_state.dart';
-import 'package:amsfront/features/auth/presentation/widgets/_buildTextInput.dart';
+import 'package:amsfront/features/register/presentation/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
