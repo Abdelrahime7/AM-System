@@ -27,10 +27,11 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
      
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] CreateRoleSession request)
+        public async Task<IActionResult> Register([FromBody] CreateRoleSession  request)
         {
             if (request?.UserRequest == null)
                 return BadRequest("Invalid registration request: missing user info.");
+           
 
             var result = await _registrationService.RegisterAsync(request);
 

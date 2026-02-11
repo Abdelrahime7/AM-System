@@ -1,26 +1,44 @@
+import 'package:amsfront/app/di/injector/injectors.dart';
+import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/features/register/data/model/register.dart';
+import 'package:amsfront/features/register/data/model/user_data.dart';
 import 'package:amsfront/features/register/presentation/cubit/register_cubit.dart';
+import 'package:amsfront/features/register/presentation/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; 
 import 'package:amsfront/features/register/presentation/widgets/welcome_section.dart';
-import 'package:amsfront/features/auth/presentation/widgets/_buildTextInput.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+  
 
 
-class Assisst_infoScreen extends StatelessWidget {
-  const Assisst_infoScreen({super.key}); 
+class Assisstant_infoScreen extends StatelessWidget {
+
+  final String selectedRole;
+  final UserData userData ;
+
+ Assisstant_infoScreen({super.key , required this.selectedRole, required this.userData});
  
+ final AssisstantRegister affiliateRegister = getIt<AssisstantRegister>();
+          final _formKey = GlobalKey<FormState>();
+
+
   
   @override
   Widget build(BuildContext context) {
-      return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-      ),
-     
-    child: Scaffold( 
-      backgroundColor: const Color(0xFF111722),
+      factor(selectedRole , userData);
+
+    return Form(key:_formKey ,
+    child: 
+    AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: RegisterBlocWrapper(
+            builder: (context) {
+              return Scaffold(
+ backgroundColor: const Color(0xFF111722),
 
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -43,7 +61,14 @@ class Assisst_infoScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 buildTextInput(
                   hint: 'Assigned by',
-                  controller: TextEditingController(),
+                  controller: affiliateRegister.assignedBy,
+                  validator: (value) {
+                             if (value == null || value.isEmpty ) {
+                             return ' is required';
+                              }
+                               return null;
+                             }
+                  
                 ),
                 const SizedBox(height: 20),
 
@@ -65,7 +90,15 @@ class Assisst_infoScreen extends StatelessWidget {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () => context.read<RegisterCubit>().register(),
+              
+                      onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  // Form is valid, proceed with registration
+                                  userData.role = roles.Assistant;
+                                  context.read<RegisterCubit>().register()
+                              ;
+                                }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
@@ -106,9 +139,24 @@ class Assisst_infoScreen extends StatelessWidget {
             ),
           ),
       ),
-    ));
+              );
+              
+
+            } ,
+    ),
+    )
+    );
+        
+    
+    
+
+
+    
   }
 
 
-  
+
+
+
+
 }

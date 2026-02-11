@@ -1,5 +1,14 @@
 ﻿using Application;
+using Application.Admins.Dto_s;
+using Application.Affiliates.DTO_s;
+using Application.Assisstants.Dto_s;
+using Application.Drivers.DTO_s;
+using Application.RoleRequeste;
+using Application.Users.validation;
+using Domain.Enums;
 using DotNetEnv;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Settings;
@@ -7,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using Serilog;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,10 +74,44 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //Services
+
+
+
 builder.Services.Configure<JwtSetting>(builder.Configuration.GetSection("JwtSettings"));
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+        options.JsonSerializerOptions.TypeInfoResolverChain.Insert(0, new DefaultJsonTypeInfoResolver
+        {
+            Modifiers =
+            {
+                ti =>
+                {
+                    if (ti.Type == typeof(Role))
+                    {
+                        ti.PolymorphismOptions = new JsonPolymorphismOptions
+                        {
+                            TypeDiscriminatorPropertyName = "roleType",
+                            IgnoreUnrecognizedTypeDiscriminators = true,
+                            UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization
+                        };
+
+                        ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreatAssisstantRequest), nameof(UserRole.Assistant)));
+                        ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreateDriverRequest), nameof(UserRole.Driver)));
+                        ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreateAdminRequest), nameof(UserRole.Admin)));
+                        ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreateAffiliateRequest),nameof(UserRole.Affiliate)));
+                    }
+                }
+            }
+        });
+    });
 
 // Add CORS
 builder.Services.AddCors(options =>

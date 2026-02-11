@@ -63,14 +63,24 @@ class DriverRegisterData {
 
 }
 
-class AssistantRegisterData {
+class AssistantRegisterData  implements RegisterPayload {
    UserData userData;
    int assignedBy ;
-    AssistantRegisterData({
+  AssistantRegisterData({
  required this.userData,
   required this.assignedBy, 
- 
+       
 });
 
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+ 'userRequest': userData.toJson(),
+  'roleRequest':{ 
+   'AssignedBy': assignedBy
+         }
+    };
+
+  }
 }
 
