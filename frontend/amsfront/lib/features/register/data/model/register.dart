@@ -1,4 +1,5 @@
 
+
 import 'package:amsfront/features/register/data/model/register_Data.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
 import 'package:amsfront/features/register/data/repositories/register_repository.dart';
@@ -36,5 +37,24 @@ final TextEditingController commisionrateController=TextEditingController();
     referalcodeController.dispose();
     commisionrateController.dispose();
   }
+
+}
+class AssisstantRegister implements Roleregister
+{
+RegisterRepository registerRepository ;  
+final TextEditingController assignedBy= TextEditingController();
+
+AssisstantRegister(this.registerRepository);
+ 
+
+  @override
+  Future<void> register(UserData userData) async {
+    final  object =   AssistantRegisterData(
+      userData: userData, 
+      assignedBy:1,
+      );
+      await registerRepository.register(object);
+  }
+  
 
 }

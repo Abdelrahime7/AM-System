@@ -24,18 +24,20 @@ namespace Application.Assisstants.RegisterHandler
 
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
-            // Cast the role-specific payload
-            var AssisstantReq = JsonSerializer.Deserialize<
-                CreatAssisstantRequest>(request.RoleRequest.ToString());
 
-            if (AssisstantReq == null)
+            
+            if (request == null)
                 return Result<int>.Failure("Invalid Assisstant request payload");
-
+           
+            var assistantReq = request.RoleRequest as CreatAssisstantRequest;
+ 
             // Wrap into your existing CreateAssisstantSession
             var session = new CreatAssisstantSession
             {
                 userRequest = request.UserRequest,
-                assisstantRequest = AssisstantReq
+
+               
+                assisstantRequest = assistantReq
             };
 
             // Delegate to AssisstantCommands

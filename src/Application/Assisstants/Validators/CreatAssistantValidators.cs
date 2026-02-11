@@ -12,7 +12,7 @@ namespace Application.Assisstants.Validators
              //   GreaterThan(0).WithMessage("UserId should be greater than 0") ;
 
             RuleFor(x => x.AssignedBy).NotEmpty().
-               GreaterThan(0).WithMessage("Assigned By admin refer to Id  should be greater than 0");
+               GreaterThan(0).WithMessage("Assigned By admin refer to Id ; should be greater than 0");
         }
     }
 }

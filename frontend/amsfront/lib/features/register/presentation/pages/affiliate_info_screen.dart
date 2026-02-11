@@ -4,7 +4,6 @@ import 'package:amsfront/features/register/presentation/widgets/text_input.dart'
 
 import 'package:amsfront/features/register/data/model/register.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
-import 'package:amsfront/features/register/presentation/cubit/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; 
 import 'package:amsfront/features/register/presentation/widgets/welcome_section.dart';
@@ -33,31 +32,8 @@ class Affiliat_infoScreen extends StatelessWidget {
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
-        child: BlocProvider(
-          create: (context) => getIt<RegisterCubit>(),
-        child: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-        
-            } else if (state is RegisterFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.error),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is RegisterLoading) {
-              return const Scaffold(
-                backgroundColor: Color(0xFF111722),
-                body: Center(child: CircularProgressIndicator()),
-              );
-            }
+        child: RegisterBlocWrapper(
+          builder: (context) {
             return Scaffold(
                 backgroundColor: const Color(0xFF111722),
                 extendBodyBehindAppBar: true,
@@ -176,7 +152,7 @@ class Affiliat_infoScreen extends StatelessWidget {
                   ),
                 ));
           },
-        ))),
+        )),
     );
   }
 }

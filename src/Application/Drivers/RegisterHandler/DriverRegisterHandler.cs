@@ -5,7 +5,6 @@ using Application.Interfaces.DriverInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
 using Domain.Enums;
-using System.Text.Json;
 
 
 namespace Application.Drivers.RegisterHandler
@@ -21,18 +20,18 @@ namespace Application.Drivers.RegisterHandler
             _DriverCommands = DriverCommands;
         }
 
-        public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
+        public async Task<Result<int>> RegisterAsync(CreateRoleSession  request)
         {
-            // Cast the role-specific payload
-            var DriverReq = JsonSerializer.Deserialize<CreateDriverRequest>(request.RoleRequest.ToString());
-            if (DriverReq == null)
+            if (request== null)
                 return Result<int>.Failure("Invalid Driver request payload");
+            var DriverRequest = request.RoleRequest as CreateDriverRequest;
+
 
             // Wrap into your existing CreateDriverSession
             var session = new CreatDriverSession
             {
                 UserRequest = request.UserRequest,
-                DriverRequest = DriverReq
+                DriverRequest = DriverRequest
             };
 
             // Delegate to DriverCommands

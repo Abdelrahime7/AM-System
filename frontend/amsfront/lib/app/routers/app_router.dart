@@ -89,14 +89,18 @@ GoRoute(
         return const RegisterScreen();
       },
     ),
+
      GoRoute(path: '/Assisstant-info',
       builder: (context, state) {
         final extra = state.extra;
-        if (extra is RegisterCubit) {
-          return BlocProvider.value(
-            value: extra,
-            child: const Assisst_infoScreen(),
-          );
+
+    if (extra is UserData) {
+      return Assisstant_infoScreen(
+        selectedRole: 'Assisstant',
+        userData: extra,
+      );
+       
+       
         }
         return const RegisterScreen();
       },

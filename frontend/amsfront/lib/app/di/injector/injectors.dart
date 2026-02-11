@@ -30,8 +30,14 @@ void setupDependencies() {
 
   // State (Bloc/Provider)
   getIt.registerFactory(() => LoginCubit(getIt<AuthRepository>()));
+
  getIt.registerLazySingleton<AffiliateRegister>(
   () => AffiliateRegister(getIt<RegisterRepository>()),
+);
+
+ 
+ getIt.registerLazySingleton<AssisstantRegister>(
+  () => AssisstantRegister(getIt<RegisterRepository>()),
 );
 
 }
@@ -47,6 +53,16 @@ void factor(String  ?selectedRole ,UserData userData) {
         getIt.registerFactory<RegisterCubit>(
           ()=> RegisterCubit(getIt<AffiliateRegister>(), userData),
          ); break;
+
+         case 'Assisstant': 
+      if (getIt.isRegistered<RegisterCubit>())
+       {
+         getIt.unregister<RegisterCubit>();
+        }
+        getIt.registerFactory<RegisterCubit>(
+          ()=> RegisterCubit(getIt<AssisstantRegister>(), userData),
+         ); break;
+
 
       default :
      // getIt.registerFactory(()=>RegisterCubit(getIt<Roleregister>(),userData));

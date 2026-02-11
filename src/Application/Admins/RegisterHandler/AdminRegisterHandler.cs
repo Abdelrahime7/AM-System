@@ -5,12 +5,8 @@ using Application.Interfaces.AdminInterfaces;
 using Application.Interfaces.RegisterHandler;
 using Application.RoleRequeste;
 using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Application.Admins.RegisterHandler
 {
@@ -27,25 +23,25 @@ namespace Application.Admins.RegisterHandler
 
         public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
-            // Cast the role-specific payload
-            var adminReq = JsonSerializer.Deserialize<CreateAdminRequest>(
-                    request.RoleRequest.ToString()
-              );
 
-           
-            if (adminReq == null)
+            var AdminRequest = request.RoleRequest as CreateAdminRequest;
+
+
+            if (request == null)
                 return Result<int>.Failure("Invalid Admin request payload");
 
             // Wrap into your existing CreateAdminSession
             var session = new CreatAdminSession
             {
                 UserRequest = request.UserRequest,
-                AdminRequest = adminReq
+                AdminRequest = AdminRequest
             };
 
             // Delegate to AdminCommands
             return await _adminCommands.CreateAdminAsync(session);
         }
+
+      
     }
 
 }

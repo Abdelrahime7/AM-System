@@ -1,11 +1,14 @@
+using Application.Admins.Dto_s;
 using Application.Admins.Features.Commands;
 using Application.Admins.Features.Queries;
 using Application.Admins.RegisterHandler;
+using Application.Affiliates.DTO_s;
 using Application.Affiliates.Features.Commands;
 using Application.Affiliates.Features.Queries;
 using Application.Affiliates.RegisterHandler;
 using Application.AffiliatesBalance.Features.Commands;
 using Application.AffiliatesBalance.Features.Queries;
+using Application.Assisstants.Dto_s;
 using Application.Assisstants.Features.Commands;
 using Application.Assisstants.Features.Queries;
 using Application.Assisstants.RegisterHandler;
@@ -17,6 +20,7 @@ using Application.Customers.Features.Commands;
 using Application.Customers.Features.Queries;
 using Application.CustomizedOrders.Features.Commands;
 using Application.CustomizedOrders.Features.Queries;
+using Application.Drivers.DTO_s;
 using Application.Drivers.features.Commands;
 using Application.Drivers.features.Queries;
 using Application.Drivers.RegisterHandler;
@@ -133,7 +137,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
 
         // Handlers (strategy pattern)
-       services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
+        services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
        services.AddScoped<IRegisterHandler, DriverRegisterHandler>();
        services.AddScoped<IRegisterHandler, AfilliatesRegisterHandler>();
        services.AddScoped<IRegisterHandler, AssisstantRegisterHandler>();
