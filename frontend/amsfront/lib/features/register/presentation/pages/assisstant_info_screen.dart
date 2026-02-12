@@ -19,7 +19,7 @@ class Assisstant_infoScreen extends StatelessWidget {
 
  Assisstant_infoScreen({super.key , required this.selectedRole, required this.userData});
  
- final AssisstantRegister affiliateRegister = getIt<AssisstantRegister>();
+ final AssisstantRegister assisstantRegister = getIt<AssisstantRegister>();
           final _formKey = GlobalKey<FormState>();
 
 
@@ -61,7 +61,7 @@ class Assisstant_infoScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 buildTextInput(
                   hint: 'Assigned by',
-                  controller: affiliateRegister.assignedBy,
+                  controller: assisstantRegister.assignedBy,
                   validator: (value) {
                              if (value == null || value.isEmpty ) {
                              return ' is required';
