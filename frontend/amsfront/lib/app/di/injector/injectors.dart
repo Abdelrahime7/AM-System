@@ -40,10 +40,23 @@ void setupDependencies() {
   () => AssisstantRegister(getIt<RegisterRepository>()),
 );
 
+
+ getIt.registerLazySingleton<AdminRegister>(
+  () => AdminRegister(getIt<RegisterRepository>()),
+);
+
 }
 
 void factor(String  ?selectedRole ,UserData userData) {
   switch (selectedRole) {
+     case 'Admin': 
+      if (getIt.isRegistered<RegisterCubit>())
+       {
+         getIt.unregister<RegisterCubit>();
+        }
+        getIt.registerFactory<RegisterCubit>(
+          ()=> RegisterCubit(getIt<AdminRegister>(), userData),
+         ); break;
     
       case 'Affiliate': 
       if (getIt.isRegistered<RegisterCubit>())

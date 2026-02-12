@@ -124,6 +124,7 @@ final TextEditingController confirmPasswordController =TextEditingController();
     return FormField<String>(
       initialValue: selectedRole,
       validator: (value) {
+        
         if (value == null || value.isEmpty) {
           return 'Please select a role.';
         }
