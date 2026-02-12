@@ -1,5 +1,6 @@
 
 
+import 'package:amsfront/app/enums/access_levels.dart';
 import 'package:amsfront/features/register/data/model/register_Data.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
 import 'package:amsfront/features/register/data/repositories/register_repository.dart';
@@ -20,7 +21,7 @@ class AffiliateRegister implements Roleregister{
   AffiliateRegister(this.registerRepository); 
 
 final TextEditingController referalcodeController =TextEditingController();
-final TextEditingController commisionrateController=TextEditingController();
+//final TextEditingController commisionrateController=TextEditingController();
 
   @override
   Future<void> register(UserData userData) async {
@@ -35,7 +36,7 @@ final TextEditingController commisionrateController=TextEditingController();
   void dispose()
   {
     referalcodeController.dispose();
-    commisionrateController.dispose();
+  //  commisionrateController.dispose();
   }
 
 }
@@ -52,6 +53,27 @@ AssisstantRegister(this.registerRepository);
     final  object =   AssistantRegisterData(
       userData: userData, 
       assignedBy:1,
+      );
+      await registerRepository.register(object);
+  }
+
+
+  
+
+}
+class AdminRegister implements Roleregister
+{
+RegisterRepository registerRepository ;  
+accesslevels? accessLevel;
+
+AdminRegister(this.registerRepository);
+ 
+
+  @override
+  Future<void> register(UserData userData) async {
+    final  object =  AdminRegisterData(
+      userData: userData, 
+       accesslevel: accessLevel ?? accesslevels.Admin,
       );
       await registerRepository.register(object);
   }

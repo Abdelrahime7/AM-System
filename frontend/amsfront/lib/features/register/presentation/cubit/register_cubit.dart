@@ -57,13 +57,14 @@ emit(RegisterSuccess('your account has been created successfully ,wait for admin
 
 class RegisterBlocWrapper extends StatelessWidget {
   final Widget Function(BuildContext) builder;
+  final RegisterCubit? cubit;
 
-  const RegisterBlocWrapper({super.key, required this.builder});
+  const RegisterBlocWrapper({super.key, required this.builder, this.cubit});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<RegisterCubit>(),
+      create: (context) => cubit ?? getIt<RegisterCubit>(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {

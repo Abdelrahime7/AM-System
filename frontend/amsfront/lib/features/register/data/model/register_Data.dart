@@ -1,6 +1,7 @@
 
 
 import 'package:amsfront/app/enums/access_levels.dart';
+import 'package:amsfront/app/enums/roles.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
 
 abstract class RegisterPayload {
@@ -24,6 +25,7 @@ Map<String, dynamic> toJson()
  { return {
  'userRequest': userData.toJson(),
   'roleRequest':{ 
+    "roleType": roles.Affiliate.toString(),
    'referalCode': referalcode
    }, 
 
@@ -32,19 +34,32 @@ Map<String, dynamic> toJson()
 
 }
 
-class AdminRegisterData {
+class AdminRegisterData  implements RegisterPayload
+{
  
 
   UserData userData;
   accesslevels accesslevel;
-
 
  AdminRegisterData({
  required this.userData,
   required this.accesslevel 
 });
 
+  @override
+  Map<String, dynamic> toJson() {
+    { return {
+ 'userRequest': userData.toJson(),
+  'roleRequest':{ 
+   "roleType": roles.Admin.name,
+   'levels': accesslevel.index
+   }, 
+
+    };
 }
+  }
+}
+
 
 class DriverRegisterData {
  
@@ -77,7 +92,8 @@ class AssistantRegisterData  implements RegisterPayload {
     return {
  'userRequest': userData.toJson(),
   'roleRequest':{ 
-   'AssignedBy': assignedBy
+   "roleType": roles.Assistant.toString(),
+    "assignedBy": assignedBy
          }
     };
 
