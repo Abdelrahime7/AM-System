@@ -80,10 +80,10 @@ GoRoute(
     GoRoute(path: '/Admin-info',
       builder: (context, state) {
         final extra = state.extra;
-        if (extra is RegisterCubit) {
-          return BlocProvider.value(
-            value: extra,
-            child: const Admin_infoScreen(),
+        if (extra is UserData) {
+          return Admin_infoScreen(
+           selectedRole:"Admin",
+           userData: extra,
           );
         }
         return const RegisterScreen();
