@@ -45,11 +45,14 @@ void setupDependencies() {
   () => AdminRegister(getIt<RegisterRepository>()),
 );
 
+getIt.registerLazySingleton<Driveregister>(
+  () => Driveregister(getIt<RegisterRepository>()),
+);
 }
 
-void factor(String  ?selectedRole ,UserData userData) {
+void factor(String  selectedRole ,UserData userData) {
   switch (selectedRole) {
-     case 'Admin': 
+     case   "Admin" : 
       if (getIt.isRegistered<RegisterCubit>())
        {
          getIt.unregister<RegisterCubit>();
@@ -74,6 +77,15 @@ void factor(String  ?selectedRole ,UserData userData) {
         }
         getIt.registerFactory<RegisterCubit>(
           ()=> RegisterCubit(getIt<AssisstantRegister>(), userData),
+         ); break;
+
+            case 'Driver': 
+      if (getIt.isRegistered<RegisterCubit>())
+       {
+         getIt.unregister<RegisterCubit>();
+        }
+        getIt.registerFactory<RegisterCubit>(
+          ()=> RegisterCubit(getIt<Driveregister>(), userData),
          ); break;
 
 

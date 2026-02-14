@@ -1,3 +1,4 @@
+import 'package:amsfront/app/enums/roles.dart';
 import 'package:amsfront/features/Driver/presentation/pages/driverScreen.dart';
 import 'package:amsfront/features/Splash/presentation/pages/aboutUs.dart';
 import 'package:amsfront/features/Splash/presentation/pages/splash_screen.dart';
@@ -12,8 +13,6 @@ import 'package:amsfront/features/register/presentation/pages/affiliate_info_scr
 import 'package:amsfront/features/register/presentation/pages/assisstant_info_screen.dart';
 import 'package:amsfront/features/register/presentation/pages/driver_info_screen.dart';
 import 'package:amsfront/features/register/presentation/pages/register_screen.dart';
-import 'package:amsfront/features/register/presentation/cubit/register_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -65,7 +64,7 @@ GoRoute(
 
     if (extra is UserData) {
       return Affiliat_infoScreen(
-        selectedRole: 'Affiliate',
+        selectedRole: roles.Affiliate.name,
         userData: extra,
       );
     }
@@ -82,7 +81,7 @@ GoRoute(
         final extra = state.extra;
         if (extra is UserData) {
           return Admin_infoScreen(
-           selectedRole:"Admin",
+           selectedRole: roles.Admin.name,
            userData: extra,
           );
         }
@@ -96,7 +95,7 @@ GoRoute(
 
     if (extra is UserData) {
       return Assisstant_infoScreen(
-        selectedRole: 'Assisstant',
+        selectedRole:  roles.Assistant.name,
         userData: extra,
       );
        
@@ -108,15 +107,17 @@ GoRoute(
      GoRoute(path: '/Driver-info',
       builder: (context, state) {
         final extra = state.extra;
-        if (extra is RegisterCubit) {
-          return BlocProvider.value(
-            value: extra,
-            child: const Driver_infoScreen(),
+        if (extra is UserData) {
+          return  Driver_infoScreen(
+ selectedRole: roles.Driver.name,
+        userData: extra,
+          
           );
         }
-        return const RegisterScreen();
+    return const RegisterScreen();
       },
     ),
+    
   ],
-
 );
+  
