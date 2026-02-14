@@ -25,8 +25,8 @@ Map<String, dynamic> toJson()
  { return {
  'userRequest': userData.toJson(),
   'roleRequest':{ 
-    "roleType": roles.Affiliate.toString(),
-   'referalCode': referalcode
+    "roleType": roles.Affiliate.name,
+   'referralCode': referalcode
    }, 
 
   }; 
@@ -61,12 +61,12 @@ class AdminRegisterData  implements RegisterPayload
 }
 
 
-class DriverRegisterData {
+class DriverRegisterData  implements RegisterPayload{
  
 
   UserData userData;
   bool isLocal;
-  bool isAvailable;
+ bool isAvailable;
 
 
  DriverRegisterData({
@@ -74,7 +74,22 @@ class DriverRegisterData {
   required this.isLocal, 
  required this.isAvailable,
 
+
 });
+
+  @override
+  Map<String, dynamic> toJson() {
+  return{
+ 'userRequest': userData.toJson(),
+  'roleRequest':{ 
+   "roleType":roles.Driver.name ,
+    "IsLocal": isLocal,
+    "IsAvailable": isAvailable
+    
+         }
+    };
+  }
+
 
 }
 
@@ -92,7 +107,7 @@ class AssistantRegisterData  implements RegisterPayload {
     return {
  'userRequest': userData.toJson(),
   'roleRequest':{ 
-   "roleType": roles.Assistant.toString(),
+   "roleType": roles.Assistant.name,
     "assignedBy": assignedBy
          }
     };

@@ -80,3 +80,25 @@ AdminRegister(this.registerRepository);
   
 
 }
+class Driveregister implements Roleregister
+{
+RegisterRepository registerRepository ;  
+bool  isLocal =true;
+bool   isAvailable =true;
+
+
+Driveregister(this.registerRepository);
+ 
+
+  @override
+  Future<void> register(UserData userData) async {
+    final  object =  DriverRegisterData(
+      userData: userData, 
+       isLocal: isLocal,
+       isAvailable: isAvailable,
+      );
+      await registerRepository.register(object);
+  }
+  
+
+}
