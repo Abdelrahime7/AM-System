@@ -36,6 +36,9 @@ class Assisstant_infoScreen extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
         ),
         child: RegisterBlocWrapper(
+    cubit:  RegisterCubit(assisstantRegister,userData),
+          
+          
             builder: (context) {
               return Scaffold(
  backgroundColor: const Color(0xFF111722),
@@ -94,7 +97,9 @@ class Assisstant_infoScreen extends StatelessWidget {
                       onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   // Form is valid, proceed with registration
+                                  
                                   userData.role = roles.Assistant;
+                               
                                   context.read<RegisterCubit>().register()
                               ;
                                 }
@@ -160,3 +165,6 @@ class Assisstant_infoScreen extends StatelessWidget {
 
 
 }
+
+
+

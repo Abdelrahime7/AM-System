@@ -33,6 +33,8 @@ class Affiliat_infoScreen extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
         ),
         child: RegisterBlocWrapper(
+          cubit: RegisterCubit(affiliateRegister,userData),
+          
           builder: (context) {
             return Scaffold(
                 backgroundColor: const Color(0xFF111722),
@@ -103,6 +105,7 @@ class Affiliat_infoScreen extends StatelessWidget {
                                 if (_formKey.currentState!.validate()) {
                                   // Form is valid, proceed with registration
                                   userData.role = roles.Affiliate;
+                                  
                                   context.read<RegisterCubit>().register()
                               ;
                                 }

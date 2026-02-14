@@ -1,3 +1,7 @@
+import 'package:amsfront/app/di/injector/injectors.dart';
+import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/features/register/data/model/register.dart';
+import 'package:amsfront/features/register/data/model/user_data.dart';
 import 'package:amsfront/features/register/presentation/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; 
@@ -8,50 +12,54 @@ import 'package:flutter_bloc/flutter_bloc.dart';
   
 
 class Driver_infoScreen extends StatefulWidget {
-  const Driver_infoScreen ({super.key}); 
+
+  final String selectedRole;
+  final UserData userData;
+
+  const Driver_infoScreen ({super.key, required this.selectedRole, required this.userData,}); 
 
   @override
   State<Driver_infoScreen> createState() => _Driver_infoScreenState();
 }
 
 class _Driver_infoScreenState extends State<Driver_infoScreen> {
+
+  final Driveregister driverRegister = getIt<Driveregister>();
+
   String? statusSelectedValue;
-  String? availabilitySelectedValue;
 
   final List<String> statusType = const [
     'Local',
   ];
-  final List<String> availabilityTypes = const [
-    'available',
-  ];
-
+ 
   void _onStatusChanged(String? value) {
     if (value == null) return;
     setState(() {
       statusSelectedValue = value;
+      driverRegister.isLocal = value == 'Local';
+      driverRegister.isAvailable = true;
+
     });
-    // Update Cubit: true if Local, false if External
-   // context.read<RegisterCubit>().islocal = (value == 'Local');
+  
   }
 
-  void _onAvailabilityChanged(String? value) {
-    if (value == null) return;
-    setState(() {
-      availabilitySelectedValue = value;
-    });
-    // Update Cubit: true if available
-//    context.read<RegisterCubit>().isAvailable = (value == 'available');
-  }
 
   @override
   Widget build(BuildContext context) {
+     factor(widget.selectedRole, widget.userData);
+
       return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
      
-    child: Scaffold( 
+    child:RegisterBlocWrapper
+    (
+      builder: (context)
+      {
+
+     return Scaffold( 
       backgroundColor: const Color(0xFF111722),
 
       extendBodyBehindAppBar: true,
@@ -84,17 +92,7 @@ class _Driver_infoScreenState extends State<Driver_infoScreen> {
                       groupValue: statusSelectedValue,
                       onChanged: _onStatusChanged,
                     )),
-                ...availabilityTypes.map((type) => RadioListTile<String>(
-                      contentPadding: EdgeInsets.zero,
-                      activeColor: const Color(0xFF2563EB),
-                      title: Text(
-                        type,
-                        style: const TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      value: type,
-                      groupValue: availabilitySelectedValue,
-                      onChanged: _onAvailabilityChanged,
-                    )),
+                
 
 
                 const SizedBox(height: 32),
@@ -116,13 +114,15 @@ class _Driver_infoScreenState extends State<Driver_infoScreen> {
                     ),
                     child: ElevatedButton(
                       
-                      onPressed: () =>
-
-                      context.read<RegisterCubit>().register(),
+                      onPressed: () {
+                      widget.userData.role = roles.Driver;
+                      context.read<RegisterCubit>().register();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      
                       ),
                       child: const Text(
                         'Register',
@@ -159,7 +159,11 @@ class _Driver_infoScreenState extends State<Driver_infoScreen> {
             ),
           ),
       ),
-    ));
+    );
+      }
+    )
+      );
+
   }
 }
   
