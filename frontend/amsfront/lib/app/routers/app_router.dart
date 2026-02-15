@@ -6,6 +6,7 @@ import 'package:amsfront/features/Splash/presentation/pages/our_works.dart';
 import 'package:amsfront/features/Affiiates/presentation/pages/affilateScreen.dart';
 import 'package:amsfront/features/Assisstant/presentation/pages/assisstantScreen.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/pages/superadminScreen.dart';
+import 'package:amsfront/features/auth/presentation/pages/aproval_waiting.dart';
 import 'package:amsfront/features/auth/presentation/pages/login_screen.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
 import 'package:amsfront/features/register/presentation/pages/admin_info_screen.dart';
@@ -55,6 +56,9 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/Driver',
       builder: (context, state) => const DriverScreen(),
+    ),
+    GoRoute(path: ("/waiting"),
+    builder: (context, state) => const AprovaL_Waiting()
     ),
   
 GoRoute(
