@@ -1,5 +1,6 @@
 import 'package:amsfront/app/di/injector/injectors.dart';
 import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/app/enums/userStatus.dart';
 import 'package:amsfront/app/switcher.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_cubit.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_state.dart';
@@ -11,12 +12,15 @@ import 'package:go_router/go_router.dart';
 
 
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   
 
   @override
   Widget build(BuildContext context) {
+    
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Color(0xFF111722),
@@ -31,9 +35,14 @@ class LoginScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              // Navigate t
-            int role =context.read<LoginCubit>().role;
-            roles _role = roles.values[role] ;
+              // Navigate t final UserStatus _status =context.read<LoginCubit>().status;
+    final roles _role =context.read<LoginCubit>().role;
+    final UserStatus _status =context.read<LoginCubit>().status;
+           
+             if(_status == UserStatus.Pending) {
+                context.push("/waiting");
+                return;
+              }       
           
             switcher.routing(context,_role);
             
