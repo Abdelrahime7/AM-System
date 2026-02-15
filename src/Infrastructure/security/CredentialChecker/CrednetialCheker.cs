@@ -31,7 +31,7 @@ namespace Infrastructure.security.CredentialChecker
             if (result == PasswordVerificationResult.Failed) return null; 
             // Return identity if valid
 
-               return new UserIdentity(user.Id, user.Role);
+               return new UserIdentity(user.Id, user.Role,user.Status);
              }
         }
 

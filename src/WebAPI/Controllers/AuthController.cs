@@ -39,19 +39,23 @@ namespace WebAPI.Controllers
             var identity = await _credentialChecker.CheckCredentialsAsync(request.Username, request.Password);
             if (identity == null)
                 return Unauthorized("Invalid username or password.");
-            UserRole role = identity.Role.Value;
+            UserRole role = identity.Role!.Value;
+            UserStatus status = identity.Status!.Value;
+
 
             var claims = new List<Claim>
             {
               new Claim(ClaimTypes.NameIdentifier, identity.id.ToString()),
               new Claim(ClaimTypes.Role, identity.Role.ToString()),
-              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()
+              
+              )
              };
 
             var tokens = await _tokenService.GenerateAndStoreTokensAsync(identity.id, claims);
-           var response = new {Role= role,  tokens=tokens };
-            
+           var response = new {status,role, tokens };
             return Ok(response);
+
         }
 
 

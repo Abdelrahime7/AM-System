@@ -1,13 +1,19 @@
 
+
+import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/app/enums/userStatus.dart';
+
 class UserModel {
   final String accessToken;
   final String refreshToken;
-  final int role; // since backend returns role as int
+  final roles role; // since backend returns role as int
+  final UserStatus status;
 
   UserModel({
     required this.accessToken,
     required this.refreshToken,
     required this.role,
+    required this.status,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -15,7 +21,8 @@ class UserModel {
     return UserModel(
       accessToken: tokens['accessToken'] as String,
       refreshToken: tokens['refreshToken'] as String,
-      role: json['role'] as int,
+      role: roles.values.byName(json['role']) , // ✅json['role'] ,
+      status: UserStatus.values.byName(json['status']), // ✅json['status'] as String,
     );
   }
 }

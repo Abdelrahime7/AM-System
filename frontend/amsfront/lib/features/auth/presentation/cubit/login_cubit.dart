@@ -1,3 +1,5 @@
+import 'package:amsfront/app/enums/roles.dart';
+import 'package:amsfront/app/enums/userStatus.dart';
 import 'package:amsfront/features/auth/presentation/cubit/login_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,10 @@ class LoginCubit extends Cubit<LoginState> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  int role = 0;
+  late roles role ;
+  late UserStatus status ;
+
+
   Future<void> login() async {
     emit(LoginLoading());
     try {
@@ -18,6 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
     usernameController.text,
     passwordController.text,
   );
+  status = user.status;
   role = user.role;
   emit(LoginSuccess("Login successful"));
 } on DioException catch (e) { // ✅ correct for Dio v5
@@ -33,12 +39,15 @@ class LoginCubit extends Cubit<LoginState> {
     } else {
       errorMessage = data.toString();
     }
+    
   } else {
     errorMessage = 'Network error. Please try again.';
   }
 
   emit(LoginFailure(errorMessage));
   } catch (e) {
+     
+
   emit(LoginFailure('Unexpected error: ${e.toString()}'));
 
 
