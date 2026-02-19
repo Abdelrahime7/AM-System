@@ -3,15 +3,18 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:amsfront/app/di/injector/injectors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 void main() {
   setupDependencies();
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    isToolbarVisible: false,
-    backgroundColor:  const Color.fromARGB(255, 44, 54, 83),
-    builder: (context) => const MyApp(),
+  runApp(ProviderScope(
+    child: DevicePreview(
+      enabled: !kReleaseMode,
+      isToolbarVisible: false,
+      backgroundColor:  const Color.fromARGB(255, 44, 54, 83),
+      builder: (context) => const MyApp(),
+    ),
   ));
 }
 

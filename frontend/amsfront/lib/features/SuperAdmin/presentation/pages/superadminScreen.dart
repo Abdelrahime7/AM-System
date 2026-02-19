@@ -1,21 +1,37 @@
+import 'package:amsfront/app/di/riverpod_di/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/navitem.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/starcard.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/actioncard.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/activeitem.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SuperAdminScreen extends StatelessWidget {
+class SuperAdminScreen extends ConsumerStatefulWidget {
   const SuperAdminScreen({super.key});
 
   @override
+  ConsumerState<SuperAdminScreen> createState() => _SuperAdminScreenState();
+}
+
+class _SuperAdminScreenState extends ConsumerState<SuperAdminScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(dashboardProvider.notifier).loadDashboardData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Mock Data
+    final dashboard = ref.watch(dashboardProvider);
+     
     final List<Map<String, String>> statsData = [
-      {'title': 'Total Sales', 'value': '1,250'},
-      {'title': 'Active Marketers', 'value': '320'},
-      {'title': 'Pending Orders', 'value': '75'},
-      {'title': 'Total Revenue', 'value': '\$15,000'},
+      {'title': 'Total Sales', 'value': dashboard.totalSales.toStringAsFixed(0)},
+      {'title': 'Active Marketers', 'value': dashboard.activeAffiliates.toString()},
+      {'title': 'Pending Orders', 'value': dashboard.pendingOrders.toString()},
+      {'title': 'Total Revenue', 'value': '\$${dashboard.totalRevenue.toStringAsFixed(2)}'},
     ];
 
     final List<Map<String, dynamic>> quickActions = [
@@ -61,10 +77,10 @@ class SuperAdminScreen extends StatelessWidget {
       ),
         body: SafeArea(
           child: Column(
+      
             children: [
-              // Header
+             
             
-              
               
 
               Container(
@@ -94,7 +110,16 @@ class SuperAdminScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Welcome Section
+                                 // Header
+                                 
+        if (dashboard.isLoading) 
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Center(child: CircularProgressIndicator()),
+          ), 
+        if (dashboard.error != null) 
+          Center(child: Text("Error: ${dashboard.error}", style: const TextStyle(color: Colors.red))),
+           
                       const Padding(
                         padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
                         child: Text(
@@ -230,5 +255,3 @@ class SuperAdminScreen extends StatelessWidget {
     );
   }
 }
-
-

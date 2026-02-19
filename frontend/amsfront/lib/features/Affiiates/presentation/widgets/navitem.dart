@@ -10,7 +10,7 @@ class NavItem extends StatelessWidget {
   const NavItem({
     required this.title,
     required this.icon,
-    this.isActive = false,
+    this.isActive = false, 
   });
 
 
