@@ -1,6 +1,6 @@
+import 'package:amsfront/features/Affiiates/presentation/widgets/ordercard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:amsfront/features/Assisstant/presentation/widgets/ordercard.dart';
 
 
 class AssistantScreen extends StatelessWidget {

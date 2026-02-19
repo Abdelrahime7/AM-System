@@ -53,7 +53,7 @@ class AprovaL_Waiting extends StatelessWidget
               const SizedBox(height: 48),
               SizedBox(
                 width: double.infinity,
-                height: 56,git add 
+                height: 56,
                 child: ElevatedButton(
                   onPressed: () => context.pop(),
                   style: ElevatedButton.styleFrom(
