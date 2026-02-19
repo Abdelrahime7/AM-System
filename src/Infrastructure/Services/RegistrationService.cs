@@ -15,7 +15,7 @@ namespace Infrastructure.Services
             _handlers = handlers.ToDictionary(h => h.RoleName);
         }
 
-        public async Task<Result<int>> RegisterAsync(CreateRoleSession    request)
+        public async Task<Result<int>> RegisterAsync(CreateRoleSession request)
         {
             var role = request.UserRequest.Role;
 
