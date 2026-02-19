@@ -22,7 +22,7 @@ namespace Application.Users.validation
             RuleFor(x => x.UserName).NotEmpty().
                 WithMessage("UserName is required");
 
-                RuleFor(x => x.Role).NotEmpty().IsInEnum().
+            RuleFor(x => x.Role).NotEmpty().IsInEnum().
                 WithMessage("Role is required");
 
             RuleFor(x => x.PasswordHash).NotEmpty().WithMessage("Password is required")
