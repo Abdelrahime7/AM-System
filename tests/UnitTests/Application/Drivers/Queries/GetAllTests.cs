@@ -70,7 +70,7 @@ namespace UnitTests.Application.Drivers.Queries
                 });
 
             _Usermapper.Setup(m => m.ToResponse(It.IsAny<User>()))
-                .Returns(new UserResponse { Id = 10 });
+                .Returns(new UserResponse {});
 
             // Act
             var result = await _queries.GetAllDrivers();

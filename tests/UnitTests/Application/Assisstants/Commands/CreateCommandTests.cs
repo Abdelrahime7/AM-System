@@ -42,7 +42,7 @@ namespace UnitTests.Application.Assisstants.Commands
                 var request = new CreatAssisstantSession
                 {
                     userRequest = new CreateUserRequest { FullName="john smith",
-                    Role = Domain.Enums.UserRole.AssistantAdmin,
+                    Role = Domain.Enums.UserRole.Assistant,
                      PasswordHash= "erwerwerw",
                       Phone="+213566779977",
                        UserName="qf22313"
@@ -84,7 +84,7 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
-                    Role = Domain.Enums.UserRole.AssistantAdmin,
+                    Role = Domain.Enums.UserRole.Assistant,
 
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
@@ -113,7 +113,7 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
-                    Role = Domain.Enums.UserRole.AssistantAdmin,
+                    Role = Domain.Enums.UserRole.Assistant,
 
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",
@@ -155,7 +155,7 @@ namespace UnitTests.Application.Assisstants.Commands
             {
                 userRequest = new CreateUserRequest
                 {
-                    Role = Domain.Enums.UserRole.AssistantAdmin,
+                    Role = Domain.Enums.UserRole.Assistant,
 
                     FullName = "john smith",
                     PasswordHash = "erwerwerw",

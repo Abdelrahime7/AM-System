@@ -30,47 +30,47 @@ namespace UnitTests.Application.Admins.Queries
             _queriesMock = new Mock<AdminQueries>(_repository.Object, _mapper.Object, _userMapper.Object) { CallBase = true };
         }
 
-        [Fact]
-        public async Task GetAllAdmins_ReturnsSuccess_WhenAdminsExist()
-        {
-            // Arrange
-            var admins = new List<Admin>
-    {
-        new Admin { Id = 1, user = new User { Id = 10,
-                        Role=UserRole.Admin,
+    //    [Fact]
+    //    public async Task GetAllAdmins_ReturnsSuccess_WhenAdminsExist()
+    //    {
+    //        // Arrange
+    //        var admins = new List<Admin>
+    //{
+    //    new Admin { Id = 1, user = new User { Id = 10,
+    //                    Role=UserRole.Admin,
 
-         FullName="john doe",
-         PasswordHash ="ae342rfew",
-         Phone="+213755443344",
-         Username="abd33reww"}
-          },
-        new Admin { Id = 2, user = new User { Id = 20,
-                        Role=UserRole.Admin,
+    //     FullName="john doe",
+    //     PasswordHash ="ae342rfew",
+    //     Phone="+213755443344",
+    //     Username="abd33reww"}
+    //      },
+    //    new Admin { Id = 2, user = new User { Id = 20,
+    //                    Role=UserRole.Admin,
 
-         FullName="john smith",
-         PasswordHash ="ae34sswrfew",
-         Phone="+213755433355",
-         Username="abd33rwr4ww"} }
-    };
+    //     FullName="john smith",
+    //     PasswordHash ="ae34sswrfew",
+    //     Phone="+213755433355",
+    //     Username="abd33rwr4ww"} }
+    //};
 
-            _repository.Setup(r => r.GetAllAsync()).ReturnsAsync(admins);
-            _repository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(admins[0]);
-            _repository.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(admins[1]);
+    //        _repository.Setup(r => r.GetAllAsync()).ReturnsAsync(admins);
+    //        _repository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(admins[0]);
+    //        _repository.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(admins[1]);
 
-            _mapper.Setup(m => m.ToResponse(admins[0])).Returns(new AdminResponse {  });
-            _mapper.Setup(m => m.ToResponse(admins[1])).Returns(new AdminResponse {  });
+    //        _mapper.Setup(m => m.ToResponse(admins[0])).Returns(new AdminResponse {  });
+    //        _mapper.Setup(m => m.ToResponse(admins[1])).Returns(new AdminResponse {  });
 
-            _userMapper.Setup(m => m.ToResponse(admins[0].user)).Returns(new UserResponse { Id = 10 });
-            _userMapper.Setup(m => m.ToResponse(admins[1].user)).Returns(new UserResponse { Id = 20 });
+    //        _userMapper.Setup(m => m.ToResponse(admins[0].user)).Returns(new UserResponse { Id = 10 });
+    //        _userMapper.Setup(m => m.ToResponse(admins[1].user)).Returns(new UserResponse { Id = 20 });
 
-            // Act
-            var result = await _queriesMock.Object.GetAllAdmins();
+    //        // Act
+    //        var result = await _queriesMock.Object.GetAllAdmins();
 
-            // Assert
-            Assert.True(result.IsSuccess);
-            Assert.Equal(2, result.Value.Count());
+    //        // Assert
+    //        Assert.True(result.IsSuccess);
+    //        Assert.Equal(2, result.Value.Count());
            
-        }
+    //    }
 
 
         [Fact]

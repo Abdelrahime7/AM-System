@@ -1,5 +1,6 @@
 using Application.Interfaces.Repositories;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,5 +35,19 @@ public class OrderRepository(AppDbContext context) : GenericRepository<Order>(co
         await context.SaveChangesAsync(cancellationToken);
     }
 
+
+
+    public async Task<int> CountPendingAsync(CancellationToken cancellationToken = default)
+    {
+        return await context.Orders.CountAsync(o => o.Status == OrderStatus.Pending);
+    }
+
+    public async Task<decimal> TotalSalesAsync(CancellationToken cancellationToken = default)
+    {
+        return await context.Orders.Where(O => O.Status == OrderStatus.Delivered)
+                       .SumAsync(O=>O.IsCustomized ?
+                        O.Customizations!.Sum(C => C.TotalPrice) :
+                        O.OrderDetails!.Sum(OD => OD.TotalPrice));
+    }
 }
 

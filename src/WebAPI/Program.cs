@@ -1,14 +1,13 @@
 ﻿using Application;
+using Application.Admins.Dasboard.DashMetrics.Application.Admin.Dashboard;
 using Application.Admins.Dto_s;
 using Application.Affiliates.DTO_s;
 using Application.Assisstants.Dto_s;
 using Application.Drivers.DTO_s;
 using Application.RoleRequeste;
-using Application.Users.validation;
 using Domain.Enums;
 using DotNetEnv;
-using FluentValidation;
-using FluentValidation.AspNetCore;
+
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Settings;
@@ -18,6 +17,7 @@ using Scalar.AspNetCore;
 using Serilog;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
+using WebAPI.Graphql;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -81,6 +81,7 @@ builder.Services.Configure<JwtSetting>(builder.Configuration.GetSection("JwtSett
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<GetDashboardMetrics>();
 
 
 builder.Services.AddControllers()
@@ -124,6 +125,11 @@ builder.Services.AddCors(options =>
     });
 });
 
+//Graphql 
+builder.Services.AddGraphQLServer().AddAuthorization().
+    AddQueryType<Query>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -159,5 +165,7 @@ app.UseAuthorization();
 
 app.UseStaticFiles();
 app.MapControllers();
+app.MapGraphQL();
+
 
 app.Run();
