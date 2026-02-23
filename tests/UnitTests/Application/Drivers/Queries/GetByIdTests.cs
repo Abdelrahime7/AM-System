@@ -36,7 +36,7 @@ namespace UnitTests.Application.Drivers.Queries
 
             var userResponse = new UserResponse
             {
-                Id = 10,
+               
                 FullName = "Test User"
             };
 

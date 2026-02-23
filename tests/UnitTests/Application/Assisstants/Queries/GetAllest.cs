@@ -35,7 +35,7 @@ namespace UnitTests.Application.Assisstants.Queries
             var Assisstants = new List<Assisstant>
     {
         new Assisstant { Id = 1, User = new User { Id = 10,
-                                Role=UserRole.AssistantAdmin,
+                                Role=UserRole.Assistant,
 
          FullName="john doe",
          PasswordHash ="ae342rfew",
@@ -43,7 +43,7 @@ namespace UnitTests.Application.Assisstants.Queries
          Username="abd33reww"}
           },
         new Assisstant { Id = 2, User = new User { Id = 20,
-                                        Role=UserRole.AssistantAdmin,
+                                        Role=UserRole.Assistant,
 
          FullName="john smith",
          PasswordHash ="ae34sswrfew",
@@ -58,8 +58,8 @@ namespace UnitTests.Application.Assisstants.Queries
             _mapper.Setup(m => m.ToResponse(Assisstants[0])).Returns(new AssisstantResponse {  });
             _mapper.Setup(m => m.ToResponse(Assisstants[1])).Returns(new AssisstantResponse {  });
 
-            _userMapper.Setup(m => m.ToResponse(Assisstants[0].User)).Returns(new UserResponse { Id = 10 });
-            _userMapper.Setup(m => m.ToResponse(Assisstants[1].User)).Returns(new UserResponse { Id = 20 });
+            _userMapper.Setup(m => m.ToResponse(Assisstants[0].User)).Returns(new UserResponse {  });
+            _userMapper.Setup(m => m.ToResponse(Assisstants[1].User)).Returns(new UserResponse { });
 
             // Act
             var result = await _queriesMock.Object.GetAllAssisstants();

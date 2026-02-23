@@ -58,8 +58,8 @@ namespace UnitTests.Application.Affiliates.Queries
             _mapper.Setup(m => m.ToResponse(Affiliates[0])).Returns(new AffiliateResponse {  });
             _mapper.Setup(m => m.ToResponse(Affiliates[1])).Returns(new AffiliateResponse {  });
 
-            _userMapper.Setup(m => m.ToResponse(Affiliates[0].user)).Returns(new UserResponse { Id = 10 });
-            _userMapper.Setup(m => m.ToResponse(Affiliates[1].user)).Returns(new UserResponse { Id = 20 });
+            _userMapper.Setup(m => m.ToResponse(Affiliates[0].user)).Returns(new UserResponse { });
+            _userMapper.Setup(m => m.ToResponse(Affiliates[1].user)).Returns(new UserResponse { });
 
             // Act
             var result = await _queriesMock.Object.GetAllAffiliates();

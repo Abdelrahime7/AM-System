@@ -58,7 +58,7 @@ namespace UnitTests.Application.Admins.Validators
                 // Arrange
                 var request = new CreateAdminRequest
                 {
-                    levels = AccessLevels.SuperAdmin // assuming this is a valid enum value
+                    levels = AccessLevels.Admin // assuming this is a valid enum value
                 };
 
                 // Act
@@ -113,7 +113,7 @@ namespace UnitTests.Application.Admins.Validators
    
             public void Should_Pass_When_Levels_Is_Valid()
             {
-                var request = new UpdateAdminRequest { Id = 1, levels = AccessLevels.SuperAdmin };
+                var request = new UpdateAdminRequest { Id = 1, levels = AccessLevels.Admin };
                 var result = _UpdateValidator.Validate(request);
 
                 Assert.True(result.IsValid);
