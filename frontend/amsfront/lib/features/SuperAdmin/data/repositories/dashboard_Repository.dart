@@ -1,4 +1,5 @@
 
+import 'package:amsfront/features/SuperAdmin/data/model/dashboardModel.dart';
 import 'package:amsfront/features/SuperAdmin/data/services/dashboard_service.dart';
 
 class DashboardRepository {
@@ -6,7 +7,7 @@ class DashboardRepository {
   DashboardRepository(this.dashboardService);
 
 
-Future <Map<String, dynamic>> loadDashboardData() async {
+Future <DashboardModel> loadDashboardData() async {
 try {
 return await dashboardService.getDashboardData();
 }

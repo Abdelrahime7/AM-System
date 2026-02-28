@@ -15,10 +15,10 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
       final data = await dashboardRepository.loadDashboardData();
       state = state.copyWith(
         isLoading: false,
-        totalSales: (data['totalSales'] as num).toDouble(),
-        activeAffiliates: data['activeAffiliates'] as int,
-        pendingOrders: data['pendingOrders'] as int,
-        totalRevenue: (data['totalRevenue'] as num).toDouble(),
+        totalSales: data.totalSales,
+        activeAffiliates: data.activeAffiliates,
+        pendingOrders: data.pendingOrders ,
+        totalRevenue: data.totalRevenue
       );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
