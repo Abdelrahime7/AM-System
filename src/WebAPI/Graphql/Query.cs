@@ -7,7 +7,7 @@ namespace WebAPI.Graphql
 {
     public class Query
     {
-        [Authorize(Policy = "SuperAdminOnly")]
+       // [Authorize(Policy = "SuperAdminOnly")]
 
         public async Task<DashboardDto> GetDashboard([Service] GetDashboardMetrics useCase)
         {

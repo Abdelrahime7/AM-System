@@ -8,6 +8,7 @@ import 'package:amsfront/features/SuperAdmin/presentation/stateManagement/dashbo
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 
 
@@ -16,9 +17,16 @@ final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(Endpoints.devBaseUrl);
 });
 
+final graphQLClientProvider = Provider<GraphQLClient>((ref)
+ { final httpLink = Endpoints.dashboardhttpLink;
+ return GraphQLClient( 
+  link: httpLink, 
+  cache: GraphQLCache(store: InMemoryStore()),
+   ); 
+ });
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
-  return DashboardService(ref.watch(apiClientProvider)); // or inject dependencies here
+  return DashboardService(ref.watch(graphQLClientProvider)); // or inject dependencies here
 });
 
 final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
