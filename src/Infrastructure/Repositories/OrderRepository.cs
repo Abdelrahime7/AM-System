@@ -44,10 +44,13 @@ public class OrderRepository(AppDbContext context) : GenericRepository<Order>(co
 
     public async Task<decimal> TotalSalesAsync(CancellationToken cancellationToken = default)
     {
-        return await context.Orders.Where(O => O.Status == OrderStatus.Delivered)
-                       .SumAsync(O=>O.IsCustomized ?
-                        O.Customizations!.Sum(C => C.TotalPrice) :
-                        O.OrderDetails!.Sum(OD => OD.TotalPrice));
+        return await context.Orders
+    .Where(o => o.Status == OrderStatus.Delivered)
+    .Select(o => o.IsCustomized
+        ? o.Customizations.Sum(c => c.TotalPrice)
+        : o.OrderDetails.Sum(od => od.TotalPrice))
+    .SumAsync();
+
     }
 }
 

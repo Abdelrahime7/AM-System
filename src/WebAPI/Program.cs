@@ -103,7 +103,6 @@ builder.Services.AddControllers()
                             IgnoreUnrecognizedTypeDiscriminators = true,
                             UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization
                         };
-
                         ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreatAssisstantRequest), nameof(UserRole.Assistant)));
                         ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreateDriverRequest), nameof(UserRole.Driver)));
                         ti.PolymorphismOptions.DerivedTypes.Add(new JsonDerivedType(typeof(CreateAdminRequest), nameof(UserRole.Admin)));
