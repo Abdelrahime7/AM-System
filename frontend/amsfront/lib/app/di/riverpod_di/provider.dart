@@ -1,5 +1,6 @@
 
 import 'package:amsfront/core/constants/endpoints.dart';
+import 'package:amsfront/core/constants/token_Service.dart';
 import 'package:amsfront/core/network/api_clients.dart';
 import 'package:amsfront/features/SuperAdmin/data/repositories/dashboard_Repository.dart';
 import 'package:amsfront/features/SuperAdmin/data/services/dashboard_service.dart';
@@ -18,16 +19,25 @@ final apiClientProvider = Provider<ApiClient>((ref) {
 });
 
 final graphQLClientProvider = Provider<GraphQLClient>((ref)
- { final httpLink = Endpoints.dashboardhttpLink;
- return GraphQLClient( 
-  link: httpLink, 
-  cache: GraphQLCache(store: InMemoryStore()),
-   ); 
- });
+ { 
+ final tokenService = TokenService();
+  final httpLink = HttpLink(Endpoints.dashboardhttpLink); 
+  
+  final authLink = AuthLink(
+     getToken: () async {
+       final token = await tokenService.refreshTokenIfNeeded(); 
+     return token != null ? 'Bearer $token' : null; }, );
+     
+      final link = authLink.concat(httpLink); 
+      return GraphQLClient( link: link, cache: 
+      GraphQLCache(store: InMemoryStore()), 
+      ); });
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
   return DashboardService(ref.watch(graphQLClientProvider)); // or inject dependencies here
 });
+
+
 
 final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
   return DashboardRepository(ref.watch(dashboardServiceProvider));

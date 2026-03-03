@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:amsfront/features/auth/data/repositories/auth_repository.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository repository;
@@ -14,17 +15,23 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController passwordController = TextEditingController();
   late roles role ;
   late UserStatus status ;
+   final storage = const FlutterSecureStorage();
 
 
   Future<void> login() async {
     emit(LoginLoading());
     try {
+
   final user = await repository.login(
     usernameController.text,
     passwordController.text,
   );
   status = user.status;
-  role = user.role;
+  role = user.role; 
+
+  await storage.write(key: "accessToken", value: user.accessToken);
+   await storage.write(key: "refreshToken", value: user.refreshToken);
+  
   emit(LoginSuccess("Login successful"));
 } on DioException catch (e) { // ✅ correct for Dio v5
   String errorMessage = 'An error occurred';
@@ -47,7 +54,6 @@ class LoginCubit extends Cubit<LoginState> {
   emit(LoginFailure(errorMessage));
   } catch (e) {
      
-
   emit(LoginFailure('Unexpected error: ${e.toString()}'));
 
 

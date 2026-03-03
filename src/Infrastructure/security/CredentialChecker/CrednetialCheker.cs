@@ -4,6 +4,8 @@ using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 
 namespace Infrastructure.security.CredentialChecker
@@ -33,6 +35,26 @@ namespace Infrastructure.security.CredentialChecker
 
                return new UserIdentity(user.Id, user.Role,user.Status);
              }
+
+          public async Task <List<Claim>> BuildClaims( int UserId)
+        {
+
+            var User = await _DbContext.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+              if (User == null) return null;
+               
+            var claims = new List<Claim>
+            {
+
+              new Claim(ClaimTypes.NameIdentifier, User.Id.ToString()),
+              new Claim(ClaimTypes.Role, User.Role.ToString()),
+              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()
+
+              )
+            };
+              return claims;
+        }
+
+
         }
 
   }
