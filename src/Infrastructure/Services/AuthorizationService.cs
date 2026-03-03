@@ -33,7 +33,7 @@ namespace Infrastructure.Services
 
             var roleMatch = user.Role == requirement.RequiredRole && user.Status==UserStatus.Active;
 
-            var superAdminBypass = requirement.AllowSuperAdminBypass && user.Role == UserRole.Admin;
+            var superAdminBypass = requirement.AllowSuperAdminBypass && user.Role == UserRole.SuperAdmin;
     
             var AdminBypass=requirement.AllowAdminBypass &&
                 user.Role == UserRole.Admin && user.Status== UserStatus.Active;
