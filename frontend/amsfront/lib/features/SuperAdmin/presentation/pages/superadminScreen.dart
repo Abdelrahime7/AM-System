@@ -44,19 +44,19 @@ class _SuperAdminScreenState extends ConsumerState<SuperAdminScreen> {
     final List<Map<String, dynamic>> recentActivity = [
       {
         'type': 'New User',
-        'description': "User 'Omar Hassan' registered as an affiliate.",
+        'description':dashboard.userRecent,
         'icon': Icons.person_add_outlined,
         'color': const Color(0xFF3B82F6),
       },
       {
         'type': 'Withdrawal Request',
-        'description': "Request of \$500 by 'Layla Ali' pending.",
+        'description':dashboard.financRecent,
         'icon': Icons.credit_card_outlined,
         'color': const Color(0xFF22C55E),
       },
       {
         'type': 'Product Added',
-        'description': "Product 'Smartphone X' added to the catalog.",
+        'description': dashboard.productRecent,
         'icon': Icons.inventory_2_outlined,
         'color': const Color(0xFFA855F7),
       },

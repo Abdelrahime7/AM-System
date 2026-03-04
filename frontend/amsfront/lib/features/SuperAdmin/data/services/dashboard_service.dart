@@ -9,10 +9,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 const String dashboardQuery = r'''
   query {
     dashboard {
-      totalSales
-      activeAffiliates
-      pendingOrders
-      totalRevenue
+    totalSales
+    activeAffiliates
+    pendingOrders 
+    totalRevenue 
+    userRecent 
+    financRecent 
+    productRecent
     }
   }
 ''';

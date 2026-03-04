@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Admins.Dasboard.DashDto;
 using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Domain.Enums;
@@ -24,6 +25,17 @@ namespace Infrastructure.Repositories
         {
           await  context.Users.AddAsync(entity);
 
+        }
+
+        public async Task<string> GetRecentUserAsync()
+        {
+            var User = await context.Users.FirstOrDefaultAsync(U => U.Status == UserStatus.Active);
+            if (User != null)
+            {
+              return $"User {User.FullName} registred as {User.Role}";
+            }
+              
+            return " ";
         }
     }
 }

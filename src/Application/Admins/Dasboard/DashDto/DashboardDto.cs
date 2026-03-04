@@ -1,5 +1,7 @@
 ﻿
 
+
+
 namespace Application.Admins.Dasboard.DashDto
 {
 
@@ -10,17 +12,30 @@ namespace Application.Admins.Dasboard.DashDto
             public int ActiveAffiliates { get; set; }
             public int PendingOrders { get; set; }
             public Decimal TotalRevenue { get; set; }
+            public string UserRecent { get; set; } 
+            public string FinancRecent { get; set; }
+           public  string ProductRecent { get; set; }
 
             public DashboardDto(
                 Decimal? totalSales,
                 int? activeAffiliates,
+                string userRecent,
+                 string financRecent,
+                 string productRecent,
                 int ?pendingOrders,
                 Decimal ?totalRevenue)
             {
-            TotalSales = totalSales ?? 1000m;
-                ActiveAffiliates = activeAffiliates ?? 120 ;
-                PendingOrders =  pendingOrders ?? 50;
-                TotalRevenue = totalRevenue ?? 190.00m;
+            TotalSales = totalSales ?? 0.00m;
+                ActiveAffiliates = activeAffiliates ?? 0 ;
+                PendingOrders =  pendingOrders ?? 00;
+                TotalRevenue = totalRevenue ?? 0.00m;
+              this. UserRecent = userRecent ?? " ";
+               this. FinancRecent= financRecent?? " ";
+                this.ProductRecent = productRecent ?? " ";
+
+
             }
-        }
+
+     
+    }
  }

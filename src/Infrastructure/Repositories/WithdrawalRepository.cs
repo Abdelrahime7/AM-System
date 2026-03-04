@@ -1,5 +1,6 @@
 using Application.Interfaces.Repositories;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,4 +27,15 @@ public class WithdrawalRepository(AppDbContext context) : GenericRepository<With
             .Include(w => w.AffiliateBalance)
             .FirstOrDefaultAsync(w => w.Id == id);
     }
+
+    public async Task<string> GetRecentWithdrawelAsync()
+    {
+        var LastWith = await _context.Withdrawals.FirstOrDefaultAsync(W => W.Status == WithdrawalStatus.Paid);
+        if (LastWith != null)
+        {
+            return $"Request of ${LastWith.Amount} by {LastWith.Affiliate.FullName} is paid";
+        }
+        return " ";
+    }
+
 }

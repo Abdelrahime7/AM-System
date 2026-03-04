@@ -10,6 +10,9 @@ class DashboardState {
   final int activeAffiliates;
   final int pendingOrders;
   final double totalRevenue;
+  final String userRecent;
+  final String financRecent;
+  final String productRecent;
 
   DashboardState({
     this.isLoading = false,
@@ -18,6 +21,9 @@ class DashboardState {
     this.activeAffiliates = 0,
     this.pendingOrders = 0,
     this.totalRevenue = 0,
+    this.userRecent="",
+    this.financRecent="",
+    this.productRecent="",
   });
 
   DashboardState copyWith({
@@ -27,6 +33,9 @@ class DashboardState {
     int? activeAffiliates,
     int? pendingOrders,
     double? totalRevenue,
+    String ? userRecent,
+    String ? financRecent,
+    String ? productRecent,
   }) {
     return DashboardState(
       isLoading: isLoading ?? this.isLoading,
@@ -35,6 +44,9 @@ class DashboardState {
       activeAffiliates: activeAffiliates ?? this.activeAffiliates,
       pendingOrders: pendingOrders ?? this.pendingOrders,
       totalRevenue: totalRevenue ?? this.totalRevenue,
+      userRecent: userRecent ?? this.userRecent,
+      financRecent: financRecent ?? this.financRecent,
+      productRecent: productRecent ?? this.productRecent, 
     );
   }
 }
