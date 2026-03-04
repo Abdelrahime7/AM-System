@@ -1,8 +1,9 @@
-﻿using Domain.Enums;
+﻿
+using Domain.Enums;
 
 namespace Application.Users.DTOs
 {
-    public record UserResponse
+    public record UserResponse 
     {
 // public int Id { get; set; }
         public  string Username { get; set; }
