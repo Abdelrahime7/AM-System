@@ -1,6 +1,8 @@
 using Application.Interfaces.Repositories;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -30,5 +32,16 @@ public class ProductRepository(AppDbContext context) : GenericRepository<Product
             .AsNoTracking()
             .Include(u => u.CreatedBy)
             .FirstOrDefaultAsync(c => c.Name == name);
+    }
+
+    public async Task<string> GetRecentProductAsync()
+    {
+        var lastProuduct = await _context.Products.FirstOrDefaultAsync(P => P.Status == ProductStatus.Active);
+
+        if (lastProuduct != null) {
+            return $"Product: {lastProuduct.Description} waiting for review ";
+
+        }
+        return "";
     }
 }

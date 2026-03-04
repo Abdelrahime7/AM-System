@@ -12,6 +12,10 @@ namespace Infrastructure.Repositories
             return context.Affiliates.CountAsync(a => a.user.Status == UserStatus.Active, cancellationToken);
         }
 
+        public Task<int> CountPendingAsync(CancellationToken cancellationToken = default)
+        {
+            return context.Affiliates.CountAsync(a => a.user.Status == UserStatus.Pending, cancellationToken);
+        }
 
         public override  Task<Affiliate?> GetByIdAsync(int id)
         {
