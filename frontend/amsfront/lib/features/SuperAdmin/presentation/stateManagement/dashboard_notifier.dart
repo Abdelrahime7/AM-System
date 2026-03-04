@@ -18,7 +18,10 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
         totalSales: data.totalSales,
         activeAffiliates: data.activeAffiliates,
         pendingOrders: data.pendingOrders ,
-        totalRevenue: data.totalRevenue
+        totalRevenue: data.totalRevenue,
+        userRecent: data.userRecent,
+        financRecent: data.financRecent,
+        productRecent: data.productRecent,
       );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
