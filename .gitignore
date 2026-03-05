@@ -10,6 +10,10 @@
 *.userosscache
 *.sln.docstates
 
+*GEMINI.md
+
+*.env.docker
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

@@ -1,0 +1,45 @@
+﻿using Application.Interfaces.CustomerInterfaces;
+using Application.Interfaces.CustomizedOrderInterfaces;
+using Application.Interfaces.OrderDetailInterfaces;
+using Application.Interfaces.OrderInterfaces;
+using Application.Interfaces.Repositories;
+using Application.Interfaces.UnitOfWorks;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Infrastructure.Repositories.UnitsOfWork
+{
+    public class OrderUnitOfWork : IOrderUnitOfWork
+    {
+        private readonly AppDbContext _context;
+
+      
+        public ICustomerCommands Customers { get; }
+        public ICustomizedOrderCommands CustomizedOrders { get; }
+        public IOrderDetailCommands OrderDetails { get; }
+
+        public IOrderRepository _orderRepository  {get;}
+
+
+        public OrderUnitOfWork(
+            AppDbContext context,
+           IOrderRepository orderRepository,
+            ICustomerCommands customers,
+            ICustomizedOrderCommands customizedOrders,
+            IOrderDetailCommands orderDetails)
+        {
+            _context = context;
+            Customers = customers;
+            CustomizedOrders = customizedOrders;
+            OrderDetails = orderDetails;
+            _orderRepository = orderRepository;
+        }
+
+        
+        public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
+
+        public void Dispose() => _context.Dispose();
+    }
+
+
+}

@@ -1,0 +1,34 @@
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Infrastructure.Data.Configurations;
+
+public class TokenConfiguration : IEntityTypeConfiguration<RefereshToken>
+{
+    public void Configure(EntityTypeBuilder<RefereshToken> builder)
+    {
+        builder.ToTable("tokens");
+
+        builder.HasKey(t => t.Id);
+        builder.Property(t => t.Id)
+            .HasColumnName("id")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(t => t.UserId)
+            .HasColumnName("user_id")
+            .IsRequired();
+
+        builder.Property(t => t.TokenValue)
+            .HasColumnName("token")
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(t => t.ExpiresAt)
+            .HasColumnName("expires_at")
+            .HasColumnType("timestamp with time zone")
+            .IsRequired();
+
+       
+    }
+}

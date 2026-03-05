@@ -1,8 +1,63 @@
+using Application.Admins.Dto_s;
+using Application.Admins.Features.Commands;
+using Application.Admins.Features.Queries;
+using Application.Admins.RegisterHandler;
+using Application.Affiliates.DTO_s;
+using Application.Affiliates.Features.Commands;
+using Application.Affiliates.Features.Queries;
+using Application.Affiliates.RegisterHandler;
+using Application.AffiliatesBalance.Features.Commands;
+using Application.AffiliatesBalance.Features.Queries;
+using Application.Assisstants.Dto_s;
+using Application.Assisstants.Features.Commands;
+using Application.Assisstants.Features.Queries;
+using Application.Assisstants.RegisterHandler;
+using Application.AuditsLog.Features.Commands;
+using Application.AuditsLog.Features.Queries;
+using Application.CallsLog.Features.Commands;
+using Application.CallsLog.Features.Queries;
+using Application.Customers.Features.Commands;
+using Application.Customers.Features.Queries;
+using Application.CustomizedOrders.Features.Commands;
+using Application.CustomizedOrders.Features.Queries;
+using Application.Drivers.DTO_s;
+using Application.Drivers.features.Commands;
+using Application.Drivers.features.Queries;
+using Application.Drivers.RegisterHandler;
+using Application.Interfaces.AdminInterfaces;
+using Application.Interfaces.AffiliateBalanceInterfaces;
+using Application.Interfaces.AffiliateInterfaces;
+using Application.Interfaces.AssisstantInterfaces;
+using Application.Interfaces.AuditLogInterfaces;
+using Application.Interfaces.CallLogInterfaces;
+using Application.Interfaces.CustomerInterfaces;
+using Application.Interfaces.CustomizedOrderInterfaces;
+using Application.Interfaces.DeliveryInterfaces;
+using Application.Interfaces.DriverInterfaces;
+using Application.Interfaces.OrderDetailInterfaces;
+using Application.Interfaces.OrderInterfaces;
+using Application.Interfaces.ProductImagesInterfaces;
+using Application.Interfaces.ProductInterfaces;
+using Application.Interfaces.RegisterHandler;
+using Application.Interfaces.UserInterfaces;
+using Application.Interfaces.WithdrawalInterfaces;
+using Application.OrderDetails.Features.Commands;
+using Application.OrderDetails.Features.Queries;
+using Application.Orders.Delivery;
+using Application.Orders.Features.Commands;
+using Application.Orders.Features.Queries;
+using Application.ProductImages.Features.Commands;
+using Application.ProductImages.Features.Queries;
+using Application.Products.Features.Commands;
+using Application.Products.Features.Queries;
+using Application.Users.Features.Commands;
+using Application.Users.Features.Queries;
+using Application.Users.validation;
+using Application.Withdrawals.Features.Commands;
+using Application.Withdrawals.Features.Queries;
+using Domain.Entities;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-using Application.Common.Behaviours;
 
 namespace Application;
 
@@ -10,16 +65,86 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        //MediatR
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        
-        //FluentValidation
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
-        //AutoMapper
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        
+
+        // Assisstants Services
+        services.AddScoped<IAssisstantCommands, AssisstantCommands>();
+        services.AddScoped<IAssisstantQueries, AssisstantQueries>();
+
+        // Affiliates Services
+        services.AddScoped<IAffiliateCommands, AffiliateCommands>();
+        services.AddScoped<IAffiliateQueries, AffiliateQueries>();
+
+
+        // Admins Services
+        services.AddScoped<IAdminCommands, AdminCommands>();
+        services.AddScoped<IAdminQueries, AdminQueries>();
+
+        //Customer Services
+        //Users Services
+        services.AddScoped<IUserCommands, UserCommands>();
+        services.AddScoped<IUserQueries, UsersQueries>();
+        //Customer Services
+        services.AddScoped<ICustomerCommands, CustomerCommands>();
+        services.AddScoped<ICustomerQueries, CustomerQueries>();
+        // Delivery Services
+        services.AddScoped<IDeliveryIntegrationQueries, DeliveryIntegrationQueries>();
+        services.AddScoped<IDeliveryIntegrationCommands,DeliveryIntgrationCommands>();
+        // Product Services
+        services.AddScoped<IProductCommands, ProductCommands>();
+        services.AddScoped<IProductQueries, ProductQueries>();
+        // Affiliate Services
+        services.AddScoped<IAffiliateBalanceCommands, AffiliateBalanceCommands>();
+        services.AddScoped<IAffiliateBalanceQueries, AffiliateBalanceQueries>();
+        // AuditLog Services
+        services.AddScoped<IAuditLogCommands, AuditLogCommands>();
+        services.AddScoped<IAuditLogQueries,AuditLogQueries>();
+        // CallLog Services
+        services.AddScoped<ICallLogCommands, CallLogCommands>();
+        services.AddScoped<ICallLogQueries, CallLogQueries>();
+        // CustomizedOrder Services
+        services.AddScoped<ICustomizedOrderCommands, CustomizedOrderCommands>();
+        services.AddScoped<ICustomizedOrderQueries, CustomizedOrderQueries>();
+        // CallLog Services
+        services.AddScoped<ICallLogCommands, CallLogCommands>();
+        services.AddScoped<ICallLogQueries, CallLogQueries>();
+        // Order Services
+        services.AddScoped<IOrderCommands, OrderCommands>();
+        services.AddScoped<IOrderQueries, OrderQueries>();
+        // OrderDetail Services
+        services.AddScoped<IOrderDetailCommands, OrderDetailCommands>();
+        services.AddScoped<IOrderDetailQueries, OrderDetailQueries>();
+        // ProductImage Services
+        services.AddScoped<IProductImageCommands, ProductImageCommands>();
+        services.AddScoped<IProductImageQueries, ProductImageQueries>();
+     
+      
+
+        services.AddScoped<IWithdrawalCommands, WithdrawalCommands>();
+        services.AddScoped<IWithdrawalQueries, WithdrawalQueries>();
+
+        //Driver Services
+        services.AddScoped<IDriverCommands, DriverCommands>();
+        services.AddScoped<IDriverQueries,DriverQueries>();
+
+        //delivery Strategies
+        services.AddScoped<ILocalDeliveryStrategy, LocalDriverDelivery>();
+        services.AddScoped<IExternallDeliverStrategy, ExternalCompanyDeliveryStrategy>();
+       
+        //
+        services.AddHttpClient();
+
+        // validators
+        services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
+
+        // Handlers (strategy pattern)
+        services.AddScoped<IRegisterHandler,SuperAdminRegisterHandler>();
+        services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
+       services.AddScoped<IRegisterHandler, DriverRegisterHandler>();
+       services.AddScoped<IRegisterHandler, AfilliatesRegisterHandler>();
+       services.AddScoped<IRegisterHandler, AssisstantRegisterHandler>();
+
         return services;
+
+
     }
 }
