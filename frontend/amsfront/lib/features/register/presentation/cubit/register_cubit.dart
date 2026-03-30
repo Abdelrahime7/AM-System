@@ -24,13 +24,14 @@ class RegisterCubit  extends Cubit<RegisterState> {
 Future<void> register() async {
     emit(RegisterLoading());  
  try{
+  
  await roleregister.register(userData);
+
 emit(RegisterSuccess('your account has been created successfully ,wait for admin approval' ));
 
 
 }on DioException catch (e) { // ✅ correct for Dio v5
-  print('Dio error: $e');
-  if (e.response != null) print('Response data: ${e.response?.data}');
+  
   String errorMessage = 'An error occurred';
 
   if (e.response != null) {
@@ -50,7 +51,6 @@ emit(RegisterSuccess('your account has been created successfully ,wait for admin
   emit(RegisterFailure(errorMessage));
  }
  catch(e){
-  print('Error: $e');
   emit(RegisterFailure("register failure ${e.toString()}"));
  }
  

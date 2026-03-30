@@ -15,8 +15,8 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController passwordController = TextEditingController();
   late roles role ;
   late UserStatus status ;
-   final storage = const FlutterSecureStorage();
-
+ final storage = const FlutterSecureStorage();
+   
 
   Future<void> login() async {
     emit(LoginLoading());
@@ -29,13 +29,13 @@ class LoginCubit extends Cubit<LoginState> {
   status = user.status;
   role = user.role; 
 
-  await storage.write(key: "accessToken", value: user.accessToken);
-   await storage.write(key: "refreshToken", value: user.refreshToken);
-  
+
+  storage.write(key: "accessToken", value: user.accessToken);
+  storage.write(key: "refreshToken", value: user.refreshToken);
+
   emit(LoginSuccess("Login successful"));
 } on DioException catch (e) { // ✅ correct for Dio v5
   String errorMessage = 'An error occurred';
-
   if (e.response != null) {
     final data = e.response!.data;
 
@@ -54,6 +54,7 @@ class LoginCubit extends Cubit<LoginState> {
   emit(LoginFailure(errorMessage));
   } catch (e) {
      
+     print(e.toString());
   emit(LoginFailure('Unexpected error: ${e.toString()}'));
 
 
