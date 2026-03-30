@@ -6,6 +6,7 @@ import 'package:amsfront/features/SuperAdmin/presentation/widgets/starcard.dart'
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/actioncard.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/widgets/activeitem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SuperAdminScreen extends ConsumerStatefulWidget {
   const SuperAdminScreen({super.key});
@@ -177,7 +178,7 @@ class _SuperAdminScreenState extends ConsumerState<SuperAdminScreen> {
                           children: [
                             Row(
                               children: [
-                                Expanded(child: ActionCard(data: quickActions[0])),
+                                Expanded(child: ActionCard(data: quickActions[0], onPressed: () => context.push('/User-management'))),
                                 const SizedBox(width: 12),
                                 Expanded(child: ActionCard(data: quickActions[1])),
                               ],

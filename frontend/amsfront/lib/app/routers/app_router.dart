@@ -6,6 +6,7 @@ import 'package:amsfront/features/Splash/presentation/pages/our_works.dart';
 import 'package:amsfront/features/Affiiates/presentation/pages/affilateScreen.dart';
 import 'package:amsfront/features/Assisstant/presentation/pages/assisstantScreen.dart';
 import 'package:amsfront/features/SuperAdmin/presentation/pages/superadminScreen.dart';
+import 'package:amsfront/features/SuperAdmin/presentation/pages/user_management_page.dart';
 import 'package:amsfront/features/auth/presentation/pages/aproval_waiting.dart';
 import 'package:amsfront/features/auth/presentation/pages/login_screen.dart';
 import 'package:amsfront/features/register/data/model/user_data.dart';
@@ -122,6 +123,12 @@ GoRoute(
       },
     ),
     
+GoRoute(path:'/User-management',
+builder: (context, state) => const UserManagementPage(),
+),
+
+    
   ],
+
 );
   

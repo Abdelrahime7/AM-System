@@ -137,8 +137,8 @@ public static class DependencyInjection
         services.AddValidatorsFromAssemblyContaining<CreatUserRequestValidator>();
 
         // Handlers (strategy pattern)
-        services.AddScoped<IRegisterHandler,SuperAdminRegisterHandler>();
-        services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
+       services.AddScoped<IRegisterHandler,SuperAdminRegisterHandler>();
+       services.AddScoped<IRegisterHandler, AdminRegisterHandler>();
        services.AddScoped<IRegisterHandler, DriverRegisterHandler>();
        services.AddScoped<IRegisterHandler, AfilliatesRegisterHandler>();
        services.AddScoped<IRegisterHandler, AssisstantRegisterHandler>();
