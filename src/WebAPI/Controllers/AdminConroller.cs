@@ -1,5 +1,6 @@
 using Application.Admins.DTO_s.session;
 using Application.Interfaces.AdminInterfaces;
+using Application.Interfaces.UserInterfaces;
 using Application.Users.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace WebAPI.Controllers;
 
 [Route("api/Admins")]
 [ApiController]
-public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQueries) : ControllerBase
+public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQueries,IUserQueries userQueries) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -88,6 +89,24 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
 
         return NotFound(result.Error);
     }
+    [HttpPatch("Status")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+  //[Authorize(Policy = "SuperAdminOnly")]
+    public async Task<ActionResult<bool>> ChangeUserStatus(ChangeStatusRequest request)
+    {
+
+        if (request == null)
+            return BadRequest("Invalid input.Please check the submitted data");
+
+        var result = await AdminCommands.ChangeUserStatusAsync(request);
+        if (result.IsSuccess)
+            return Ok();
+
+        return NotFound(result.Error);
+    }
 
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -107,5 +126,20 @@ public class AdminController(IAdminCommands AdminCommands, IAdminQueries AdminQu
             return BadRequest("Admin not deleted");
             
         return Ok(result.Value);
+    }
+
+    [HttpGet("Users")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<IEnumerable<UserResponse>>> AllUsers()
+    {
+
+        var result = await userQueries.GetAllUsersAsync();
+
+        if (result.IsSuccess)
+            return Ok(result.Value);
+
+        return NoContent();
     }
 }
