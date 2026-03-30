@@ -15,6 +15,7 @@ namespace Application.Users.Mapper
 
             return new User
             {
+                
                 Username = dto.UserName,
                 Role = dto.Role,
                FullName = dto.FullName,
@@ -30,7 +31,7 @@ namespace Application.Users.Mapper
         public UserResponse ToResponse(User entity)
         {
             return new UserResponse
-            { 
+            {  Id = entity.Id,
                 Username = entity.Username,
                 role= entity.Role,
                 FullName = entity.FullName,
