@@ -11,6 +11,8 @@ static void routing(BuildContext context,roles _role)
 {
 switch(_role)
 {
+  case roles.None:
+  break;
   case roles.SuperAdmin:
 context.push('/SuperAdmin');
 break;

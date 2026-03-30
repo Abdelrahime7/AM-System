@@ -1,6 +1,7 @@
  enum roles {
- SuperAdmin,
+    None,
     Admin,
+    SuperAdmin,
     Assistant,
     Affiliate,
     Driver,

@@ -1,6 +1,4 @@
 import 'package:amsfront/app/routers/app_router.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:amsfront/app/di/injector/injectors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,12 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 void main() {
   setupDependencies();
   runApp(ProviderScope(
-    child: DevicePreview(
-      enabled: !kReleaseMode,
-      isToolbarVisible: false,
-      backgroundColor:  const Color.fromARGB(255, 44, 54, 83),
-      builder: (context) => const MyApp(),
-    ),
+  child:const MyApp()
   ));
 }
 
@@ -26,13 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+      
       routerConfig: appRouter,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-    );
+    ); 
   }
 }

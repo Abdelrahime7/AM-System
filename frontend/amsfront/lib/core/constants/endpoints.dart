@@ -9,6 +9,8 @@ static const prodBaseUrl ="https://api.myapp.com"; // deployed server
 static const login = "/api/Auth/login";
 static const register = "/api/register";
 static const refresh="/api/RefereshToken/refresh";
+static const users ="/api/Admins/Users";
+static const changeUserStatus ="/api/Admins/Status";
  static const dashboardhttpLink ="https://localhost:7170/graphql";
 
 }
